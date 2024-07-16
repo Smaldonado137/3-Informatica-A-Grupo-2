@@ -5,13 +5,15 @@ body {
 }
 header {
     background-color: #0E1F29;
-    padding: 10px;
-    text-align: left;
+    padding: 5px;
+    display: flex;
+    align-items: center; 
+    height: 60px;
 }
 
 .logo{
-    height: 100px;
-    margin-right: 10px;
+    height: 50px;
+    margin-right: 1%;
 }
 
 footer {
