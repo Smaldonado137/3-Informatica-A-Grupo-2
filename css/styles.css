@@ -5,10 +5,15 @@ body {
 }
 header {
     background-color: #0E1F29;
-    color: #8F5BBD;
-    padding: 5px;
+    padding: 10px;
     text-align: left;
 }
+
+.logo{
+    height: 100px;
+    margin-right: 10px;
+}
+
 footer {
     background-color: #0E1F29;
     color: #333;
