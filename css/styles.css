@@ -22,34 +22,30 @@ header {
     color: white;
 }
 
-.container {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
+#text1 {
+    margin: 60px; 
+    padding: 0 140px;
 }
 
-.info {
-    border: 2px solid #333; 
-    border-radius: 20px; 
-    padding: 20px; 
-    width: fit-content; 
-    margin: 20px; 
-    background-color: #0E1F29;
-    border-bottom: 5px solid #a34911;
-    margin-bottom: auto;
+#text2{
+    text-align: center;
+    color: #8F5BBD;
+    font-size: 20px;
+    font-weight: bold;
 }
 
-.info p {
-    margin: 0; 
-    font-size: 16px; 
-    color: #fefefe; 
+section > div > div {
+    margin-bottom: 50px; 
+}
+
+section p {
+    margin-bottom: 10px; 
 }
 
 footer {
     background-color: #0E1F29;
     padding: 10px;
     text-align: center;
-    position: fixed;
     bottom: 0;
     width: 100%;
 }
