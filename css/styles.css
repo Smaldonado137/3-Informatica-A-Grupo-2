@@ -34,6 +34,10 @@ header {
     font-weight: bold;
 }
 
+#text3{
+    text-align: justify;
+}
+
 section > div > div {
     margin-bottom: 50px; 
 }
