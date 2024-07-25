@@ -88,10 +88,10 @@ footer {
 /*CSS de Contactanos: */
 #cont_title{
     text-align: center;
+    font-size: 50px;
     border-bottom: 2px solid rgb(0, 0, 0);
     margin-left: 30%;
     margin-right: 30%;
-    font-size: 50px;
     margin-top: 0%;
     margin-bottom: 0%;
 }
@@ -102,8 +102,8 @@ footer {
 
 #cont_informacion{
     align-items: center;
-    padding-right: 30%;
     padding-left: 15%;
+    margin-right: 15%;
 }
 
 .cont_contenido{
@@ -112,21 +112,35 @@ footer {
     line-height: 1.25;
 }
 
-#formulario{
+#caja_formulario{
     margin-top: 2%;
-    padding-right: 15%;
+    margin-right: 10%;
     font-size: 25px;
+    background-color: #A7D7C5;
 
+    padding-bottom: 5%;
+    
+    padding-top: 1%;
+    height: 0%;
+}
+
+#formulario{
+    padding-left: 5%;
+    padding-right: 5%;
 }
 
 .text_input{
-    margin-top: 7%;
-    
+    margin-top: 8%;
+}
+
+.caja_input{
+    border-bottom: 2px solid rgb(0, 0, 0);
+    padding-right: 30px;
 }
 
 .input{
     font-size: 25px;
-
+    background-color: rgba(0, 0, 0, 0);
+    border-color: rgba(0, 0, 0, 0);
 }
-
 
