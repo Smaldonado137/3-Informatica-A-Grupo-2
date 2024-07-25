@@ -1,3 +1,7 @@
+* {
+    box-sizing: border-box;
+}
+
 body {
     font-family: Arial, sans-serif;
     margin: 0;
@@ -10,7 +14,32 @@ header {
     padding: 5px;
     display: flex;
     align-items: center; 
-    height: 60px;
+    height: 65px;
+}
+
+.sidebar {    
+    height: 75%; 
+    width: 60px; 
+    position: fixed; /* Fijar la barra al lado derecho de la pág */
+    background-color: #D0E6E3;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: space-between; 
+    padding: 40px 0; 
+    padding-top: 40px;  
+    border-radius: 0 15px 15px 0; 
+    top: 12%; 
+}
+
+.sidebar a {
+    text-decoration: none;
+    margin-bottom: 20px;
+}
+
+.sidebar .icon {
+    width: 30px;
+    height: 30px;
 }
 
 .logo{
@@ -22,34 +51,96 @@ header {
     color: white;
 }
 
-.container {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
+#text1 {
+    margin: 80px; 
+    padding: 0 140px;
 }
 
-.info {
-    border: 2px solid #333; 
-    border-radius: 20px; 
-    padding: 20px; 
-    width: fit-content; 
-    margin: 20px; 
-    background-color: #0E1F29;
-    border-bottom: 5px solid #a34911;
-    margin-bottom: auto;
+#text2{
+    color: #8F5BBD;
+    font-size: 20px;
+    font-weight: bold;
+    border-bottom: 2px solid #000; 
+    padding-bottom: 5px; 
+    display:flex;
 }
 
-.info p {
-    margin: 0; 
-    font-size: 16px; 
-    color: #fefefe; 
+#text3{
+    text-align: justify;
+}
+
+section > div > div {
+    margin-bottom: 50px; 
+}
+
+section p {
+    margin-bottom: 10px; 
 }
 
 footer {
     background-color: #0E1F29;
     padding: 10px;
     text-align: center;
-    position: fixed;
     bottom: 0;
     width: 100%;
 }
+
+/*CSS de Contactanos: */
+#cont_title{
+    text-align: center;
+    font-size: 50px;
+    border-bottom: 2px solid rgb(0, 0, 0);
+    margin-left: 30%;
+    margin-right: 30%;
+    margin-top: 0%;
+    margin-bottom: 0%;
+}
+
+#contactanos{
+    display: flex;
+}
+
+#cont_informacion{
+    align-items: center;
+    padding-left: 15%;
+    margin-right: 15%;
+}
+
+.cont_contenido{
+    text-align: center;
+    font-size: 35px;
+    line-height: 1.25;
+}
+
+#caja_formulario{
+    margin-top: 2%;
+    margin-right: 10%;
+    font-size: 25px;
+    background-color: #A7D7C5;
+
+    padding-bottom: 5%;
+    
+    padding-top: 1%;
+    height: 0%;
+}
+
+#formulario{
+    padding-left: 5%;
+    padding-right: 5%;
+}
+
+.text_input{
+    margin-top: 8%;
+}
+
+.caja_input{
+    border-bottom: 2px solid rgb(0, 0, 0);
+    padding-right: 30px;
+}
+
+.input{
+    font-size: 25px;
+    background-color: rgba(0, 0, 0, 0);
+    border-color: rgba(0, 0, 0, 0);
+}
+
