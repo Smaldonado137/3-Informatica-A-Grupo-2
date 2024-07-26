@@ -143,13 +143,25 @@ footer {
 .caja_input{
     border-bottom: 2.3px solid rgb(0, 0, 0);
     width: 550px;
+    
 }
 
 .input{
     font-size: 25px;
-    background-color: rgba(0, 0, 0, 0);
-    border-color: rgba(0, 0, 0, 0);
+    background-color: transparent;
+    border-color: transparent;
     width: 550px;
+    outline: none;
+    
+}
+.input:focus{
+    background-color: #87c5a7;
+    transition: background-color 0.1s;
+}
+.input::-webkit-inner-spin-button,
+.input::-webkit-outer-spin-button{
+    -webkit-appearance: none;
+     
 }
 
 #enviar_caja{
@@ -166,10 +178,10 @@ footer {
     padding-left: 2%;
     background-color:#ffffff;    
     border-radius: 13px;
-    border-color: #00000000;
+    border-color: transparent;
     cursor: pointer;
-    transition: background-color 0.1s;
 }
 #enviar:hover{
     background-color: #ececec;
+    transition: background-color 0.1s;
 }
