@@ -151,8 +151,7 @@ footer {
     background-color: transparent;
     border-color: transparent;
     width: 550px;
-    outline: none;
-    
+    outline: none;    
 }
 .input:focus{
     background-color: #8ed1b1;
