@@ -155,7 +155,7 @@ footer {
     
 }
 .input:focus{
-    background-color: #87c5a7;
+    background-color: #8ed1b1;
     transition: background-color 0.1s;
 }
 .input::-webkit-inner-spin-button,
