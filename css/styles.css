@@ -138,6 +138,7 @@ footer {
 
 .text_input{
     margin-top: 40px;
+    display: flex;
 }
 
 .caja_input{
