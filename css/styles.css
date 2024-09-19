@@ -187,3 +187,62 @@ footer {
 }
 
 /*Fin del CSS de Contactanos*/
+/*Inicio del CSS de Evento*/
+#EventosId {
+    font-family: Arial, sans-serif;
+    background-color: #f4f4f4;
+    color: #333;
+    display:flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+}
+.main-container {
+    width: 60%;
+    background-color: #fff;
+    border-radius: 10px;
+    box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1);
+    overflow: hidden;
+}
+
+.recommendations {
+    padding: 20px;
+}
+
+.recommendations h2 {
+    margin-bottom: 15px;
+    font-size: 24px;
+    color: #555;
+}
+.EventosTabla {
+    width: 100%;
+    border-collapse: collapse;
+}
+.EventosTabla, th, td {
+    border: 1px solid #ddd;
+}
+.EventosTabla th, .EventosTabla td {
+    padding: 12px;
+     text-align: left;
+}
+.EventosTabla th {
+    background-color: #f2f2f2;
+}
+
+.EventosTabla tr:nth-child(even) {
+    background-color: #f9f9f9;
+}
+
+.EventosTabla tr:hover {
+    background-color: #f1f1f1;
+}
+
+.EventosTabla td {
+    font-size: 16px;
+}
+  .ImagenPortada{
+    height: 300px;
+    width: auto;
+    overflow-x: scroll;
+  }
+  
