@@ -188,16 +188,11 @@ footer {
 
 /*Fin del CSS de Contactanos*/
 /*Inicio del CSS de Evento*/
-#EventosId {
-    font-family: Arial, sans-serif;
-    background-color: #f4f4f4;
-    color: #333;
-    display:flex;
-    justify-content: center;
-    align-items: center;
-    height: 100vh;
-}
+
 .main-container {
+    margin-left: 20%;
+    margin-top: 2%;
+    margin-bottom: 2%;
     width: 60%;
     background-color: #fff;
     border-radius: 10px;
@@ -241,11 +236,16 @@ footer {
     font-size: 16px;
 }
   .ImagenPortada{
-    height: 300px;
+    height: 400px;
     width: auto;
     overflow-x: scroll;
   }
   /*Css de login*/
+.atrasimagen{
+    margin-top: 10px;
+    margin-left: 10px;
+}
+
 .ub1
 {
 text-align:left;
@@ -260,7 +260,7 @@ margin-top:0.5em;
 	width:20em;
     height: auto;
     position: relative;
-    margin: -30em 0em 0em 0em;
+    margin: -20em 0em 0em 15em;
     padding: 2em;
 	border-radius: 1em;
 	color:black;
@@ -309,7 +309,7 @@ width:10%;
 }
 
 .imagen {
-    transform: translate(100px, -80px);  /* Mueve la imagen 20 píxeles a la derecha y 10 píxeles hacia abajo */
+    transform: translate(500px, 90px);  /* Mueve la imagen 20 píxeles a la derecha y 10 píxeles hacia abajo */
 }
 
 .formtlo
@@ -319,3 +319,36 @@ width:10%;
 	padding-bottom:0.8em;
 	color:rgb(5, 2, 2);
 }
+
+
+
+/*CSS de slider*/
+.slide{
+    margin: 10px;
+}
+
+.slider {
+    margin-left: 120px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    position: relative;
+  }
+  
+  .slider-wrapper {
+    display: flex;
+    overflow-x: auto;
+    scroll-snap-type: x mandatory;
+    gap: 20px;
+    scroll-behavior: smooth;
+  }
+  
+  .slide {
+    min-width: 200px;
+    flex-shrink: 0;
+    scroll-snap-align: start;
+    text-align: center;
+    border: 1px solid #ddd;
+    padding: 10px;
+    background-color: white;
+  }

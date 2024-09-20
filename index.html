@@ -1,30 +1,102 @@
 <!DOCTYPE html>
-<html>
+<html lang="es">
 <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Tinta Digital</title>
     <link rel="stylesheet" href="../css/styles.css">
-    <title>Tinta Digital | Inicio</title>
 </head>
-<body>
+<body id="EventosId">
     <header>
         <div>
-        <h1><img src="../resources/logo.png" class="logo"></h1>
+            <div class="image-container">
+                <div>
+                    <img src="../resources/logo.png" class="logo">
+                </div>
+                <div>
+                    <a href="/paginas/login.html"><img src="../resources/login.png" class="loginBt"></a>
+                </div>    
+            </div>
         </div>
     </header>
     <section>
-        <div>
-            <a href="index.html">Inicio</a>
-            <a href="paginas/nosotros.html">Nosotros</a>
-            <a href="paginas/contactanos.html">Contacto</a>
-            <a href="paginas/eventos.html">Eventos</a>
-            <a href="paginas/login.html">Log In</a>
+        <div class="sidebar">
+            <a href="index.html"><img src="../resources/inicio.png" class="icon"></a>
+            <a href="/paginas/eventos.html"><img src="../resources/eventos.png"  class="icon"></a>
+            <a href="/paginas/nosotros.html"><img src="../resources/nosotros.png" class="icon"></a>
+            <a href="/paginas/contactanos.html"><img src="../resources/contacto.png"  class="icon"></a>
         </div>
     </section>
+    <div class="main-container">
+        <div class="ImagenPortada">
+            <img class="Imagen" src="../resources/Harry Potter imagen.jpg" alt="Imagen de Harry Potter leyendo un libro en el bosque">
+        </div>
+        
+        <div class="content">
+            <section class="recommendations">
+                <h2>Recomendaciones</h2>
+                <table class="EventosTabla">
+                    <tr>
+                        <th>Título</th>
+                        <th>Autor</th>
+                        <th>Año</th>
+                    </tr>
+                    <tr>
+                        <td>Harry Potter y la Piedra Filosofal</td>
+                        <td>J.K. Rowling</td>
+                        <td>2001</td>
+                    </tr>
+                    <tr>
+                        <td>Jujutsu Kaisen Vol. 1</td>
+                        <td>Gege Akutami, Ballad Kitaguni</td>
+                        <td>2016</td>
+                    </tr>
+                    <tr>
+                        <td>Di Hola</td>
+                        <td>Germán Garmendia</td>
+                        <td>2015</td>
+                    </tr>
+                    <tr>
+                        <td>Diario de Ana Frank</td>
+                        <td>Ana Frank</td>
+                        <td>1947</td>
+                    </tr>
+                    <tr>
+                        <td>El caballero de la armadura oxidada</td>
+                        <td>Robert Fisher</td>
+                        <td>1987</td>
+                    </tr>
+                    <tr>
+                        <td>El ladrón del rayo</td>
+                        <td>Rick Riordan</td>
+                        <td>2005</td>
+                    </tr>
+                    <tr>
+                        <td>Vagabond</td>
+                        <td>Takehiko Inoue</td>
+                        <td>2007</td>
+                    </tr>
+                    <tr>
+                        <td>El camino de los reyes</td>
+                        <td>Brandon Sanderson</td>
+                        <td>2010</td>
+                    </tr>
+                    <tr>
+                        <td>La psicóloga</td>
+                        <td>Helene Flood</td>
+                        <td>2020</td>
+                    </tr>
+                </table>
+                
+            </section>
+        </div>
+    </div>
     <div>
         <footer>    
             <div>
-                <img src="..\resources\image.png" width="30"/>
-                <img src="..\resources\image1.png" width="30"/>
-                <img src="..\resources\image2.png" width="30"/><br>
+                <img id = "imgRS" src="..\resources\image.png" width="30"/>
+                <img id = "imgRS" src="..\resources\image1.png" width="30"/>
+                <img id = "imgRS" src="..\resources\image2.png" width="30"/><br>
                 <a id = "letrasFoot">Teléfono: xxx-xxx-xxxx Móvil: xxx-xxx-xxxx Email: </a>
                 <a id = "letrasFoot" href="mailto:SAMPLE@DOMINIO.COM">sample@dominio.com</a>
             </div>

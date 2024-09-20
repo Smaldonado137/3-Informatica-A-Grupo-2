@@ -4,10 +4,13 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>Login</title>
-    <link rel="stylesheet" href="estilos.css">
+    <link rel="stylesheet" href="../css/styles.css">
+    <div>
+        <a href="../index.html"><img src="../resources/atras.png" height="50" class="atrasimg"></a>
+    </div>
 </head>
 <body>
-    <div><img src="resources/logo.png" height="500" width="900" class="imagen"></div>
+    <div><img src="../resources/logo.png" height="500" width="900" class="imagen"></div>
     <div class="caja1">
         <form id="loginForm" onsubmit="return validateForm()">
 
@@ -47,6 +50,7 @@
             var password = document.getElementById("txtpassword").value;
 
             if (usuario === 'Diego' && password === '12345') {
+                window.location.href = '../index.html';
                 alert("Bienvenido, Diego!");
                 return true;  // Permitir el envío del formulario
             } else {
