@@ -1,43 +1,59 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="es">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Tinta Digital | Log in </title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Login</title>
+    <link rel="stylesheet" href="estilos.css">
 </head>
 <body>
-    <div>
-        <header>
-            <div>
-                <h1 id="titulo">TINTA DIGITAL</h1>
+    <div><img src="resources/logo.png" height="500" width="900" class="imagen"></div>
+    <div class="caja1">
+        <form id="loginForm" onsubmit="return validateForm()">
+
+            <div class="ub1">
+                <span style="color: black;"></span></div>
+            <input type="text" name="txtusuario" id="txtusuario" placeholder="&#128273 Ingresar Usuario" required>
+            <div class="ub1">
+                <span style="color: black;"></span>
             </div>
-        </header>
-    </div>
-    <nav>
-        <div>
-            <a href="..\index.html">Inicio</a>
-            <a href="paginas\nosotros.html">Nosotros</a>
-            <a href="contactanos.html">Contacto</a>
-            <a href="paginas\eventos.html">Eventos</a>
-            <a href="paginas\login.html">Log In</a>
-        </div>
-    </nav>
-
-
-
-<!-- aqui tienes que hacer todo sobre el log in  -->
-
-    <div>
-        <footer>
-            <div>
-                <a href="#titulo">Ir arriba</a><br>
-                <img src="..\resources\image.png" width="50"/>
-                <img src="..\resources\image1.png" width="50"/>
-                <img src="..\resources\image2.png" width="50"/><br>
-                <a>TELÉFONO: XXX-XXX-XXX . MÓVIL XXX-XXX-XXXX.  EMAIL: </a>
-                <a href="mailto:SAMPLE@DOMINIO.COM">SAMPLE@DOMINIO.COM</a>
+            <input type="password" name="txtpassword" id="txtpassword" placeholder="&#128274 Ingresar contraseña" required>
+            <div class="ub1">
+                <input type="checkbox" onclick="verpassword()"> 
+                <span style="color: black;">Mostrar contraseña</span>
             </div>
-        </footer>
+            <div class="ub1">
+                <span style="color: black;">Rol</span>
+</div>
+            <select name="rol" required>
+                <option value="0" style="display:none;">Seleccionar</option>
+                <option value="Usuario">Usuario</option>
+                <option value="Admin">Administrador</option>
+            </select>
+            <div text-align="center">
+                <input type="submit" value="Ingresar">
+                <input type="reset" value="Cancelar">
+            </div>
+        </form>
     </div>
+    <script>
+        function verpassword() {
+            var tipo = document.getElementById("txtpassword");
+            tipo.type = (tipo.type === "password") ? "text" : "password";
+        }
+
+        function validateForm() {
+            var usuario = document.getElementById("txtusuario").value;
+            var password = document.getElementById("txtpassword").value;
+
+            if (usuario === 'Diego' && password === '12345') {
+                alert("Bienvenido, Diego!");
+                return true;  // Permitir el envío del formulario
+            } else {
+                alert("Usuario o contraseña incorrectos.");
+                return false; // Impedir el envío del formulario
+            }
+        }
+    </script>
 </body>
 </html>
