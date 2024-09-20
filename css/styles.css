@@ -235,11 +235,16 @@ footer {
 .EventosTabla td {
     font-size: 16px;
 }
-  .ImagenPortada{
+.ImagenPortada{
     height: 400px;
     width: auto;
     overflow-x: scroll;
-  }
+}
+
+.Imagen{
+    width: 100%;
+}
+
   /*Css de login*/
 .atrasimagen{
     margin-top: 10px;
