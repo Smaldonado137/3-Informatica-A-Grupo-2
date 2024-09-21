@@ -107,7 +107,7 @@ footer {
 
 #cont_informacion{
     align-items: center;
-    padding-left: 10%;
+    margin-left: 10%;
     margin-right: 10%;
 }
 
@@ -158,6 +158,9 @@ footer {
 .input:focus{
     background-color: #8ed1b1;
     transition: background-color 0.1s;
+}
+.caja_input:hover{
+    cursor: help;
 }
 .input::-webkit-inner-spin-button,
 .input::-webkit-outer-spin-button{
