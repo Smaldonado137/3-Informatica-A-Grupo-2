@@ -102,18 +102,21 @@ footer {
 }
 
 #contactanos{
-    display: flex;
+    display: flex;    
 }
+
 
 #cont_informacion{
     align-items: center;
     margin-left: 10%;
     margin-right: 10%;
+    width: 40%;
+
 }
 
 .cont_contenido{
     text-align: center;
-    font-size: 35px;
+    font-size: 200%;
     line-height: 1.25;
 }
 
@@ -122,9 +125,11 @@ footer {
     margin-right: 10%;
     font-size: 25px;
     background-color: #BEDFCF;
-    
+
+    flex: 1 1 40%;
+    min-width: 250px;
+
     padding-right: 1%;
-    
     padding-bottom: 15px;
     margin-bottom: 50px;
 
@@ -132,8 +137,8 @@ footer {
 }
 
 #formulario{
-    padding-left: 25px;
-    padding-right: 25px;
+    padding-left: 5%;
+    padding-right: 5%;
 }
 
 .text_input{
@@ -143,15 +148,14 @@ footer {
 
 .caja_input{
     border-bottom: 2.3px solid rgb(0, 0, 0);
-    width: 550px;
-    
+    width: 100%;    
 }
 
 .input{
-    font-size: 25px;
+    font-size: 100%;
     background-color: transparent;
     border-color: transparent;
-    width: 550px;
+    width: 100%;
     outline: none;
     border-radius: 0;   
 }
