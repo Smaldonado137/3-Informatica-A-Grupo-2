@@ -102,7 +102,9 @@ footer {
 }
 
 #contactanos{
-    display: flex;    
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
 }
 
 
@@ -111,7 +113,7 @@ footer {
     margin-left: 10%;
     margin-right: 10%;
     width: 40%;
-
+    justify-content: center;
 }
 
 .cont_contenido{
@@ -120,15 +122,28 @@ footer {
     line-height: 1.25;
 }
 
+.cont_mapa{
+    max-width: 150%;
+    max-height: 50%;    
+    justify-content: center;
+    display: flex;
+}
+#cont_mapa{
+    max-width: 100%;
+    max-height: 100%;
+    min-width: 60%;   
+}
+
 #caja_formulario{
     margin-top: 1.25%;
     margin-right: 10%;
     font-size: 25px;
     background-color: #BEDFCF;
 
-    flex: 1 1 40%;
-    min-width: 400px;
-
+    flex: 1 1 30%;
+    min-width: 350px;
+    max-width: 50%;    
+    
     padding-right: 1%;
     padding-bottom: 15px;
     margin-bottom: 50px;
@@ -139,6 +154,7 @@ footer {
 #formulario{
     padding-left: 5%;
     padding-right: 5%;
+    width: 100%;
 }
 
 .text_input{
