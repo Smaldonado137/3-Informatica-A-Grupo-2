@@ -91,6 +91,11 @@ footer {
 }
 
 /*CSS de Contactanos: */
+
+#body_contact{
+    justify-content: center;
+}
+
 #cont_title{
     text-align: center;
     font-size: 50px;
@@ -98,13 +103,15 @@ footer {
     margin-left: 30%;
     margin-right: 30%;
     margin-top: 0%;
-    margin-bottom: 0%;
+    margin-bottom: 0%;    
 }
 
 #contactanos{
     display: flex;
     flex-wrap: wrap;
     justify-content: center;
+    width: 85%;
+    margin-left: 7.5%;
 }
 
 
@@ -118,7 +125,7 @@ footer {
 
 .cont_contenido{
     text-align: center;
-    font-size: 200%;
+    font-size: 200%;    
     line-height: 1.25;
 }
 
@@ -136,7 +143,7 @@ footer {
 
 #caja_formulario{
     margin-top: 1.25%;
-    margin-right: 10%;
+    
     font-size: 25px;
     background-color: #BEDFCF;
 
@@ -144,7 +151,6 @@ footer {
     min-width: 350px;
     max-width: 50%;    
     
-    padding-right: 1%;
     padding-bottom: 15px;
     margin-bottom: 50px;
 
