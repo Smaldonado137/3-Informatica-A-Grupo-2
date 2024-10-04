@@ -43,13 +43,11 @@ function create(){
     platforms.create(500, 250, 'platform').setScale(0.25).refreshBody();
     platforms.create(800, 500, 'platform').setScale(0.25).refreshBody();
     
-    player1 = this.physics.add.sprite(450, 150, 'player1');
-    player1.body.setGravityY(playersGravity);
+    player1 = this.physics.add.sprite(450, 150, 'player1').setGravityY(playersGravity);
     player1.setCollideWorldBounds(true);
     this.physics.add.collider(player1, platforms);
 
-    player2 = this.physics.add.sprite(550, 150, 'player2');
-    player2.body.setGravityY(playersGravity);
+    player2 = this.physics.add.sprite(550, 150, 'player2').setGravityY(playersGravity);
     player2.setCollideWorldBounds(true);
     this.physics.add.collider(player2, platforms);
 
