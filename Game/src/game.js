@@ -6,8 +6,6 @@ export class Game extends Phaser.Scene {
         super ({ key: 'game'});
     }
     
-    
-    
     preload(){
         this.load.image('background', 'assets/fondo.jpg');
         this.load.image('player1', 'assets/Rojo.png');
