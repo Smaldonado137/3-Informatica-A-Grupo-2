@@ -71,8 +71,6 @@ export class Game extends Phaser.Scene {
         if (this.cursors.up.isDown && this.player2.body.touching.down){
             this.player2.setVelocityY(-500);
         }
-
-
     }
     
 
