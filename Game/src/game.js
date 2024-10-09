@@ -13,8 +13,7 @@ export class Game extends Phaser.Scene {
         this.load.image('platform', 'assets/plataforma.png');
     }
     
-    create(){
-        
+    create(){        
         this.add.image(500, 400, 'background');
 
         this.platforms = this.physics.add.group();
