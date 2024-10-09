@@ -28,12 +28,11 @@ export class Game extends Phaser.Scene {
             platform.body.allowGravity = false;
         });
         
-        this.player1 = this.physics.add.image(450, 150, 'player1');
         this.player2 = this.physics.add.image(550, 150, 'player2');
+        this.player1 = this.physics.add.image(450, 150, 'player1');
 
         this.physics.add.collider(this.player1, this.platforms);
-        this.physics.add.collider(this.player2, this.platforms);
-        this.physics.add.collider(this.player1, this.player2);
+        this.physics.add.collider(this.player2, this.platforms);        
 
         this.player1.setCollideWorldBounds(true);
         this.player2.setCollideWorldBounds(true);
@@ -42,36 +41,39 @@ export class Game extends Phaser.Scene {
     }
     
     update(){
-        if (this.cursors.a.isDown) {
-            this.player1.setVelocityX(-speedPlayers);
-        }
-        else if (this.cursors.d.isDown) {
-            this.player1.setVelocityX(speedPlayers);
-        }
-        else {
-            this.player1.setVelocityX(0);
-        }
-    
-        if (this.cursors.w.isDown && this.player1.body.touching.down){
-            this.player1.setVelocityY(-500);
-        }
-        
-        
-        
-        if (this.cursors.left.isDown) {
-            this.player2.setVelocityX(-speedPlayers);
-        }
-        else if (this.cursors.right.isDown) {
-            this.player2.setVelocityX(speedPlayers);
-        }
-        else {
-            this.player2.setVelocityX(0);
-        }
-    
-        if (this.cursors.up.isDown && this.player2.body.touching.down){
-            this.player2.setVelocityY(-500);
-        }
+        movementP1(this.cursors, this.player1);
+        movementP2(this.cursors, this.player2);
+    }
+}
+
+function movementP1(cursors, player1){
+    if (cursors.a.isDown) {
+        player1.setVelocityX(-speedPlayers);
+    }
+    else if (cursors.d.isDown) {
+        player1.setVelocityX(speedPlayers);
+    }
+    else {
+        player1.setVelocityX(0);
+    }    if (cursors.w.isDown && player1.body.touching.down){
+        player1.setVelocityY(-700);
     }
     
-
 }
+
+function movementP2(cursors, player2){
+    if (cursors.left.isDown) {
+        player2.setVelocityX(-speedPlayers);
+    }
+    else if (cursors.right.isDown) {
+        player2.setVelocityX(speedPlayers);
+    }
+    else {
+        player2.setVelocityX(0);
+    }
+
+    if (cursors.up.isDown && player2.body.touching.down){
+        player2.setVelocityY(-700);
+    } 
+}
+
