@@ -1,5 +1,15 @@
 let speedPlayers = 600;
 
+let tiempoP1 = performance.now();
+let tiempoP2 = performance.now();
+let contadorP1 = 15 * 1000;
+let contadorP2 = 15 * 1000;
+let contadorAuxP1;
+let contadorAuxP2;
+let contNumero1 = document.getElementById('num');
+let contNumero2 = document.getElementById('num2');
+let limMax = 15;
+
 export class Game extends Phaser.Scene {
 
     constructor(){
@@ -38,10 +48,14 @@ export class Game extends Phaser.Scene {
 
         this.cursors = this.input.keyboard.createCursorKeys();
     }
-    
+
     update(){
         movementP1(this.cursors, this.player1);
         movementP2(this.cursors, this.player2);
+        contNumero1.textContent = Math.round(contadorP1/1000);
+        contNumero2.textContent = Math.round(contadorP2/1000);
+        onPlayer1NoMov(this.player1);
+        onPlayer2NoMov(this.player2);
     }
 }
 
@@ -74,5 +88,51 @@ function movementP2(cursors, player2){
     if (cursors.up.isDown && player2.body.touching.down){
         player2.setVelocityY(-700);
     } 
+}
+
+function onPlayer1NoMov(player){
+    if (!player.body.touching.down || player.body.touching.left || player.body.touching.right || player.body.velocity.x == 0){
+        changeNumberP1(-1);
+    } else {
+        changeNumberP1(1);
+    }
+}
+
+function onPlayer2NoMov(player){
+    if (!player.body.touching.down || player.body.touching.left || player.body.touching.right || player.body.velocity.x == 0){
+        changeNumberP2(-1);
+    } else {
+        changeNumberP2(1);
+    }
+}
+
+function changeNumberP1(negable_frecuency) {
+    if (performance.now() > tiempoP1) {
+        contadorAuxP1 = performance.now() - tiempoP1;
+        tiempoP1 = performance.now();
+        contadorAuxP1 *= negable_frecuency;
+        contadorP1 = contadorP1 + contadorAuxP1;
+    }
+
+    if ((contadorP1/1000) >= limMax){
+        contadorP1 = limMax * 1000;
+    } else if ((contadorP1/1000) <= 0){
+        contadorP1 = 0;
+    }
+}
+
+function changeNumberP2(negable_frecuency) {
+    if (performance.now() > tiempoP2) {
+        contadorAuxP2 = performance.now() - tiempoP2;
+        tiempoP2 = performance.now();
+        contadorAuxP2 *= negable_frecuency;
+        contadorP2 = contadorP2 + contadorAuxP2;
+    }
+
+    if ((contadorP2/1000) >= limMax){
+        contadorP2 = limMax * 1000;
+    } else if ((contadorP2/1000) <= 0){
+        contadorP2 = 0;
+    }
 }
 
