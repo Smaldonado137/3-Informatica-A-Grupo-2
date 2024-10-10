@@ -22,7 +22,7 @@ export class Game extends Phaser.Scene {
     
     preload(){
         this.load.image('background', 'assets/fondo.jpg');
-        this.load.image('player1', 'assets/Rojo.png');
+        this.load.image('player1', 'assets/tazaFrente.png');
         this.load.image('player2', 'assets/panFrente.png');
         this.load.image('deadPlayer1', 'assets/muerteRojo.png');
         this.load.image('deadPlayer2', 'assets/muerteAmarillo.png');
@@ -45,7 +45,8 @@ export class Game extends Phaser.Scene {
         });
         
         
-        this.player1 = this.physics.add.image(450, 150, 'player1');
+        this.player1 = this.physics.add.image(450, 150, 'player1').setScale(0.07);
+        this.player1.body.setSize(1000, 1650);
         this.player2 = this.physics.add.image(550, 150, 'player2').setScale(0.07);
         this.player2.body.setSize(1000, 1650);
         
@@ -86,12 +87,15 @@ export class Game extends Phaser.Scene {
     movementP1(cursors, player1){
         if (cursors.a.isDown) {
             player1.setVelocityX(-speedPlayers);
+            player1.setFlipX(false);
         }
         else if (cursors.d.isDown) {
             player1.setVelocityX(speedPlayers);
+            player1.setFlipX(true);
         }
         else {
             player1.setVelocityX(0);
+            player1.setFlipX(false);
         }
         
         if (cursors.w.isDown && player1.body.touching.down){
@@ -103,12 +107,15 @@ export class Game extends Phaser.Scene {
     movementP2(cursors, player2){
         if (cursors.left.isDown) {
             player2.setVelocityX(-speedPlayers);
+            player2.setFlipX(false);
         }
         else if (cursors.right.isDown) {
             player2.setVelocityX(speedPlayers);
+            player2.setFlipX(true);
         }
         else {
             player2.setVelocityX(0);
+            player2.setFlipX(false);
         }
     
         if (cursors.up.isDown && player2.body.touching.down){
