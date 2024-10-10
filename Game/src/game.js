@@ -1,4 +1,6 @@
 let speedPlayers = 600;
+let gameOver = false;
+let playerDeath = -1;
 
 let tiempoP1 = performance.now();
 let tiempoP2 = performance.now();
@@ -9,7 +11,7 @@ let contadorAuxP2;
 let contNumero1 = document.getElementById('num');
 let contNumero2 = document.getElementById('num2');
 
-let limMax = 15;
+let limMax = 5;
 let widthMaxBarra = 600;
 
 export class Game extends Phaser.Scene {
@@ -21,7 +23,9 @@ export class Game extends Phaser.Scene {
     preload(){
         this.load.image('background', 'assets/fondo.jpg');
         this.load.image('player1', 'assets/Rojo.png');
-        this.load.image('player2', 'assets/Amarillo.png');
+        this.load.image('player2', 'assets/panFrente.png');
+        this.load.image('deadPlayer1', 'assets/muerteRojo.png');
+        this.load.image('deadPlayer2', 'assets/muerteAmarillo.png');
         this.load.image('barraMovP1', 'assets/barraMovP1.png');
         this.load.image('barraMovP2', 'assets/barraMovP2.png');
         this.load.image('platform', 'assets/plataforma.png');
@@ -29,7 +33,6 @@ export class Game extends Phaser.Scene {
     
     create(){        
         this.add.image(500, 400, 'background');
-
         
         this.platforms = this.physics.add.group();
         this.platforms.create(200, 500, 'platform').setScale(0.25).refreshBody().setImmovable();
@@ -42,8 +45,9 @@ export class Game extends Phaser.Scene {
         });
         
         
-        this.player2 = this.physics.add.image(550, 150, 'player2');
         this.player1 = this.physics.add.image(450, 150, 'player1');
+        this.player2 = this.physics.add.image(550, 150, 'player2').setScale(0.07);
+        this.player2.body.setSize(1000, 1650);
         
         this.physics.add.collider(this.player1, this.platforms);
         this.physics.add.collider(this.player2, this.platforms);        
@@ -64,18 +68,19 @@ export class Game extends Phaser.Scene {
     update(){
         this.barraMovP1.setScrollFactor(0);
         this.barraMovP1.displayWidth = this.barraMovP1.cantidad;
-
+        
         this.barraMovP2.setScrollFactor(0);
         this.barraMovP2.displayWidth = this.barraMovP2.cantidad;
         
-
-
+        contNumero1.textContent = Math.round(contadorP1/100);
+        contNumero2.textContent = Math.round(contadorP2/100);
+        
         this.movementP1(this.cursors, this.player1);
         this.movementP2(this.cursors, this.player2);
-        contNumero1.textContent = Math.round(contadorP1/1000);
-        contNumero2.textContent = Math.round(contadorP2/1000);
-        this.onPlayer1NoMov(this.player1);
-        this.onPlayer2NoMov(this.player2);
+        if (!gameOver){
+            this.onPlayer1NoMov(this.player1);
+            this.onPlayer2NoMov(this.player2);
+        }
     }
 
     movementP1(cursors, player1){
@@ -87,7 +92,9 @@ export class Game extends Phaser.Scene {
         }
         else {
             player1.setVelocityX(0);
-        }    if (cursors.w.isDown && player1.body.touching.down){
+        }
+        
+        if (cursors.w.isDown && player1.body.touching.down){
             player1.setVelocityY(-700);
         }
         
@@ -137,6 +144,9 @@ export class Game extends Phaser.Scene {
             contadorP1 = limMax * 1000;
         } else if ((contadorP1/1000) <= 0){
             contadorP1 = 0;
+            gameOver = true
+            this.animDead(this.player1, "deadPlayer1", gameOver, 0.1);   
+            this.player1.disableBody(true, true);
         }
 
         barraMov.cantidad = contadorP1 * limMax / widthMaxBarra;
@@ -154,10 +164,29 @@ export class Game extends Phaser.Scene {
             contadorP2 = limMax * 1000;
         } else if ((contadorP2/1000) <= 0){
             contadorP2 = 0;
+            gameOver = true
+            this.animDead(this.player2, "deadPlayer2", gameOver, 0.5);   
+            this.player2.disableBody(true, true);
         }
 
         barraMov.cantidad = contadorP2 * limMax / widthMaxBarra;
     }
+
+    animDead(player, name, gameOver, scale){
+        if (gameOver && (playerDeath == -1 || playerDeath == 0)){
+            this.bodyDead = this.physics.add.image(player.x, (player.y - 0.1), name).setScale(scale);
+            this.physics.add.collider(this.bodyDead, this.platforms);
+            this.physics.add.collider(this.bodyDead, this.player2); 
+            this.physics.add.collider(this.bodyDead, this.player1);
+            this.bodyDead.setCollideWorldBounds(true);
+            this.bodyDead.body.setMass(1000);
+            this.bodyDead.setDrag(2000);
+            this.bodyDead.body.gravity.y = 2000;
+            playerDeath++;        
+        }
+    }
+
+
 }
 
 
