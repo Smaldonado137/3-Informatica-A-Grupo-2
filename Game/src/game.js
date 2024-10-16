@@ -1,3 +1,6 @@
+let widthScr = 1300;
+let heightScr = 800;
+
 let speedPlayers = 600;
 let gameOver = false;
 let playerDeath = -1;
@@ -11,10 +14,10 @@ let contadorAuxP2;
 let contNumero1 = document.getElementById('num');
 let contNumero2 = document.getElementById('num2');
 
-let limMax = 5;
-let widthMaxBarra = 600;
+let limMax = 15;
+let widthMaxBarra = widthScr * 0.5;
 
-export class Game extends Phaser.Scene {
+export class Game extends Phaser.Scene {    
 
     constructor(){
         super ({ key: 'game'});
@@ -32,34 +35,49 @@ export class Game extends Phaser.Scene {
     }
     
     create(){        
-        this.add.image(500, 400, 'background');
+        this.add.image(widthScr * 0.5, heightScr * 0.5, 'background');
         
         this.platforms = this.physics.add.group();
-        this.platforms.create(200, 500, 'platform').setScale(0.25).refreshBody().setImmovable();
-        this.platforms.create(500, 250, 'platform').setScale(0.25).refreshBody().setImmovable();
-        this.platforms.create(800, 500, 'platform').setScale(0.25).refreshBody().setImmovable();
-        this.platforms.create(500, 750, 'platform').setScale(1.75).refreshBody().setImmovable();
+
+        // Plataformas Centrales
+        this.platforms.create(widthScr * 0.5, heightScr * 0.15, 'platform').setScale(0.25).refreshBody().setImmovable();
+        this.platforms.create(widthScr * 0.5, heightScr * 0.45, 'platform').setScale(0.25).refreshBody().setImmovable();
+        this.platforms.create(widthScr * 0.5, heightScr * 0.75, 'platform').setScale(0.25).refreshBody().setImmovable();
+
+        // Plataformas Laterales
+        this.platforms.create(widthScr * 0.15, heightScr * 0.3, 'platform').setScale(0.25).refreshBody().setImmovable();
+        this.platforms.create(widthScr * 0.15, heightScr * 0.6, 'platform').setScale(0.25).refreshBody().setImmovable();
+        
+        this.platforms.create(widthScr * 0.85, heightScr * 0.3, 'platform').setScale(0.25).refreshBody().setImmovable();
+        this.platforms.create(widthScr * 0.85, heightScr * 0.6, 'platform').setScale(0.25).refreshBody().setImmovable();
+
+        
+        this.platforms.children.iterate(function (platform) {
+            platform.displayWidth = widthScr * 0.22;
+            platform.displayHeight = heightScr * 0.05;
+        });
+        
+        this.platforms.create(widthScr * 0.5, heightScr * 1.02, 'platform').setScale(1.75).refreshBody().setImmovable();
         
         this.platforms.children.iterate(function (platform) {
             platform.body.allowGravity = false;
         });
-        
-        
-        this.player1 = this.physics.add.image(450, 150, 'player1').setScale(0.07);
+
+        this.player1 = this.physics.add.image(widthScr * 0.45, heightScr * 0.85, 'player1').setScale(0.06);
         this.player1.body.setSize(1000, 1650);
-        this.player2 = this.physics.add.image(550, 150, 'player2').setScale(0.07);
+        this.player2 = this.physics.add.image(widthScr * 0.55, heightScr * 0.85, 'player2').setScale(0.06);
         this.player2.body.setSize(1000, 1650);
         
         this.physics.add.collider(this.player1, this.platforms);
         this.physics.add.collider(this.player2, this.platforms);        
         
-        this.player1.setCollideWorldBounds(true);
-        this.player2.setCollideWorldBounds(true);
+        this.player1.setCollideWorldBounds(false, true, true, true);
+        this.player2.setCollideWorldBounds(false, true, true, true);
         
-        this.barraMovP1 = this.add.image(50, 750, 'barraMovP1').setScale(0.55);
+        this.barraMovP1 = this.add.image(widthScr * 0.05, heightScr * 0.93, 'barraMovP1').setScale(0.55);
         this.barraMovP1.cantidad = contadorP1 * limMax / widthMaxBarra;
         this.barraMovP1.displayOriginX = 0;
-        this.barraMovP2 = this.add.image(950, 750, 'barraMovP2').setScale(0.55);
+        this.barraMovP2 = this.add.image(widthScr * 0.95, heightScr * 0.93, 'barraMovP2').setScale(0.55);
         this.barraMovP2.cantidad = contadorP2 * limMax / widthMaxBarra;
         this.barraMovP2.displayOriginX = this.barraMovP2.width;
 
