@@ -34,9 +34,9 @@ export class Game extends Phaser.Scene {
         this.load.image('platform', 'assets/plataforma.png');
     }
     
-    create(){        
+    create(){
         this.add.image(widthScr * 0.5, heightScr * 0.5, 'background');
-        
+
         this.platforms = this.physics.add.group();
 
         // Plataformas Centrales
@@ -70,7 +70,9 @@ export class Game extends Phaser.Scene {
         
         this.physics.add.collider(this.player1, this.platforms);
         this.physics.add.collider(this.player2, this.platforms);        
-        
+        this.physics.add.collider(this.player1, this.border); 
+        this.physics.add.collider(this.player2, this.border);
+
         this.player1.setCollideWorldBounds(false, true, true, true);
         this.player2.setCollideWorldBounds(false, true, true, true);
         
