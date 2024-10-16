@@ -17,6 +17,11 @@ let contNumero2 = document.getElementById('num2');
 let limMax = 15;
 let widthMaxBarra = widthScr * 0.5;
 
+let intervaloPuntos = 6;
+let tiempoPuntos;
+let auxPuntos;
+let tiempoTranscurridoPuntos;
+
 export class Game extends Phaser.Scene {    
 
     constructor(){
@@ -87,6 +92,10 @@ export class Game extends Phaser.Scene {
     }
 
     update(){
+        if (!gameOver){
+            this.onPlayer1NoMov(this.player1);
+            this.onPlayer2NoMov(this.player2);
+        }
         this.barraMovP1.setScrollFactor(0);
         this.barraMovP1.displayWidth = this.barraMovP1.cantidad;
         
@@ -98,10 +107,10 @@ export class Game extends Phaser.Scene {
         
         this.movementP1(this.cursors, this.player1);
         this.movementP2(this.cursors, this.player2);
-        if (!gameOver){
-            this.onPlayer1NoMov(this.player1);
-            this.onPlayer2NoMov(this.player2);
-        }
+
+        this.pointsAppear();
+
+
     }
 
     movementP1(cursors, player1){
@@ -213,6 +222,18 @@ export class Game extends Phaser.Scene {
         }
     }
 
+    pointsAppear(){        
+        if (performance.now() > tiempoPuntos) {
+            auxPuntos = performance.now() - tiempoPuntos;
+            tiempoPuntos = performance.now();
+            tiempoTranscurridoPuntos = tiempoTranscurridoPuntos + auxPuntos;
+        }
+
+        if (tiempoTranscurridoPuntos >= intervaloPuntos * 1000){
+            tiempoTranscurridoPuntos = 0;            
+        }
+        console.log(tiempoTranscurridoPuntos);
+    }
 
 }
 
