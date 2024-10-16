@@ -17,10 +17,11 @@ let contNumero2 = document.getElementById('num2');
 let limMax = 15;
 let widthMaxBarra = widthScr * 0.5;
 
-let intervaloPuntos = 6;
-let tiempoPuntos;
+let intervaloPuntos = 5;
+let tiempoPuntos = 0;
 let auxPuntos;
-let tiempoTranscurridoPuntos;
+let tiempoTranscurridoPuntos = 0;
+let existingPoint = false;
 
 export class Game extends Phaser.Scene {    
 
@@ -37,6 +38,7 @@ export class Game extends Phaser.Scene {
         this.load.image('barraMovP1', 'assets/barraMovP1.png');
         this.load.image('barraMovP2', 'assets/barraMovP2.png');
         this.load.image('platform', 'assets/plataforma.png');
+        this.load.image('point', 'assets/moneda.png');
     }
     
     create(){
@@ -56,7 +58,7 @@ export class Game extends Phaser.Scene {
         this.platforms.create(widthScr * 0.85, heightScr * 0.3, 'platform').setScale(0.25).refreshBody().setImmovable();
         this.platforms.create(widthScr * 0.85, heightScr * 0.6, 'platform').setScale(0.25).refreshBody().setImmovable();
 
-        
+        // Tamaño de cada plataforma
         this.platforms.children.iterate(function (platform) {
             platform.displayWidth = widthScr * 0.22;
             platform.displayHeight = heightScr * 0.05;
@@ -64,9 +66,14 @@ export class Game extends Phaser.Scene {
         
         this.platforms.create(widthScr * 0.5, heightScr * 1.02, 'platform').setScale(1.75).refreshBody().setImmovable();
         
+        // Quitando gravedad a todas las plataformas
         this.platforms.children.iterate(function (platform) {
             platform.body.allowGravity = false;
         });
+
+
+        // Creando grupo de puntos
+        this.point = this.physics.add.group()
 
         this.player1 = this.physics.add.image(widthScr * 0.45, heightScr * 0.85, 'player1').setScale(0.06);
         this.player1.body.setSize(1000, 1650);
@@ -222,7 +229,9 @@ export class Game extends Phaser.Scene {
         }
     }
 
-    pointsAppear(){        
+    pointsAppear(){
+        let pointPosX = widthScr * 0.15;
+        let pointPosY = heightScr * 0.3;
         if (performance.now() > tiempoPuntos) {
             auxPuntos = performance.now() - tiempoPuntos;
             tiempoPuntos = performance.now();
@@ -230,9 +239,12 @@ export class Game extends Phaser.Scene {
         }
 
         if (tiempoTranscurridoPuntos >= intervaloPuntos * 1000){
-            tiempoTranscurridoPuntos = 0;            
+            tiempoTranscurridoPuntos = 0;
+            this.point.create(pointPosX, pointPosY, 'point').setScale(0.1).refreshBody();
+            this.physics.add.collider(this.point, this.platforms);
+            existingPoint = true
         }
-        console.log(tiempoTranscurridoPuntos);
+        console.log(Math.round(tiempoTranscurridoPuntos/1000));
     }
 
 }
