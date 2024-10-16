@@ -31,6 +31,7 @@ export class Game extends Phaser.Scene {
     
     preload(){
         this.load.image('background', 'assets/fondo.jpg');
+        this.load.image('point', 'assets/moneda.png');
         this.load.image('player1', 'assets/tazaFrente.png');
         this.load.image('player2', 'assets/panFrente.png');
         this.load.image('deadPlayer1', 'assets/muerteRojo.png');
@@ -38,7 +39,6 @@ export class Game extends Phaser.Scene {
         this.load.image('barraMovP1', 'assets/barraMovP1.png');
         this.load.image('barraMovP2', 'assets/barraMovP2.png');
         this.load.image('platform', 'assets/plataforma.png');
-        this.load.image('point', 'assets/moneda.png');
     }
     
     create(){
@@ -71,10 +71,9 @@ export class Game extends Phaser.Scene {
             platform.body.allowGravity = false;
         });
 
-
         // Creando grupo de puntos
-        this.point = this.physics.add.group()
-
+        this.point = this.physics.add.group();
+        
         this.player1 = this.physics.add.image(widthScr * 0.45, heightScr * 0.85, 'player1').setScale(0.06);
         this.player1.body.setSize(1000, 1650);
         this.player2 = this.physics.add.image(widthScr * 0.55, heightScr * 0.85, 'player2').setScale(0.06);
@@ -84,6 +83,7 @@ export class Game extends Phaser.Scene {
         this.physics.add.collider(this.player2, this.platforms);        
         this.physics.add.collider(this.player1, this.border); 
         this.physics.add.collider(this.player2, this.border);
+        this.physics.add.collider(this.point, this.platforms);
 
         this.player1.setCollideWorldBounds(false, true, true, true);
         this.player2.setCollideWorldBounds(false, true, true, true);
@@ -94,10 +94,11 @@ export class Game extends Phaser.Scene {
         this.barraMovP2 = this.add.image(widthScr * 0.95, heightScr * 0.93, 'barraMovP2').setScale(0.55);
         this.barraMovP2.cantidad = contadorP2 * limMax / widthMaxBarra;
         this.barraMovP2.displayOriginX = this.barraMovP2.width;
-
+        
         this.cursors = this.input.keyboard.createCursorKeys();
-    }
 
+    }
+    
     update(){
         if (!gameOver){
             this.onPlayer1NoMov(this.player1);
@@ -115,7 +116,7 @@ export class Game extends Phaser.Scene {
         this.movementP1(this.cursors, this.player1);
         this.movementP2(this.cursors, this.player2);
 
-        this.pointsAppear();
+        this.randomPosPoints();
 
 
     }
@@ -229,20 +230,32 @@ export class Game extends Phaser.Scene {
         }
     }
 
-    pointsAppear(){
+
+    randomPosPoints(){
+        let randomPos = {
+
+        }
+        
+        if (!existingPoint){
+            this.pointsAppear();
+        }
+
+
+    }
+
+    pointsAppear(porcentPosX, porcentPosY){
         let pointPosX = widthScr * 0.15;
-        let pointPosY = heightScr * 0.3;
+        let pointPosY = heightScr * (0.3 + 0.2);
         if (performance.now() > tiempoPuntos) {
             auxPuntos = performance.now() - tiempoPuntos;
             tiempoPuntos = performance.now();
             tiempoTranscurridoPuntos = tiempoTranscurridoPuntos + auxPuntos;
         }
 
-        if (tiempoTranscurridoPuntos >= intervaloPuntos * 1000){
+        if (tiempoTranscurridoPuntos/1000 >= intervaloPuntos){
             tiempoTranscurridoPuntos = 0;
-            this.point.create(pointPosX, pointPosY, 'point').setScale(0.1).refreshBody();
-            this.physics.add.collider(this.point, this.platforms);
-            existingPoint = true
+            this.point.create(pointPosX, pointPosY, 'point').setScale(0.05).refreshBody();
+            existingPoint = true;
         }
         console.log(Math.round(tiempoTranscurridoPuntos/1000));
     }
