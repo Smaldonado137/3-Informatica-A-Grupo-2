@@ -194,7 +194,7 @@ export class Game extends Phaser.Scene {
             contadorP1 = limMax * 1000;
         } else if ((contadorP1/1000) <= 0){
             contadorP1 = 0;
-            gameOver = true
+            gameOver = true;   
             this.animDead(this.player1, "deadPlayer1", gameOver, 0.1);   
             this.player1.disableBody(true, true);
         }
@@ -214,7 +214,7 @@ export class Game extends Phaser.Scene {
             contadorP2 = limMax * 1000;
         } else if ((contadorP2/1000) <= 0){
             contadorP2 = 0;
-            gameOver = true
+            gameOver = true;            
             this.animDead(this.player2, "deadPlayer2", gameOver, 0.5);   
             this.player2.disableBody(true, true);
         }
@@ -231,13 +231,13 @@ export class Game extends Phaser.Scene {
             this.bodyDead.setCollideWorldBounds(true);
             this.bodyDead.body.setMass(1000);
             this.bodyDead.setDrag(2000);
-            this.bodyDead.body.gravity.y = 2000;
+            this.bodyDead.body.gravity.y = 2000;            
             playerDeath++;        
         }
     }
 
 
-    createPoint() {
+    createPoint() {        
         this.time.addEvent({
             delay: intervaloPuntos * 1000, // milisegundos * 1000 = segundos
             callback: this.randomPosPoints, // Funcion por llamar cada determinado tiempo
@@ -247,56 +247,58 @@ export class Game extends Phaser.Scene {
     }
 
     randomPosPoints(){
-        let randomPos = Math.floor(Math.random() * 9) + 1;
-        let randomPossiblePos = {
-            1:{
-                ranPosX: 0.15,
-                ranPosY: 0.0,
-            },
-
-            2:{
-                ranPosX: 0.15,
-                ranPosY: 0.3,
-            },
-
-            3:{
-                ranPosX: 0.15,
-                ranPosY: 0.6,
-            },
-            4:{
-                ranPosX: 0.5,
-                ranPosY: -0.15,
-            },
-
-            5:{
-                ranPosX: 0.5,
-                ranPosY: 0.15,
-            },
-
-            6:{
-                ranPosX: 0.5,
-                ranPosY: 0.45,
-            },
-            7:{
-                ranPosX: 0.85,
-                ranPosY: 0.0,
-            },
-
-            8:{
-                ranPosX: 0.85,
-                ranPosY: 0.3,
-            },
-
-            9:{
-                ranPosX: 0.85,
-                ranPosY: 0.6,
-            },
+        if (!gameOver){
+            let randomPos = Math.floor(Math.random() * 9) + 1;
+            let randomPossiblePos = {
+                1:{
+                    ranPosX: 0.15,
+                    ranPosY: 0.0,
+                },
+    
+                2:{
+                    ranPosX: 0.15,
+                    ranPosY: 0.3,
+                },
+    
+                3:{
+                    ranPosX: 0.15,
+                    ranPosY: 0.6,
+                },
+                4:{
+                    ranPosX: 0.5,
+                    ranPosY: -0.15,
+                },
+    
+                5:{
+                    ranPosX: 0.5,
+                    ranPosY: 0.15,
+                },
+    
+                6:{
+                    ranPosX: 0.5,
+                    ranPosY: 0.45,
+                },
+                7:{
+                    ranPosX: 0.85,
+                    ranPosY: 0.0,
+                },
+    
+                8:{
+                    ranPosX: 0.85,
+                    ranPosY: 0.3,
+                },
+    
+                9:{
+                    ranPosX: 0.85,
+                    ranPosY: 0.6,
+                },
+            }
+            
+            let xR = randomPossiblePos[randomPos].ranPosX;
+            let yR = randomPossiblePos[randomPos].ranPosY;
+    
+            this.pointsAppear(xR, yR);
         }
-        
-        let xR = randomPossiblePos[randomPos].ranPosX;
-        let yR = randomPossiblePos[randomPos].ranPosY;
-
-        this.pointsAppear(xR, yR);
 
     }
 
