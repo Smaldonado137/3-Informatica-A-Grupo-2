@@ -46,8 +46,18 @@ export class Game extends Phaser.Scene {
     }
     
     create(){
-        this.add.image(widthScr * 0.5, heightScr * 0.5, 'background').setDisplaySize(1300, 800);;
-
+        this.add.image(widthScr * 0.5, heightScr * 0.5, 'background').setDisplaySize(widthScr, heightScr);
+        
+        // Creando grupo de puntos
+        this.point = this.physics.add.group();
+        
+        // Crenado Jugadores
+        this.player1 = this.physics.add.image(widthScr * 0.45, heightScr * 0.85, 'player1').setScale(0.06);
+        this.player1.body.setSize(1000, 1650);
+        this.player2 = this.physics.add.image(widthScr * 0.55, heightScr * 0.85, 'player2').setScale(0.06);
+        this.player2.body.setSize(1000, 1650);
+        
+        // Creando grupo de plataformas
         this.platforms = this.physics.add.group();
         
         // Plataformas Lateral Derecho
@@ -65,9 +75,7 @@ export class Game extends Phaser.Scene {
 
         // Tamaño de cada plataforma
         this.platforms.children.iterate(function (platform) {
-            //platform.displayWidth = widthScr * 0.6;
-            //platform.displayHeight = heightScr * 0.5;
-            platform.body.setSize(2600, 300);
+            platform.body.setSize(2575, 300);
         });
         
         this.platforms.create(widthScr * 0.5, heightScr * 0.95, 'platformaMain').setScale(0.18).refreshBody().setImmovable().setSize(7680, 350).setOffset(0, 215);
@@ -77,15 +85,7 @@ export class Game extends Phaser.Scene {
             platform.body.allowGravity = false;
         });
 
-        // Creando grupo de puntos
-        this.point = this.physics.add.group();
-        
-
-        this.player1 = this.physics.add.image(widthScr * 0.45, heightScr * 0.85, 'player1').setScale(0.06);
-        this.player1.body.setSize(1000, 1650);
-        this.player2 = this.physics.add.image(widthScr * 0.55, heightScr * 0.85, 'player2').setScale(0.06);
-        this.player2.body.setSize(1000, 1650);
-        
+        // Añadiendo colisiones
         this.physics.add.collider(this.player1, this.platforms);
         this.physics.add.collider(this.player2, this.platforms);        
         this.physics.add.collider(this.player1, this.border); 
@@ -93,14 +93,14 @@ export class Game extends Phaser.Scene {
         this.physics.add.collider(this.point, this.platforms);
         this.physics.add.overlap(this.point, this.player1, this.onCollectPoint, null, this);
         this.physics.add.overlap(this.point, this.player2, this.onCollectPoint, null, this);
-
+        
         this.player1.setCollideWorldBounds(false, true, true, true);
         this.player2.setCollideWorldBounds(false, true, true, true);
         
-        this.barraMovP1 = this.add.image(widthScr * 0.05, heightScr * 0.93, 'barraMovP1').setScale(0.55);
+        this.barraMovP1 = this.add.image(widthScr * 0.05, heightScr * 0.93, 'barraMovP1').setScale(0.55).setDepth(10);
         this.barraMovP1.cantidad = contadorP1 * limMax / widthMaxBarra;
         this.barraMovP1.displayOriginX = 0;
-        this.barraMovP2 = this.add.image(widthScr * 0.95, heightScr * 0.93, 'barraMovP2').setScale(0.55);
+        this.barraMovP2 = this.add.image(widthScr * 0.95, heightScr * 0.93, 'barraMovP2').setScale(0.55).setDepth(10);
         this.barraMovP2.cantidad = contadorP2 * limMax / widthMaxBarra;
         this.barraMovP2.displayOriginX = this.barraMovP2.width;
         
@@ -305,7 +305,7 @@ export class Game extends Phaser.Scene {
         let pointPosX = widthScr * porcentPosX;
         let pointPosY = heightScr * (porcentPosY + 0.2);        
         this.point.create(pointPosX, pointPosY, 'point').setScale(0.05).refreshBody().setCircle(700, 65, 65);
-        //this.point.body.setCircle(50);
+        this.point.setDepth(1);
         existingPoint = true;
     }
 
