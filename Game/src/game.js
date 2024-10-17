@@ -45,16 +45,17 @@ export class Game extends Phaser.Scene {
         this.add.image(widthScr * 0.5, heightScr * 0.5, 'background');
 
         this.platforms = this.physics.add.group();
+        
+        // Plataformas Lateral Derecho
+        this.platforms.create(widthScr * 0.15, heightScr * 0.3, 'platform').setScale(0.25).refreshBody().setImmovable();
+        this.platforms.create(widthScr * 0.15, heightScr * 0.6, 'platform').setScale(0.25).refreshBody().setImmovable();
 
         // Plataformas Centrales
         this.platforms.create(widthScr * 0.5, heightScr * 0.15, 'platform').setScale(0.25).refreshBody().setImmovable();
         this.platforms.create(widthScr * 0.5, heightScr * 0.45, 'platform').setScale(0.25).refreshBody().setImmovable();
         this.platforms.create(widthScr * 0.5, heightScr * 0.75, 'platform').setScale(0.25).refreshBody().setImmovable();
 
-        // Plataformas Laterales
-        this.platforms.create(widthScr * 0.15, heightScr * 0.3, 'platform').setScale(0.25).refreshBody().setImmovable();
-        this.platforms.create(widthScr * 0.15, heightScr * 0.6, 'platform').setScale(0.25).refreshBody().setImmovable();
-        
+        // Plataformas Lateral Izquierdo
         this.platforms.create(widthScr * 0.85, heightScr * 0.3, 'platform').setScale(0.25).refreshBody().setImmovable();
         this.platforms.create(widthScr * 0.85, heightScr * 0.6, 'platform').setScale(0.25).refreshBody().setImmovable();
 
@@ -97,6 +98,7 @@ export class Game extends Phaser.Scene {
         this.barraMovP2.displayOriginX = this.barraMovP2.width;
         
         this.cursors = this.input.keyboard.createCursorKeys();
+        this.createPoint();
 
     }
     
@@ -116,10 +118,6 @@ export class Game extends Phaser.Scene {
         
         this.movementP1(this.cursors, this.player1);
         this.movementP2(this.cursors, this.player2);
-
-        this.pointsAppear(0.15, 0.5);
-
-
     }
 
     movementP1(cursors, player1){
@@ -232,49 +230,77 @@ export class Game extends Phaser.Scene {
     }
 
 
+
+    createPoint() {
+        this.time.addEvent({
+            delay: intervaloPuntos * 1000, // milisegundos * 1000 = segundos
+            callback: this.randomPosPoints, // Funcion por llamar cada determinado tiempo
+            callbackScope: this,
+            paused: existingPoint, // Criterio para pausar o no el bucle
+        });
+    }
+
     randomPosPoints(){
         let randomPos = Math.floor(Math.random() * 9) + 1;
         let randomPossiblePos = {
             1:{
                 ranPosX: 0.15,
-                ranPosY: 0.3,
+                ranPosY: 0.0,
             },
 
             2:{
                 ranPosX: 0.15,
-                ranPosY: 0.6,
+                ranPosY: 0.3,
             },
 
             3:{
                 ranPosX: 0.15,
-                ranPosY: 0.9,
+                ranPosY: 0.6,
+            },
+            4:{
+                ranPosX: 0.5,
+                ranPosY: -0.15,
+            },
+
+            5:{
+                ranPosX: 0.5,
+                ranPosY: 0.15,
+            },
+
+            6:{
+                ranPosX: 0.5,
+                ranPosY: 0.45,
+            },
+            7:{
+                ranPosX: 0.85,
+                ranPosY: 0.0,
+            },
+
+            8:{
+                ranPosX: 0.85,
+                ranPosY: 0.3,
+            },
+
+            9:{
+                ranPosX: 0.85,
+                ranPosY: 0.6,
             },
         }
+        
+        let xR = randomPossiblePos[randomPos].ranPosX;
+        let yR = randomPossiblePos[randomPos].ranPosY;
 
-        if (!existingPoint){
-            
-        }
-
+        this.pointsAppear(xR, yR);
 
     }
 
-    pointsAppear(porcentPosX, porcentPosY){
+    pointsAppear(porcentPosX, porcentPosY) {
+        // Código para instanciar el objeto
         let pointPosX = widthScr * porcentPosX;
-        let pointPosY = heightScr * (porcentPosY + 0.2);
-        if (performance.now() > tiempoPuntos) {
-            auxPuntos = performance.now() - tiempoPuntos;
-            tiempoPuntos = performance.now();
-            tiempoTranscurridoPuntos = tiempoTranscurridoPuntos + auxPuntos;
-        }
-
-        if (tiempoTranscurridoPuntos/1000 >= intervaloPuntos){
-            tiempoTranscurridoPuntos = 0;
-            this.point.create(pointPosX, pointPosY, 'point').setScale(0.05).refreshBody();
-            existingPoint = true;
-        }
-        console.log(Math.round(tiempoTranscurridoPuntos/1000));
+        let pointPosY = heightScr * (porcentPosY + 0.2);        
+        this.point.create(pointPosX, pointPosY, 'point').setScale(0.05).refreshBody();
+        existingPoint = true;
     }
-
 }
 
 
