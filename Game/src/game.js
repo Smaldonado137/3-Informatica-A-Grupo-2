@@ -23,6 +23,8 @@ let auxPuntos;
 let tiempoTranscurridoPuntos = 0;
 let existingPoint = false;
 
+let platformsScale = 0.12;
+
 export class Game extends Phaser.Scene {    
 
     constructor(){
@@ -39,33 +41,36 @@ export class Game extends Phaser.Scene {
         this.load.image('barraMovP1', 'assets/barraMovP1.png');
         this.load.image('barraMovP2', 'assets/barraMovP2.png');
         this.load.image('platform', 'assets/plataforma.png');
+        this.load.image('platformDojo', 'assets/fondoPlataformaDojo.png');
+        this.load.image('platformaMain', 'assets/fondoPisoTecho.png');
     }
     
     create(){
-        this.add.image(widthScr * 0.5, heightScr * 0.5, 'background');
+        this.add.image(widthScr * 0.5, heightScr * 0.5, 'background').setDisplaySize(1300, 800);;
 
         this.platforms = this.physics.add.group();
         
         // Plataformas Lateral Derecho
-        this.platforms.create(widthScr * 0.15, heightScr * 0.3, 'platform').setScale(0.25).refreshBody().setImmovable();
-        this.platforms.create(widthScr * 0.15, heightScr * 0.6, 'platform').setScale(0.25).refreshBody().setImmovable();
+        this.platforms.create(widthScr * 0.15, heightScr * 0.3, 'platformDojo').setScale(platformsScale).refreshBody().setImmovable();
+        this.platforms.create(widthScr * 0.15, heightScr * 0.6, 'platformDojo').setScale(platformsScale).refreshBody().setImmovable();
 
         // Plataformas Centrales
-        this.platforms.create(widthScr * 0.5, heightScr * 0.15, 'platform').setScale(0.25).refreshBody().setImmovable();
-        this.platforms.create(widthScr * 0.5, heightScr * 0.45, 'platform').setScale(0.25).refreshBody().setImmovable();
-        this.platforms.create(widthScr * 0.5, heightScr * 0.75, 'platform').setScale(0.25).refreshBody().setImmovable();
+        this.platforms.create(widthScr * 0.5, heightScr * 0.15, 'platformDojo').setScale(platformsScale).refreshBody().setImmovable();
+        this.platforms.create(widthScr * 0.5, heightScr * 0.45, 'platformDojo').setScale(platformsScale).refreshBody().setImmovable();
+        this.platforms.create(widthScr * 0.5, heightScr * 0.75, 'platformDojo').setScale(platformsScale).refreshBody().setImmovable();
 
         // Plataformas Lateral Izquierdo
-        this.platforms.create(widthScr * 0.85, heightScr * 0.3, 'platform').setScale(0.25).refreshBody().setImmovable();
-        this.platforms.create(widthScr * 0.85, heightScr * 0.6, 'platform').setScale(0.25).refreshBody().setImmovable();
+        this.platforms.create(widthScr * 0.85, heightScr * 0.3, 'platformDojo').setScale(platformsScale).refreshBody().setImmovable();
+        this.platforms.create(widthScr * 0.85, heightScr * 0.6, 'platformDojo').setScale(platformsScale).refreshBody().setImmovable();
 
         // Tamaño de cada plataforma
         this.platforms.children.iterate(function (platform) {
-            platform.displayWidth = widthScr * 0.22;
-            platform.displayHeight = heightScr * 0.05;
+            //platform.displayWidth = widthScr * 0.6;
+            //platform.displayHeight = heightScr * 0.5;
+            platform.body.setSize(2600, 300);
         });
         
-        this.platforms.create(widthScr * 0.5, heightScr * 1.02, 'platform').setScale(1.75).refreshBody().setImmovable();
+        this.platforms.create(widthScr * 0.5, heightScr * 0.95, 'platformaMain').setScale(0.18).refreshBody().setImmovable().setSize(7680, 350).setOffset(0, 215);
         
         // Quitando gravedad a todas las plataformas
         this.platforms.children.iterate(function (platform) {
