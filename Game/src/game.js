@@ -84,7 +84,8 @@ export class Game extends Phaser.Scene {
         this.physics.add.collider(this.player1, this.border); 
         this.physics.add.collider(this.player2, this.border);
         this.physics.add.collider(this.point, this.platforms);
-
+        
+        
         this.player1.setCollideWorldBounds(false, true, true, true);
         this.player2.setCollideWorldBounds(false, true, true, true);
         
@@ -116,7 +117,7 @@ export class Game extends Phaser.Scene {
         this.movementP1(this.cursors, this.player1);
         this.movementP2(this.cursors, this.player2);
 
-        this.randomPosPoints();
+        this.pointsAppear(0.15, 0.5);
 
 
     }
@@ -232,20 +233,34 @@ export class Game extends Phaser.Scene {
 
 
     randomPosPoints(){
-        let randomPos = {
+        let randomPos = Math.floor(Math.random() * 9) + 1;
+        let randomPossiblePos = {
+            1:{
+                ranPosX: 0.15,
+                ranPosY: 0.3,
+            },
 
+            2:{
+                ranPosX: 0.15,
+                ranPosY: 0.6,
+            },
+
+            3:{
+                ranPosX: 0.15,
+                ranPosY: 0.9,
+            },
         }
-        
+
         if (!existingPoint){
-            this.pointsAppear();
+            
         }
 
 
     }
 
     pointsAppear(porcentPosX, porcentPosY){
-        let pointPosX = widthScr * 0.15;
-        let pointPosY = heightScr * (0.3 + 0.2);
+        let pointPosX = widthScr * porcentPosX;
+        let pointPosY = heightScr * (porcentPosY + 0.2);
         if (performance.now() > tiempoPuntos) {
             auxPuntos = performance.now() - tiempoPuntos;
             tiempoPuntos = performance.now();
