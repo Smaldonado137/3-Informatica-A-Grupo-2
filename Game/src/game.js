@@ -75,6 +75,7 @@ export class Game extends Phaser.Scene {
         // Creando grupo de puntos
         this.point = this.physics.add.group();
         
+
         this.player1 = this.physics.add.image(widthScr * 0.45, heightScr * 0.85, 'player1').setScale(0.06);
         this.player1.body.setSize(1000, 1650);
         this.player2 = this.physics.add.image(widthScr * 0.55, heightScr * 0.85, 'player2').setScale(0.06);
@@ -85,8 +86,9 @@ export class Game extends Phaser.Scene {
         this.physics.add.collider(this.player1, this.border); 
         this.physics.add.collider(this.player2, this.border);
         this.physics.add.collider(this.point, this.platforms);
-        
-        
+        this.physics.add.overlap(this.point, this.player1, this.onCollectPoint, null, this);
+        this.physics.add.overlap(this.point, this.player2, this.onCollectPoint, null, this);
+
         this.player1.setCollideWorldBounds(false, true, true, true);
         this.player2.setCollideWorldBounds(false, true, true, true);
         
@@ -230,7 +232,6 @@ export class Game extends Phaser.Scene {
     }
 
 
-
     createPoint() {
         this.time.addEvent({
             delay: intervaloPuntos * 1000, // milisegundos * 1000 = segundos
@@ -298,8 +299,17 @@ export class Game extends Phaser.Scene {
         // Código para instanciar el objeto
         let pointPosX = widthScr * porcentPosX;
         let pointPosY = heightScr * (porcentPosY + 0.2);        
-        this.point.create(pointPosX, pointPosY, 'point').setScale(0.05).refreshBody();
+        this.point.create(pointPosX, pointPosY, 'point').setScale(0.05).refreshBody().setCircle(700, 65, 65);
+        //this.point.body.setCircle(50);
         existingPoint = true;
+    }
+
+    onCollectPoint(){
+        this.point.children.iterate(function (p) {
+            p.destroy();
+        });
+        existingPoint = false;
+        this.createPoint();
     }
 }
 
