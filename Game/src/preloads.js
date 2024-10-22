@@ -13,7 +13,6 @@ export class Preloads extends Phaser.Scene {
         this.load.image('deadPlayer2', 'assets/muerteAmarillo.png');
         this.load.image('barraMovP1', 'assets/barraMovP1.png');
         this.load.image('barraMovP2', 'assets/barraMovP2.png');
-        this.load.image('platform', 'assets/plataforma.png');
         this.load.image('platformDojo', 'assets/fondoPlataformaDojo.png');
         this.load.image('platformaMain', 'assets/fondoPisoTecho.png');
     }

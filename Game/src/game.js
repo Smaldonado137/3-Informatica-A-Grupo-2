@@ -3,6 +3,13 @@ let heightScr = 800;
 
 let speedPlayers = 600;
 let jump = 1400;
+
+let tiempoEnAireP1 = 0;
+let tiempoEnAireP2 = 0;
+let margenSalto = 10;
+let jumper1 = false;
+let jumper2 = false;
+
 let gameOver = false;
 let playerDeath = -1;
 
@@ -115,7 +122,7 @@ export class Game extends Phaser.Scene {
         this.movementP2(this.cursors, this.player2);
     }
 
-    movementP1(cursors, player1){
+    movementP1(cursors, player1){        
         if (cursors.a.isDown) {
             player1.setVelocityX(-speedPlayers);
             player1.setFlipX(false);
@@ -128,11 +135,30 @@ export class Game extends Phaser.Scene {
             player1.setVelocityX(0);
             player1.setFlipX(false);
         }
-        
-        if (cursors.w.isDown && player1.body.touching.down){
-            player1.setVelocityY(-jump);
+
+        this.jumpPlayer1(cursors, player1);
+    }
+
+    jumpPlayer1(cursors, player1){
+        if (player1.body.touching.down){
+            tiempoEnAireP1 = 0;
+        } else {
+            tiempoEnAireP1 ++;
         }
-        
+
+        if (cursors.w.isDown && !jumper1){
+            jumper1 = true;
+            if (player1.body.touching.down){
+                player1.setVelocityY(-jump);
+            } else {
+                if (tiempoEnAireP1 < margenSalto){
+                    player1.setVelocityY(-jump);
+                }
+            }
+        }
+        if (cursors.w.isUp){
+            jumper1 = false;
+        }
     }
     
     movementP2(cursors, player2){
@@ -148,12 +174,33 @@ export class Game extends Phaser.Scene {
             player2.setVelocityX(0);
             player2.setFlipX(false);
         }
-    
-        if (cursors.up.isDown && player2.body.touching.down){
-            player2.setVelocityY(-jump);
-        } 
+
+        this.jumpPlayer2(cursors, player2);        
     }
+
     
+    jumpPlayer2(cursors, player2){
+        if (player2.body.touching.down){
+            tiempoEnAireP2 = 0;
+        } else {
+            tiempoEnAireP2 ++;
+        }
+
+        if (cursors.up.isDown && !jumper2){
+            jumper2 = true;
+            if (player2.body.touching.down){
+                player2.setVelocityY(-jump);
+            } else {
+                if (tiempoEnAireP2 < margenSalto){
+                    player2.setVelocityY(-jump);
+                }
+            }
+        }
+        if (cursors.up.isUp){
+            jumper2 = false;
+        }
+    }
+
     onPlayer1NoMov(player){
         if (!player.body.touching.down || player.body.touching.left || player.body.touching.right || player.body.velocity.x == 0){
             this.changeNumberP1(-1, this.barraMovP1);
