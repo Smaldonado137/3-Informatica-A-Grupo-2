@@ -25,7 +25,7 @@ let platformsScale = 0.12;
 export class Game extends Phaser.Scene {    
 
     constructor(){
-        super ({ key: 'game'});
+        super ('Game');
     }
     
     preload(){
