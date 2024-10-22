@@ -1,15 +1,16 @@
 import { Game } from './game.js';
+import { Preloads } from './preloads.js';
 
 const config = {
     type: Phaser.AUTO,
     width: 1300,
     height: 800,
     parent: 'Preloads',
-    scene: [Game],
+    scene: [Preloads, Game],
     physics: {
         default: 'arcade',
         arcade: {    
-            gravity: { y: 700},        
+            gravity: { y: 5000},        
             debug: true,
         }
     }

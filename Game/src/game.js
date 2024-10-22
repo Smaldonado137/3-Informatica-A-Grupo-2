@@ -2,6 +2,7 @@ let widthScr = 1300;
 let heightScr = 800;
 
 let speedPlayers = 600;
+let jump = 1400;
 let gameOver = false;
 let playerDeath = -1;
 
@@ -28,20 +29,6 @@ export class Game extends Phaser.Scene {
         super ('Game');
     }
     
-    preload(){
-        this.load.image('background', 'assets/fondo.jpg');
-        this.load.image('point', 'assets/moneda.png');
-        this.load.image('player1', 'assets/tazaFrente.png');
-        this.load.image('player2', 'assets/panFrente.png');
-        this.load.image('deadPlayer1', 'assets/muerteRojo.png');
-        this.load.image('deadPlayer2', 'assets/muerteAmarillo.png');
-        this.load.image('barraMovP1', 'assets/barraMovP1.png');
-        this.load.image('barraMovP2', 'assets/barraMovP2.png');
-        this.load.image('platform', 'assets/plataforma.png');
-        this.load.image('platformDojo', 'assets/fondoPlataformaDojo.png');
-        this.load.image('platformaMain', 'assets/fondoPisoTecho.png');
-    }
-    
     create(){
         gameOver = false;
 
@@ -53,9 +40,11 @@ export class Game extends Phaser.Scene {
         // Crenado Jugadores
         this.player1 = this.physics.add.image(widthScr * 0.45, heightScr * 0.85, 'player1').setScale(0.06);
         this.player1.body.setSize(1000, 1650);
+        //this.player1.body.mass = 50;
         this.player2 = this.physics.add.image(widthScr * 0.55, heightScr * 0.85, 'player2').setScale(0.06);
         this.player2.body.setSize(1000, 1650);
-        
+        //this.player2.body.mass = 50;
+
         // Creando grupo de plataformas
         this.platforms = this.physics.add.group();
         
@@ -141,7 +130,7 @@ export class Game extends Phaser.Scene {
         }
         
         if (cursors.w.isDown && player1.body.touching.down){
-            player1.setVelocityY(-700);
+            player1.setVelocityY(-jump);
         }
         
     }
@@ -161,7 +150,7 @@ export class Game extends Phaser.Scene {
         }
     
         if (cursors.up.isDown && player2.body.touching.down){
-            player2.setVelocityY(-700);
+            player2.setVelocityY(-jump);
         } 
     }
     
