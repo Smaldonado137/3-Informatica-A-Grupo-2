@@ -18,9 +18,6 @@ let limMax = 15;
 let widthMaxBarra = widthScr * 0.5;
 
 let intervaloPuntos = 5;
-let tiempoPuntos = 0;
-let auxPuntos;
-let tiempoTranscurridoPuntos = 0;
 let existingPoint = false;
 
 let platformsScale = 0.12;
@@ -46,6 +43,8 @@ export class Game extends Phaser.Scene {
     }
     
     create(){
+        gameOver = false;
+
         this.add.image(widthScr * 0.5, heightScr * 0.5, 'background').setDisplaySize(widthScr, heightScr);
         
         // Creando grupo de puntos
@@ -308,6 +307,9 @@ export class Game extends Phaser.Scene {
         let pointPosY = heightScr * (porcentPosY + 0.2);        
         this.point.create(pointPosX, pointPosY, 'point').setScale(0.05).refreshBody().setCircle(700, 65, 65);
         this.point.setDepth(1);
+        this.point.children.iterate(function (mPoint) {
+            mPoint.body.allowGravity = false;
+        });
         existingPoint = true;
     }
 
