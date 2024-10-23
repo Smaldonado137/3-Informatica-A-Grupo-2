@@ -85,8 +85,8 @@ export class Game extends Phaser.Scene {
         // Añadiendo colisiones
         this.physics.add.collider(this.player1, this.platforms);
         this.physics.add.collider(this.player2, this.platforms);        
-        this.physics.add.collider(this.player1, this.border); 
-        this.physics.add.collider(this.player2, this.border);
+        //this.physics.add.collider(this.player1, this.border); 
+        //this.physics.add.collider(this.player2, this.border);
         this.physics.add.collider(this.point, this.platforms);
         this.physics.add.overlap(this.point, this.player1, this.onCollectPoint, null, this);
         this.physics.add.overlap(this.point, this.player2, this.onCollectPoint, null, this);
