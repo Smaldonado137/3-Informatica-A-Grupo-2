@@ -42,7 +42,9 @@ export class Game extends Phaser.Scene {
         this.add.image(widthScr * 0.5, heightScr * 0.5, 'background').setDisplaySize(widthScr, heightScr);
         
         // Creando grupo de puntos
-        this.point = this.physics.add.group();
+        this.point = this.physics.add.group({
+            allowGravity: false,
+        });
         
         // Crenado Jugadores
         this.player1 = this.physics.add.image(widthScr * 0.45, heightScr * 0.85, 'player1').setScale(0.06);
@@ -55,7 +57,7 @@ export class Game extends Phaser.Scene {
         // Creando grupo de plataformas
         this.platforms = this.physics.add.group();
         
-        // Plataformas Lateral Derecho
+        // Plataformas Lateral Izquierdo
         this.platforms.create(widthScr * 0.15, heightScr * 0.3, 'platformDojo').setScale(platformsScale).refreshBody().setImmovable();
         this.platforms.create(widthScr * 0.15, heightScr * 0.6, 'platformDojo').setScale(platformsScale).refreshBody().setImmovable();
 
@@ -64,7 +66,7 @@ export class Game extends Phaser.Scene {
         this.platforms.create(widthScr * 0.5, heightScr * 0.45, 'platformDojo').setScale(platformsScale).refreshBody().setImmovable();
         this.platforms.create(widthScr * 0.5, heightScr * 0.75, 'platformDojo').setScale(platformsScale).refreshBody().setImmovable();
 
-        // Plataformas Lateral Izquierdo
+        // Plataformas Lateral Derecho
         this.platforms.create(widthScr * 0.85, heightScr * 0.3, 'platformDojo').setScale(platformsScale).refreshBody().setImmovable();
         this.platforms.create(widthScr * 0.85, heightScr * 0.6, 'platformDojo').setScale(platformsScale).refreshBody().setImmovable();
 
@@ -343,9 +345,6 @@ export class Game extends Phaser.Scene {
         let pointPosY = heightScr * (porcentPosY + 0.2);        
         this.point.create(pointPosX, pointPosY, 'point').setScale(0.05).refreshBody().setCircle(700, 65, 65);
         this.point.setDepth(1);
-        this.point.children.iterate(function (mPoint) {
-            mPoint.body.allowGravity = false;
-        });
         existingPoint = true;
     }
 
