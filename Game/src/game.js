@@ -27,7 +27,7 @@ let contNumero2 = document.getElementById('num2');
 let limMax = 15;
 let widthMaxBarra = widthScr * 0.5;
 
-let intervaloPuntos = 5;
+let intervaloPuntos = 4;
 let existingPoint = false;
 
 let platformsScale = 0.12;
