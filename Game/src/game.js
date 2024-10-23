@@ -4,6 +4,8 @@ let heightScr = 800;
 let speedPlayers = 600;
 let jump = 1400;
 
+let onGroundP1 = true;
+let onGroundP2 = true;
 let tiempoEnAireP1 = 0;
 let tiempoEnAireP2 = 0;
 let margenSalto = 10;
@@ -83,8 +85,8 @@ export class Game extends Phaser.Scene {
         });
 
         // Añadiendo colisiones
-        this.physics.add.collider(this.player1, this.platforms);
-        this.physics.add.collider(this.player2, this.platforms);        
+        this.physics.add.collider(this.player1, this.platforms, this.onTouchPlatformP1, null, this);
+        this.physics.add.collider(this.player2, this.platforms, this.onTouchPlatformP2, null, this);       
         //this.physics.add.collider(this.player1, this.border); 
         //this.physics.add.collider(this.player2, this.border);
         this.physics.add.collider(this.point, this.platforms);
@@ -103,7 +105,6 @@ export class Game extends Phaser.Scene {
         
         this.cursors = this.input.keyboard.createCursorKeys();
         this.createPoint();
-
     }
     
     update(){
@@ -148,13 +149,15 @@ export class Game extends Phaser.Scene {
             tiempoEnAireP1 ++;
         }
 
-        if (cursors.w.isDown && !jumper1){
+        if (cursors.w.isDown && !jumper1 && onGroundP1){
             jumper1 = true;
             if (player1.body.touching.down){
                 player1.setVelocityY(-jump);
+                onGroundP1 = false;
             } else {
                 if (tiempoEnAireP1 < margenSalto){
                     player1.setVelocityY(-jump);
+                    onGroundP1 = false;
                 }
             }
         }
@@ -188,13 +191,15 @@ export class Game extends Phaser.Scene {
             tiempoEnAireP2 ++;
         }
 
-        if (cursors.up.isDown && !jumper2){
+        if (cursors.up.isDown && !jumper2 && onGroundP2){
             jumper2 = true;
             if (player2.body.touching.down){
                 player2.setVelocityY(-jump);
+                onGroundP2 = false;
             } else {
                 if (tiempoEnAireP2 < margenSalto){
                     player2.setVelocityY(-jump);
+                    onGroundP2 = false;
                 }
             }
         }
@@ -354,6 +359,18 @@ export class Game extends Phaser.Scene {
         });
         existingPoint = false;
         this.createPoint();
+    }
+
+    onTouchPlatformP1(player1, platforms){
+        if (player1.body.touching.down) {
+            onGroundP1 = true;
+        }
+    }
+
+    onTouchPlatformP2(player2, platforms){
+        if (player2.body.touching.down) {
+            onGroundP2 = true;
+        }
     }
 }
 
