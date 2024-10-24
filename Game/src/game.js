@@ -51,10 +51,8 @@ export class Game extends Phaser.Scene {
         // Crenado Jugadores
         this.player1 = this.physics.add.image(widthScr * 0.45, heightScr * 0.85, 'player1').setScale(0.06);
         this.player1.body.setSize(1000, 1650);
-        //this.player1.body.mass = 50;
         this.player2 = this.physics.add.image(widthScr * 0.55, heightScr * 0.85, 'player2').setScale(0.06);
         this.player2.body.setSize(1000, 1650);
-        //this.player2.body.mass = 50;
 
         // Creando grupo de plataformas
         this.platforms = this.physics.add.group();
