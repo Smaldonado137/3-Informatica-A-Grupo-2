@@ -17,8 +17,10 @@ let jumper2 = false;
 let gameOver = false;
 let playerDeath = -1;
 
-let tiempoP1 = performance.now();
-let tiempoP2 = performance.now();
+let tiempoReal = 0;
+let tiempoP1 = 0;
+let tiempoP2 = 0;
+
 let contadorP1 = 15 * 1000;
 let contadorP2 = 15 * 1000;
 let contadorAuxP1;
@@ -46,11 +48,8 @@ export class Game extends Phaser.Scene {
         // Fondo
         this.add.image(widthScr * 0.5, heightScr * 0.5, 'background').setDisplaySize(widthScr, heightScr);        
 
-
-
+        // Sistema de pausa
         this.scene.launch('Pause');
-
-
 
         // Creando grupo de puntos
         this.point = this.physics.add.group({
@@ -115,6 +114,8 @@ export class Game extends Phaser.Scene {
     }
     
     update(){
+        tiempoReal += 10;
+
         if (!gameOver){
             this.onPlayer1NoMov(this.player1);
             this.onPlayer2NoMov(this.player2);
@@ -130,6 +131,8 @@ export class Game extends Phaser.Scene {
         contNumero2.textContent = Math.round(contadorP2/100);
         this.movementP1(this.cursors, this.player1);
         this.movementP2(this.cursors, this.player2);
+        console.log("Performance: " + performance.now())
+        console.log("Tiempo Real: " + tiempoReal)
     }
 
     movementP1(cursors, player1){        
@@ -232,13 +235,13 @@ export class Game extends Phaser.Scene {
     }
     
     changeNumberP1(negable_frecuency, barraMov) {
-        if (performance.now() > tiempoP1) {
-            contadorAuxP1 = performance.now() - tiempoP1;
-            tiempoP1 = performance.now();
+        if (tiempoReal > tiempoP1) {
+            contadorAuxP1 = tiempoReal - tiempoP1;
+            tiempoP1 = tiempoReal;
             contadorAuxP1 *= negable_frecuency;
             contadorP1 = contadorP1 + contadorAuxP1;
         }
-    
+
         if ((contadorP1/1000) >= limMax){
             contadorP1 = limMax * 1000;
         } else if ((contadorP1/1000) <= 0){
@@ -252,9 +255,9 @@ export class Game extends Phaser.Scene {
     }
     
     changeNumberP2(negable_frecuency, barraMov) {
-        if (performance.now() > tiempoP2) {
-            contadorAuxP2 = performance.now() - tiempoP2;
-            tiempoP2 = performance.now();
+        if (tiempoReal > tiempoP2) {
+            contadorAuxP2 = tiempoReal - tiempoP2;
+            tiempoP2 = tiempoReal;
             contadorAuxP2 *= negable_frecuency;
             contadorP2 = contadorP2 + contadorAuxP2;
         }
