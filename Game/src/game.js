@@ -56,7 +56,7 @@ export class Game extends Phaser.Scene {
             allowGravity: false,
         });
         
-        // Crenado Jugadores
+        // Creando Jugadores
         this.player1 = this.physics.add.image(widthScr * 0.45, heightScr * 0.85, 'player1').setScale(0.06);
         this.player1.body.setSize(1000, 1650);
         this.player2 = this.physics.add.image(widthScr * 0.55, heightScr * 0.85, 'player2').setScale(0.06);
@@ -131,8 +131,6 @@ export class Game extends Phaser.Scene {
         contNumero2.textContent = Math.round(contadorP2/100);
         this.movementP1(this.cursors, this.player1);
         this.movementP2(this.cursors, this.player2);
-        console.log("Performance: " + performance.now())
-        console.log("Tiempo Real: " + tiempoReal)
     }
 
     movementP1(cursors, player1){        
