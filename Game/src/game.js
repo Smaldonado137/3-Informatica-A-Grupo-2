@@ -1,6 +1,8 @@
 let widthScr = 1300;
 let heightScr = 800;
 
+let inPause = false;
+
 let speedPlayers = 600;
 let jump = 1400;
 
@@ -35,14 +37,21 @@ let platformsScale = 0.12;
 export class Game extends Phaser.Scene {    
 
     constructor(){
-        super ('Game');
+        super({ key: 'Game' });
     }
     
     create(){
         gameOver = false;
 
-        this.add.image(widthScr * 0.5, heightScr * 0.5, 'background').setDisplaySize(widthScr, heightScr);
-        
+        // Fondo
+        this.add.image(widthScr * 0.5, heightScr * 0.5, 'background').setDisplaySize(widthScr, heightScr);        
+
+
+
+        this.scene.launch('Pause');
+
+
+
         // Creando grupo de puntos
         this.point = this.physics.add.group({
             allowGravity: false,
@@ -110,6 +119,7 @@ export class Game extends Phaser.Scene {
             this.onPlayer1NoMov(this.player1);
             this.onPlayer2NoMov(this.player2);
         }
+
         this.barraMovP1.setScrollFactor(0);
         this.barraMovP1.displayWidth = this.barraMovP1.cantidad;
         
@@ -118,7 +128,6 @@ export class Game extends Phaser.Scene {
         
         contNumero1.textContent = Math.round(contadorP1/100);
         contNumero2.textContent = Math.round(contadorP2/100);
-        
         this.movementP1(this.cursors, this.player1);
         this.movementP2(this.cursors, this.player2);
     }
@@ -370,6 +379,7 @@ export class Game extends Phaser.Scene {
             onGroundP2 = true;
         }
     }
+
 }
 
 
