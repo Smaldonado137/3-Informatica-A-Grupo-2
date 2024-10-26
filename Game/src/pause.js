@@ -21,7 +21,8 @@ export class Pause extends Phaser.Scene {
             pausePanel[objeto].setVisible(false);
         }
 
-        let pauseButton = this.add.image(widthScr - 75, heightScr - 730, 'botonPausa').setScale(0.2).setInteractive().setDepth(6);;
+        let pauseButton = this.add.image(widthScr - 75, heightScr - 730, 'botonPausa').setScale(0.2).setInteractive().setDepth(6);
+        
         pauseButton.on('pointerdown', () => this.pause(pausePanel));
     }
 
