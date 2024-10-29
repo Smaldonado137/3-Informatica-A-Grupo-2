@@ -5,7 +5,7 @@ export class Preloads extends Phaser.Scene {
     }
     
     preload(){
-        this.load.image('background', 'assets/fondo.jpg');
+        this.load.image('background', 'assets/fondoDojo.png');
         this.load.image('point', 'assets/moneda.png');
         this.load.image('player1', 'assets/tazaFrente.png');
         this.load.image('player2', 'assets/panFrente.png');
