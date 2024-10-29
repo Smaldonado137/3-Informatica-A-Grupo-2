@@ -4,8 +4,8 @@ import { Pause } from './pause.js';
 
 const config = {
     type: Phaser.AUTO,
-    width: 1300,
-    height: 800,
+    width: 1450,
+    height: 850,
     parent: 'Preloads',
     scene: [Preloads, Game, Pause],
     physics: {

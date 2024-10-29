@@ -1,5 +1,5 @@
-let widthScr = 1300;
-let heightScr = 800;
+let widthScr = 1450;
+let heightScr = 850;
 
 let speedPlayers = 600;
 let jump = 1400;
@@ -322,7 +322,7 @@ export class Game extends Phaser.Scene {
             platform.body.setSize(2575, 300);
         });
         
-        this.platforms.create(widthScr * 0.5, heightScr * 0.95, 'platformaMain').setScale(0.18).refreshBody().setImmovable().setSize(7680, 350).setOffset(0, 215);
+        this.platforms.create(widthScr * 0.5, heightScr * 0.95, 'platformaMain').refreshBody().setImmovable().setSize(7680, 350).setOffset(0, 215).setDisplaySize(widthScr * 1.01, heightScr * 0.2);
         
         // Quitando gravedad a todas las plataformas
         this.platforms.children.iterate(function (platform) {
