@@ -136,7 +136,7 @@ export class Game extends Phaser.Scene {
         } else if ((contador/1000) <= 0){
             contador = 0;
             gameOver = true;   
-            this.animDead(player, player.nameDead, gameOver, 0.25);   
+            this.animPlayerDead(player, player.nameDead, gameOver, 0.25);   
             player.disableBody(true, true);
         }
 
@@ -146,7 +146,7 @@ export class Game extends Phaser.Scene {
         return contador * limMax / widthMaxBarra;
     }
 
-    animDead(player, name, gameOver, scale){
+    animPlayerDead(player, name, gameOver, scale){
         if (gameOver && (playerDeath == -1 || playerDeath == 0)){
             this.bodyDead = this.physics.add.image(player.x, (player.y - 0.1), name).setScale(scale);
             this.physics.add.collider(this.bodyDead, this.platforms);
