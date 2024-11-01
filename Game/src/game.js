@@ -59,7 +59,7 @@ export class Game extends Phaser.Scene {
     
     update(){
         tiempoReal += 10;
-        console.log(this.player1.puntaje)
+
         if (!gameOver){
             this.onPlayerNoMov(this.player1);
             this.onPlayerNoMov(this.player2);
