@@ -59,7 +59,7 @@ export class Game extends Phaser.Scene {
     
     update(){
         tiempoReal += 10;
-        
+        console.log(this.player1.puntaje)
         if (!gameOver){
             this.onPlayerNoMov(this.player1);
             this.onPlayerNoMov(this.player2);
@@ -238,11 +238,13 @@ export class Game extends Phaser.Scene {
         existingPoint = true;
     }
 
-    onCollectPoint(){
+    onCollectPoint(player, points){
         this.point.children.iterate(function (p) {
             p.destroy();
         });
         existingPoint = false;
+        player.puntaje++;
+        player.numeroContador.setText(player.puntaje);
         this.createPoint();
     }
 
@@ -281,8 +283,15 @@ export class Game extends Phaser.Scene {
         this.player1.barraMov.cantidad = this.player1.contador * limMax / widthMaxBarra;
         this.player1.barraMov.displayOriginX = 0;
         
-
-
+        // Puntos
+        this.player1.numeroContador = this.add.text(widthScr * 0.1, heightScr * 0.86, '0',{
+            fontSize : '50px',
+            fill: '#ffffff',
+        }).setOrigin(0.5).setDepth(6).setVisible(true);
+        this.player1.puntaje = 0;
+        
+        
+        
         // Creando al segundo player con el mismo proceso que el primero
         this.player2 = this.physics.add.image(widthScr * 0.55, heightScr * 0.87, 'player2').setScale(0.06);
         this.player2.body.setSize(1000, 1650);        
@@ -290,7 +299,7 @@ export class Game extends Phaser.Scene {
         this.player2.contador = contadorPlayers;
         this.player2.nameDead = 'deadPlayer2';
         this.player2.tiempoPlaying = 0;
-
+        
         this.player2.onGround = true;
         this.player2.tiempoEnAire = 0;
         this.player2.jumper = false;
@@ -299,10 +308,16 @@ export class Game extends Phaser.Scene {
         this.player2.abajo = this.cursors.down;
         this.player2.izquierda = this.cursors.left;
         this.player2.derecha = this.cursors.right;
-
+        
         this.player2.barraMov = this.add.image(widthScr * 0.95, heightScr * 0.93, 'barraMovP2').setScale(0.55).setDepth(10);
         this.player2.barraMov.cantidad = this.player2.contador * limMax / widthMaxBarra;
         this.player2.barraMov.displayOriginX = this.player2.barraMov.width;
+        
+        this.player2.numeroContador = this.add.text(widthScr * 0.9, heightScr * 0.86, '0',{
+            fontSize : '50px',
+            fill: '#ffffff',
+        }).setOrigin(0.5).setDepth(6).setVisible(true);
+        this.player2.puntaje = 0;
     }
     
     creatingPlatforms(){
@@ -343,8 +358,8 @@ export class Game extends Phaser.Scene {
             allowGravity: false,
         });
         this.physics.add.collider(this.point, this.platforms);
-        this.physics.add.overlap(this.point, this.player1, this.onCollectPoint, null, this);
-        this.physics.add.overlap(this.point, this.player2, this.onCollectPoint, null, this);
+        this.physics.add.overlap(this.player1, this.point, this.onCollectPoint, null, this);
+        this.physics.add.overlap(this.player2, this.point, this.onCollectPoint, null, this);
         this.createPoint();
     }
 }
