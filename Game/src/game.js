@@ -7,9 +7,9 @@ let jump = 1400;
 let margenSalto = 10;
 
 let gameOver;
-let playerDeath = -1;
+let playerDeath;
 
-let tiempoReal = 0;
+let tiempoReal;
 
 let contadorPlayers = 15 * 1000;
 
@@ -20,7 +20,7 @@ let limMax = 15;
 let widthMaxBarra = widthScr * 0.5;
 
 let intervaloPuntos = 4;
-let existingPoint = false;
+let existingPoint;
 
 let platformsScale = 0.12;
 
@@ -32,6 +32,9 @@ export class Game extends Phaser.Scene {
     
     create(){
         gameOver = false;
+        existingPoint = false;
+        tiempoReal = 0;
+        playerDeath = -1;
 
         // Imagen de fondo
         this.add.image(widthScr * 0.5, heightScr * 0.5, 'background').setDisplaySize(widthScr, heightScr);
