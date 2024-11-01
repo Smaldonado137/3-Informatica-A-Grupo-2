@@ -67,8 +67,8 @@ export class Game extends Phaser.Scene {
         this.player2.barraMov.setScrollFactor(0);
         this.player2.barraMov.displayWidth = this.player2.barraMov.cantidad;
         
-        contNumero1.textContent = Math.round(this.player1.contador/100);
-        contNumero2.textContent = Math.round(this.player2.contador/100);
+        //contNumero1.textContent = Math.round(this.player1.contador/100);
+        //contNumero2.textContent = Math.round(this.player2.contador/100);
 
         this.movementPlayer(this.player1);
         this.movementPlayer(this.player2);
