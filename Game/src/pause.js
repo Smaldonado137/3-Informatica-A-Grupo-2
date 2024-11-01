@@ -1,14 +1,16 @@
-let widthScr = 1450;
-let heightScr = 850;
 let inPause;
 
-export class Pause extends Phaser.Scene {    
 
+export class Pause extends Phaser.Scene {    
+    
     constructor(){
         super({ key: 'Pause' });
+        
     }
-
+    
     create(){
+        const widthScr = this.scene.settings.data.widthScreen;
+        const heightScr = this.scene.settings.data.heightScreen;
         inPause = false;
 
         // Menu de Pausa
