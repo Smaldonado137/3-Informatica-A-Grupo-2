@@ -19,6 +19,7 @@ export class Preloads extends Phaser.Scene {
         this.load.image('fondoPausa', 'assets/menuFondo.png');
         this.load.image('botonPausa', 'assets/pausaBoton.png');
         this.load.image('botonContinuar', 'assets/botonContinuar.png');
+        this.load.image('botonReiniciar', 'assets/botonReiniciar.png');
         this.load.image('botonMenu', 'assets/botonMenu.png');
              
     }
