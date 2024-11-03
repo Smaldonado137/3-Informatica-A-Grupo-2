@@ -106,11 +106,11 @@ export class Game extends Phaser.Scene {
             player.jumper = true;
             if (player.body.touching.down){
                 player.setVelocityY(-jump);
-                player.onGroundP = false;
+                player.onGround = false;
             } else {
                 if (player.tiempoEnAire < margenSalto){
                     player.setVelocityY(-jump);
-                    player.onGroundP = false;
+                    player.onGround = false;
                 }
             }
         }
