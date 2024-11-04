@@ -75,8 +75,7 @@ export class Game extends Phaser.Scene {
                     this.animPlayerDead(this.player1, this.player1.nameDead, 0.25);
                 }
                 gameOver = true;
-                this.delaySysVictoria(this.player1, this.player2);
-                this.scene.pause('Pause');
+                this.delaySysVictoria(this.player1, this.player2);                
             }
         }
 
@@ -159,7 +158,6 @@ export class Game extends Phaser.Scene {
             player.lose = true;
             this.animPlayerDead(player, player.nameDead, gameOver, 0.25);
             this.delaySysVictoria(this.player1, this.player2);
-            this.scene.pause('Pause');
         }
 
         player.contador = contador;
@@ -432,6 +430,7 @@ export class Game extends Phaser.Scene {
             winImg = 'empateImg';
         }
 
+        this.scene.pause('Pause');
 
         this.winPanel = {
             fondoNegroPantalla: this.add.graphics().fillStyle(0x000000, 0.35).fillRect(0, 0, widthScr, heightScr).setDepth(6),

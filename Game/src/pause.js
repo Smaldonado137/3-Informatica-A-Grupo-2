@@ -4,8 +4,7 @@ let pausePulsable;
 export class Pause extends Phaser.Scene {    
     
     constructor(){
-        super({ key: 'Pause' });
-        
+        super({ key: 'Pause' });        
     }
     
     create(){
@@ -40,7 +39,7 @@ export class Pause extends Phaser.Scene {
         pauseButton.on('pointerdown', () => this.pause(this.pausePanel));
 
         // Función del botón continuar
-        this.pausePanel.continuarBtn.on('pointerdown', () => this.pause(pausePanel));
+        this.pausePanel.continuarBtn.on('pointerdown', () => this.pause(this.pausePanel));
 
         // Función del botón reiniciar
         this.pausePanel.reiniciarBtn.on('pointerdown', () => this.resetGame());
