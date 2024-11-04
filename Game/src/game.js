@@ -8,6 +8,7 @@ let margenSalto = 10;
 
 let gameOver;
 let playerDeath;
+let empate;
 
 let tiempoReal;
 
@@ -33,6 +34,7 @@ export class Game extends Phaser.Scene {
     create(){
         // Estandarizando variables al iniciar la escena
         gameOver = false;
+        empate = false;
         existingPoint = false;
         tiempoReal = 0;
         playerDeath = -1;
@@ -65,14 +67,16 @@ export class Game extends Phaser.Scene {
             this.onPlayerNoMov(this.player2);
 
             if (Math.abs(this.player1.puntaje - this.player2.puntaje) == 2){
-                gameOver = true;
                 if (this.player1.puntaje > this.player2.puntaje){
-                    this.player1.victoria = true;
-                    this.delaySysVictoria(this.player1);
+                    this.player2.lose = true;
+                    this.animPlayerDead(this.player2, this.player2.nameDead, 0.25);
                 } else {
-                    this.player2.victoria = true;
-                    this.delaySysVictoria(this.player2);
+                    this.player1.lose = true;
+                    this.animPlayerDead(this.player1, this.player1.nameDead, 0.25);
                 }
+                gameOver = true;
+                this.delaySysVictoria(this.player1, this.player2);
+                this.scene.pause('Pause');
             }
         }
 
@@ -151,9 +155,11 @@ export class Game extends Phaser.Scene {
             contador = limMax * 1000;
         } else if ((contador/1000) <= 0){
             contador = 0;
-            gameOver = true;   
-            this.animPlayerDead(player, player.nameDead, gameOver, 0.25);   
-            player.disableBody(true, true);
+            gameOver = true;
+            player.lose = true;
+            this.animPlayerDead(player, player.nameDead, gameOver, 0.25);
+            this.delaySysVictoria(this.player1, this.player2);
+            this.scene.pause('Pause');
         }
 
         player.contador = contador;
@@ -162,17 +168,21 @@ export class Game extends Phaser.Scene {
         return contador * limMax / widthMaxBarra;
     }
 
-    animPlayerDead(player, name, gameOver, scale){
-        if (gameOver && (playerDeath == -1 || playerDeath == 0)){
-            this.bodyDead = this.physics.add.image(player.x, (player.y - 0.1), name).setScale(scale);
-            this.physics.add.collider(this.bodyDead, this.platforms);
-            this.physics.add.collider(this.bodyDead, this.player1);
-            this.physics.add.collider(this.bodyDead, this.player2); 
-            this.bodyDead.setCollideWorldBounds(true);
-            this.bodyDead.body.setMass(1000);
-            this.bodyDead.setDrag(2000);
-            this.bodyDead.body.gravity.y = 2000;            
-            playerDeath++;        
+    animPlayerDead(player, name, scale){
+        player.disableBody(true, true);
+
+        this.bodyDead = this.physics.add.image(player.x, (player.y - 0.1), name).setScale(scale);
+        this.physics.add.collider(this.bodyDead, this.platforms);
+        this.physics.add.collider(this.bodyDead, this.player1);
+        this.physics.add.collider(this.bodyDead, this.player2);
+        this.bodyDead.setCollideWorldBounds(true);
+        this.bodyDead.body.setMass(1000);
+        this.bodyDead.setDrag(2000);
+        this.bodyDead.body.gravity.y = 2000;            
+        playerDeath++;
+
+        if (playerDeath == 1){
+            empate = true;
         }
     }
 
@@ -254,10 +264,12 @@ export class Game extends Phaser.Scene {
         this.point.children.iterate(function (p) {
             p.destroy();
         });
-        existingPoint = false;
-        player.puntaje++;
-        player.numeroContador.setText(player.puntaje);
-        this.createPoint();
+        if (!gameOver){
+            existingPoint = false;
+            player.puntaje++;
+            player.numeroContador.setText(player.puntaje);
+            this.createPoint();
+        }
     }
 
     onTouchPlatformPlayer(player, platforms){
@@ -302,7 +314,7 @@ export class Game extends Phaser.Scene {
         }).setOrigin(0.5).setDepth(6).setVisible(true);
         this.player1.puntaje = 0;
         
-        this.player1.victoria = false;
+        this.player1.lose = false;
         this.player1.victoriaImg = 'player1';
         
         
@@ -335,7 +347,7 @@ export class Game extends Phaser.Scene {
         }).setOrigin(0.5).setDepth(6).setVisible(true);
         this.player2.puntaje = 0;
 
-        this.player2.victoria = false;
+        this.player2.lose = false;
         this.player2.victoriaImg = 'player2';
     }
     
@@ -382,37 +394,62 @@ export class Game extends Phaser.Scene {
         this.createPoint();
     }
 
-    delaySysVictoria(player){
+    delaySysVictoria(player1, player2){
         this.time.addEvent({
             delay: 2500,
             callback: this.sysVictory,
-            args: [player],
+            args: [player1, player2],
             callbackScope: this
         });
     }
 
-    sysVictory(player){
+    sysVictory(player1, player2){
+        let player;
+        let winTxt = 'Ganador';
+        let winImg;
+
+        
+        if (player1.lose != true){
+            player = player1;            
+        } else {
+            player = player2;
+        }
+        
+        if (empate){
+            if (player1.puntaje != player2.puntaje){
+                empate = false;
+                if (player1.puntaje > player2.puntaje){
+                    player = player1;
+                } else {
+                    player = player2;
+                }
+            }
+        }
+
+        winImg = player.victoriaImg;
+
+        if (empate){
+            winTxt = 'Empate';
+            winImg = 'empateImg';
+        }
+
+
         this.winPanel = {
             fondoNegroPantalla: this.add.graphics().fillStyle(0x000000, 0.35).fillRect(0, 0, widthScr, heightScr).setDepth(6),
 
             fondoPausa: this.add.image(widthScr * 0.5, heightScr * 0.5, 'fondoPausa').setDisplaySize(widthScr * 0.65, heightScr * 0.8).setDepth(7),
             
-            ganadorTxt: this.add.text(widthScr * 0.5, heightScr * 0.2, 'Ganador',{
+            ganadorTxt: this.add.text(widthScr * 0.5, heightScr * 0.2, winTxt,{
                 fontSize : '40px',
                 fill: '#000000',
             }).setOrigin(0.5).setDepth(8),
 
-            spriteGanador: this.add.image(widthScr * 0.5, heightScr * 0.46, player.victoriaImg).setScale(0.15).setDepth(8),
+            spriteGanador: this.add.image(widthScr * 0.5, heightScr * 0.46, winImg).setScale(0.15).setDepth(8),
 
             reiniciarBtn: this.add.image(widthScr * 0.35, heightScr * 0.75, 'botonReiniciar').setScale(0.22).setDepth(8).setInteractive(),
-
+            
             menuBtn: this.add.image(widthScr * 0.65, heightScr * 0.75, 'botonMenu').setScale(0.22).setDepth(8).setInteractive(),
         }        
-        for (let objeto in this.winPanel) {
-            this.winPanel[objeto].setVisible(true);
-        }
-
-        this.scene.pause('Pause');
 
         this.winPanel.reiniciarBtn.on('pointerdown', () => this.resetGame());
     }
