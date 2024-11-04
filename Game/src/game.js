@@ -407,7 +407,6 @@ export class Game extends Phaser.Scene {
         let player;
         let winTxt = 'Ganador';
         let winImg;
-
         
         if (player1.lose != true){
             player = player1;            
