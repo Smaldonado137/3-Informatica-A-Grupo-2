@@ -76,6 +76,14 @@ export class Game extends Phaser.Scene {
 
         this.movementPlayer(this.player1);
         this.movementPlayer(this.player2);
+
+        if ((this.player1.puntaje - this.player2.puntaje) == Math.abs(2)){
+            if (this.player1.puntaje > this.player2.puntaje){
+                this.player1.victoria = true;
+            } else {
+                this.player2.victoria = true;
+            }
+        }
     }
 
     movementPlayer(player){        
@@ -290,8 +298,11 @@ export class Game extends Phaser.Scene {
         }).setOrigin(0.5).setDepth(6).setVisible(true);
         this.player1.puntaje = 0;
         
+        this.player1.victoria = false;
         
         
+
+
         // Creando al segundo player con el mismo proceso que el primero
         this.player2 = this.physics.add.image(widthScr * 0.55, heightScr * 0.87, 'player2').setScale(0.06);
         this.player2.body.setSize(1000, 1650);        
@@ -318,6 +329,8 @@ export class Game extends Phaser.Scene {
             fill: '#ffffff',
         }).setOrigin(0.5).setDepth(6).setVisible(true);
         this.player2.puntaje = 0;
+
+        this.player2.victoria = false;
     }
     
     creatingPlatforms(){
