@@ -54,9 +54,7 @@ export class Game extends Phaser.Scene {
         
         // Sistema de pausa
         this.scene.launch('Pause', { widthScreen: widthScr, heightScreen: heightScr});
-
-        // Sistema de victoria
-        this.creatingSysVictory();
+        
     }
     
     update(){
@@ -65,6 +63,17 @@ export class Game extends Phaser.Scene {
         if (!gameOver){
             this.onPlayerNoMov(this.player1);
             this.onPlayerNoMov(this.player2);
+
+            if (Math.abs(this.player1.puntaje - this.player2.puntaje) == 2){
+                gameOver = true;
+                if (this.player1.puntaje > this.player2.puntaje){
+                    this.player1.victoria = true;
+                    this.delaySysVictoria(this.player1);
+                } else {
+                    this.player2.victoria = true;
+                    this.delaySysVictoria(this.player2);
+                }
+            }
         }
 
         this.player1.barraMov.setScrollFactor(0);
@@ -75,17 +84,10 @@ export class Game extends Phaser.Scene {
         
         //contNumero1.textContent = Math.round(this.player1.contador/100);
         //contNumero2.textContent = Math.round(this.player2.contador/100);
-
+        
         this.movementPlayer(this.player1);
         this.movementPlayer(this.player2);
 
-        if ((this.player1.puntaje - this.player2.puntaje) == Math.abs(2)){
-            if (this.player1.puntaje > this.player2.puntaje){
-                this.player1.victoria = true;
-            } else {
-                this.player2.victoria = true;
-            }
-        }
     }
 
     movementPlayer(player){        
@@ -301,6 +303,7 @@ export class Game extends Phaser.Scene {
         this.player1.puntaje = 0;
         
         this.player1.victoria = false;
+        this.player1.victoriaImg = 'player1';
         
         
 
@@ -333,6 +336,7 @@ export class Game extends Phaser.Scene {
         this.player2.puntaje = 0;
 
         this.player2.victoria = false;
+        this.player2.victoriaImg = 'player2';
     }
     
     creatingPlatforms(){
@@ -378,7 +382,16 @@ export class Game extends Phaser.Scene {
         this.createPoint();
     }
 
-    creatingSysVictory(){
+    delaySysVictoria(player){
+        this.time.addEvent({
+            delay: 2500,
+            callback: this.sysVictory,
+            args: [player],
+            callbackScope: this
+        });
+    }
+
+    sysVictory(player){
         this.winPanel = {
             fondoNegroPantalla: this.add.graphics().fillStyle(0x000000, 0.35).fillRect(0, 0, widthScr, heightScr).setDepth(6),
 
@@ -389,13 +402,23 @@ export class Game extends Phaser.Scene {
                 fill: '#000000',
             }).setOrigin(0.5).setDepth(8),
 
-            reiniciarBtn: this.add.image(widthScr * 0.5, heightScr * 0.53, 'botonReiniciar').setScale(0.2).setDepth(8).setInteractive(),
+            spriteGanador: this.add.image(widthScr * 0.5, heightScr * 0.46, player.victoriaImg).setScale(0.15).setDepth(8),
 
-            menuBtn: this.add.image(widthScr * 0.5, heightScr * 0.71, 'botonMenu').setScale(0.2).setDepth(8).setInteractive(),
+            reiniciarBtn: this.add.image(widthScr * 0.35, heightScr * 0.75, 'botonReiniciar').setScale(0.22).setDepth(8).setInteractive(),
+
+            menuBtn: this.add.image(widthScr * 0.65, heightScr * 0.75, 'botonMenu').setScale(0.22).setDepth(8).setInteractive(),
         }        
         for (let objeto in this.winPanel) {
-            this.winPanel[objeto].setVisible(false);
+            this.winPanel[objeto].setVisible(true);
         }
+
+        this.scene.pause('Pause');
+
+        this.winPanel.reiniciarBtn.on('pointerdown', () => this.resetGame());
+    }
+
+    resetGame(){
+        this.scene.get('Game').scene.restart();
     }
 }
 
