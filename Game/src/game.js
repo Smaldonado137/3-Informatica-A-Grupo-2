@@ -55,6 +55,8 @@ export class Game extends Phaser.Scene {
         // Sistema de pausa
         this.scene.launch('Pause', { widthScreen: widthScr, heightScreen: heightScr});
 
+        // Sistema de victoria
+        this.creatingSysVictory();
     }
     
     update(){
@@ -374,6 +376,26 @@ export class Game extends Phaser.Scene {
         this.physics.add.overlap(this.player1, this.point, this.onCollectPoint, null, this);
         this.physics.add.overlap(this.player2, this.point, this.onCollectPoint, null, this);
         this.createPoint();
+    }
+
+    creatingSysVictory(){
+        this.winPanel = {
+            fondoNegroPantalla: this.add.graphics().fillStyle(0x000000, 0.35).fillRect(0, 0, widthScr, heightScr).setDepth(6),
+
+            fondoPausa: this.add.image(widthScr * 0.5, heightScr * 0.5, 'fondoPausa').setDisplaySize(widthScr * 0.65, heightScr * 0.8).setDepth(7),
+            
+            ganadorTxt: this.add.text(widthScr * 0.5, heightScr * 0.2, 'Ganador',{
+                fontSize : '40px',
+                fill: '#000000',
+            }).setOrigin(0.5).setDepth(8),
+
+            reiniciarBtn: this.add.image(widthScr * 0.5, heightScr * 0.53, 'botonReiniciar').setScale(0.2).setDepth(8).setInteractive(),
+
+            menuBtn: this.add.image(widthScr * 0.5, heightScr * 0.71, 'botonMenu').setScale(0.2).setDepth(8).setInteractive(),
+        }        
+        for (let objeto in this.winPanel) {
+            this.winPanel[objeto].setVisible(false);
+        }
     }
 }
 
