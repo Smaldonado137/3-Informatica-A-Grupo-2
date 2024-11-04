@@ -90,7 +90,6 @@ export class Game extends Phaser.Scene {
         
         this.movementPlayer(this.player1);
         this.movementPlayer(this.player2);
-
     }
 
     movementPlayer(player){        
