@@ -15,18 +15,20 @@ export class Pause extends Phaser.Scene {
 
         // Menu de Pausa
         let pausePanel = {
-            fondoPausa: this.add.image(widthScr * 0.5, heightScr * 0.5, 'fondoPausa').setScale(0.3).setDepth(6),
+            fondoPantalla: this.add.graphics().fillStyle(0x000000, 0.4).fillRect(0, 0, widthScr, heightScr).setDepth(6),
+
+            fondoPausa: this.add.image(widthScr * 0.5, heightScr * 0.5, 'fondoPausa').setScale(0.3).setDepth(7),
             
             pausaTxt: this.add.text(widthScr * 0.5, heightScr * 0.2, 'Pausa',{
                 fontSize : '40px',
                 fill: '#000000',
-            }).setOrigin(0.5).setDepth(7),
+            }).setOrigin(0.5).setDepth(8),
 
-            continuarBtn: this.add.image(widthScr * 0.5, heightScr * 0.35, 'botonContinuar').setScale(0.2).setDepth(7).setInteractive(),
+            continuarBtn: this.add.image(widthScr * 0.5, heightScr * 0.35, 'botonContinuar').setScale(0.2).setDepth(8).setInteractive(),
 
-            reiniciarBtn: this.add.image(widthScr * 0.5, heightScr * 0.53, 'botonReiniciar').setScale(0.2).setDepth(7).setInteractive(),
+            reiniciarBtn: this.add.image(widthScr * 0.5, heightScr * 0.53, 'botonReiniciar').setScale(0.2).setDepth(8).setInteractive(),
 
-            menuBtn: this.add.image(widthScr * 0.5, heightScr * 0.71, 'botonMenu').setScale(0.2).setDepth(7).setInteractive(),
+            menuBtn: this.add.image(widthScr * 0.5, heightScr * 0.71, 'botonMenu').setScale(0.2).setDepth(8).setInteractive(),
         }        
         for (let objeto in pausePanel) {
             pausePanel[objeto].setVisible(false);
