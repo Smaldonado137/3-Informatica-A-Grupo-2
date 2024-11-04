@@ -113878,6 +113878,8 @@ var KeyboardPlugin = new Class({
             a: KeyCodes.A,
             s: KeyCodes.S,
             d: KeyCodes.D,
+            escape: KeyCodes.ESC,
+            p: KeyCodes.P,
         });
     },
 
