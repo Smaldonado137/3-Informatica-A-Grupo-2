@@ -5,6 +5,10 @@ export class Preloads extends Phaser.Scene {
     }
     
     preload(){
+        this.load.image('fondoMenu', 'assets/fondoMenu.png');
+        this.load.image('logoImg', 'assets/logo.png');
+        this.load.image('menuBtn', 'assets/botonMenuPrincipal.png');
+
         this.load.image('background', 'assets/fondoDojo.png');
         this.load.image('platformDojo', 'assets/fondoPlataformaDojo.png');
         this.load.image('platformaMain', 'assets/fondoPisoTecho.png');
@@ -24,7 +28,7 @@ export class Preloads extends Phaser.Scene {
         this.load.image('botonContinuar', 'assets/botonContinuar.png');
         this.load.image('botonReiniciar', 'assets/botonReiniciar.png');
         this.load.image('botonMenu', 'assets/botonMenu.png');
-             
+        
     }
 
     create(){
