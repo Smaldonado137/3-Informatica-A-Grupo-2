@@ -432,7 +432,7 @@ export class Game extends Phaser.Scene {
         this.scene.pause('Pause');
 
         this.winPanel = {
-            fondoNegroPantalla: this.add.graphics().fillStyle(0x000000, 0.35).fillRect(0, 0, widthScr, heightScr).setDepth(6),
+            fondoNegroPantalla: this.add.graphics().fillStyle(0x000000, 0.3).fillRect(0, 0, widthScr, heightScr).setDepth(6),
 
             fondoPausa: this.add.image(widthScr * 0.5, heightScr * 0.5, 'fondoPausa').setDisplaySize(widthScr * 0.65, heightScr * 0.8).setDepth(7),
             
