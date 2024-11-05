@@ -449,10 +449,16 @@ export class Game extends Phaser.Scene {
         }        
 
         this.winPanel.reiniciarBtn.on('pointerdown', () => this.resetGame());
+
+        this.winPanel.menuBtn.on('pointerdown', () => this.mainMenu());
     }
 
     resetGame(){
         this.scene.get('Game').scene.restart();
+    }
+
+    mainMenu(){
+        this.scene.start('Menu', {widthScreen: widthScr, heightScreen: heightScr});
     }
 }
 

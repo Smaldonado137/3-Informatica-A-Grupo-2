@@ -1,5 +1,7 @@
 let inPause;
 let pausePulsable;
+let widthScr;
+let heightScr;
 
 export class Pause extends Phaser.Scene {    
     
@@ -8,8 +10,8 @@ export class Pause extends Phaser.Scene {
     }
     
     create(){
-        const widthScr = this.scene.settings.data.widthScreen;
-        const heightScr = this.scene.settings.data.heightScreen;
+        widthScr = this.scene.settings.data.widthScreen;
+        heightScr = this.scene.settings.data.heightScreen;
         inPause = false;
         pausePulsable = true;
 
@@ -44,6 +46,9 @@ export class Pause extends Phaser.Scene {
         // Función del botón reiniciar
         this.pausePanel.reiniciarBtn.on('pointerdown', () => this.resetGame());
 
+        // Función del botón menú
+        this.pausePanel.menuBtn.on('pointerdown', () => this.mainMenu());
+
         this.pauseKey = this.input.keyboard.createCursorKeys();
     }
 
@@ -74,5 +79,9 @@ export class Pause extends Phaser.Scene {
 
     resetGame(){
         this.scene.get('Game').scene.restart();
+    }
+
+    mainMenu(){
+        this.scene.start('Menu', {widthScreen: widthScr, heightScreen: heightScr});
     }
 }
