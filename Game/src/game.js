@@ -57,7 +57,7 @@ export class Game extends Phaser.Scene {
         // Sistema de pausa
         this.scene.launch('Pause', { widthScreen: widthScr, heightScreen: heightScr});
         
-        this.mainMenu();
+        //this.mainMenu();
     }
     
     update(){

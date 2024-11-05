@@ -1,3 +1,6 @@
+let widthScr;
+let heightScr;
+
 export class Menu extends Phaser.Scene {    
 
     constructor(){
@@ -5,8 +8,8 @@ export class Menu extends Phaser.Scene {
     }
 
     create(){
-        const widthScr = this.scene.settings.data.widthScreen;
-        const heightScr = this.scene.settings.data.heightScreen;
+        widthScr = this.scene.settings.data.widthScreen;
+        heightScr = this.scene.settings.data.heightScreen;
 
         // Imagen de fondo
         this.add.image(0, 0, 'fondoMenu').setDisplaySize(widthScr * 0.5, heightScr * 0.5).setDepth(0).setOrigin(0, 0);
@@ -35,11 +38,11 @@ export class Menu extends Phaser.Scene {
     }
 
     options(){
-
+        this.scene.start('Options', {widthScreen: widthScr, heightScreen: heightScr});
     }
 
     credits(){
-
+        this.scene.start('Credits', {widthScreen: widthScr, heightScreen: heightScr});
     }
 
 }
