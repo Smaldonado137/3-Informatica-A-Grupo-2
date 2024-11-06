@@ -60,7 +60,7 @@ export class Game extends Phaser.Scene {
         // Sistema de pausa
         this.scene.launch('Pause');
         
-        this.mainMenu();
+        //this.mainMenu();
     }
     
     update(){
