@@ -20,7 +20,7 @@ let contNumero2 = document.getElementById('num2');
 let limMax = 15;
 let widthMaxBarra;
 
-let intervaloPuntos = 4;
+let intervaloPuntos = 3;
 let existingPoint;
 
 let platformsScale = 0.12;
@@ -160,7 +160,7 @@ export class Game extends Phaser.Scene {
             gameOver = true;
             player.lose = true;
             this.animPlayerDead(player, player.nameDead, gameOver, 0.25);
-            //this.delaySysVictoria(this.player1, this.player2);
+            this.delaySysVictoria(this.player1, this.player2);
         }
 
         player.contador = contador;
@@ -201,46 +201,46 @@ export class Game extends Phaser.Scene {
             let randomPos = Math.floor(Math.random() * 9) + 1;
             let randomPossiblePos = {
                 1:{
-                    ranPosX: 0.15,
-                    ranPosY: 0.0,
-                },
-    
-                2:{
-                    ranPosX: 0.15,
+                    ranPosX: 0.13,
                     ranPosY: 0.3,
                 },
     
-                3:{
-                    ranPosX: 0.15,
+                2:{
+                    ranPosX: 0.13,
                     ranPosY: 0.6,
+                },
+    
+                3:{
+                    ranPosX: 0.13,
+                    ranPosY: 0.9,
                 },
                 4:{
                     ranPosX: 0.5,
-                    ranPosY: -0.15,
+                    ranPosY: 0.2,
                 },
     
                 5:{
                     ranPosX: 0.5,
-                    ranPosY: 0.15,
+                    ranPosY: 0.45,
                 },
     
                 6:{
                     ranPosX: 0.5,
-                    ranPosY: 0.45,
+                    ranPosY: 0.7,
                 },
                 7:{
-                    ranPosX: 0.85,
-                    ranPosY: 0.0,
-                },
-    
-                8:{
-                    ranPosX: 0.85,
+                    ranPosX: 0.87,
                     ranPosY: 0.3,
                 },
     
-                9:{
-                    ranPosX: 0.85,
+                8:{
+                    ranPosX: 0.87,
                     ranPosY: 0.6,
+                },
+    
+                9:{
+                    ranPosX: 0.87,
+                    ranPosY: 0.9,
                 },
             }
             
@@ -255,7 +255,7 @@ export class Game extends Phaser.Scene {
     pointsAppear(porcentPosX, porcentPosY) {
         // Código para instanciar el objeto
         let pointPosX = widthScr * porcentPosX;
-        let pointPosY = heightScr * (porcentPosY + 0.2);        
+        let pointPosY = heightScr * porcentPosY;        
         this.point.create(pointPosX, pointPosY, 'point').setScale(0.05).refreshBody().setCircle(700, 65, 65);
         this.point.setDepth(1);
         existingPoint = true;
@@ -445,7 +445,7 @@ export class Game extends Phaser.Scene {
         
         this.platforms.create(widthScr * 0.5, heightScr * 0.99, 'pisoDojo').refreshBody().setImmovable().setSize(1920, 88).setOffset(0, 10).setDisplaySize(widthScr * 1.01, heightScr * 0.1).setDepth(3);
 
-        this.platforms.create(widthScr * 0.5, 0, 'pisoDojo').refreshBody().setImmovable().setSize(1920, 88).setOffset(0, -10).setDisplaySize(widthScr * 1.01, heightScr * 0.1).setFlipY(true).setDepth(3);
+        this.platforms.create(widthScr * 0.5, -10, 'pisoDojo').refreshBody().setImmovable().setSize(1920, 88).setOffset(0, -10).setDisplaySize(widthScr * 1.01, heightScr * 0.1).setFlipY(true).setDepth(3);
 
         this.platforms.create(widthScr * 0.945, heightScr * 0.5, 'dojoParedDer').refreshBody().setImmovable().setSize(125, 1080).setOffset(160, 0).setScale(0.75).setDepth(2);
         this.platforms.create(widthScr * 0.047, heightScr * 0.5, 'dojoParedIzq').refreshBody().setImmovable().setSize(125, 1080).setOffset(-75, 0).setScale(0.75).setDepth(2);
