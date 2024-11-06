@@ -1,6 +1,10 @@
 let widthScr;
 let heightScr;
 
+let returnBtn;
+let panelMainMenu;
+let panelOptions;
+
 export class Menu extends Phaser.Scene {    
 
     constructor(){
@@ -14,18 +18,42 @@ export class Menu extends Phaser.Scene {
         // Imagen de fondo
         this.fondoMenu = this.add.image(0, 0, 'fondoMenu').setDisplaySize(widthScr * 1.5, heightScr).setDepth(0).setOrigin(0, 0);
 
-        this.add.image(widthScr * 0.5, heightScr * 0.3, 'logoImg').setScale(0.55);
+        returnBtn = this.add.image(widthScr * 0.05, heightScr * 0.92, 'botonPausa').setScale(0.2).setInteractive().setDepth(6).setVisible(false);
 
-        let playBtn = this.add.image(widthScr * 0.5, heightScr * 0.5, 'menuBtn').setScale(0.35).setInteractive().setDepth(6);
-        playBtn.on('pointerdown', () => this.play());
 
+        // Panel del menú principal
+        panelMainMenu = {
+            logo: this.add.image(widthScr * 0.5, heightScr * 0.3, 'logoImg').setScale(0.55),
+
+            playBtn: this.add.image(widthScr * 0.5, heightScr * 0.5, 'menuBtn').setScale(0.35).setInteractive().setDepth(6),
+            
+            optionBtn: this.add.image(widthScr * 0.3, heightScr * 0.75, 'menuBtn').setScale(0.25).setInteractive().setDepth(6),
+                        
+            creditBtn: this.add.image(widthScr * 0.7, heightScr * 0.75, 'menuBtn').setScale(0.25).setInteractive().setDepth(6),
+        }
         
-        let optionBtn = this.add.image(widthScr * 0.3, heightScr * 0.75, 'menuBtn').setScale(0.25).setInteractive().setDepth(6);
-        optionBtn.on('pointerdown', () => this.options());
+        panelMainMenu.playBtn.on('pointerdown', this.play, this);
+        panelMainMenu.optionBtn.on('pointerdown', this.options, this);
+        panelMainMenu.creditBtn.on('pointerdown', this.credits, this);
 
 
-        let creditBtn = this.add.image(widthScr * 0.7, heightScr * 0.75, 'menuBtn').setScale(0.25).setInteractive().setDepth(6);
-        creditBtn.on('pointerdown', () => this.credits());
+        // Panel de opciones
+        panelOptions = {
+            muteBtn: this.add.image(widthScr * 0.5, heightScr * 0.2, 'menuBtn').setScale(0.3).setInteractive().setDepth(6),
+            
+            fullScrBtn: this.add.image(widthScr * 0.5, heightScr * 0.5, 'menuBtn').setScale(0.3).setInteractive().setDepth(6),
+
+            returnBtn: returnBtn.setVisible(true),
+        }
+
+        panelOptions.fullScrBtn.on('pointerdown', this.fullScreen, this);
+        panelOptions.returnBtn.on('pointerdown', this.returnToMenu, this);
+
+
+        for (let objeto in panelOptions) {
+            panelOptions[objeto].setVisible(false);
+        }
+        
     }
 
     update(){
@@ -36,17 +64,43 @@ export class Menu extends Phaser.Scene {
         }
     }
 
+    fullScreen(){
+        if (!this.scale.isFullscreen) {
+            this.scale.startFullscreen();
+        } else {
+            this.scale.stopFullscreen();
+        }        
+    }
+    
+
     play(){
         this.scene.start('Game');
         console.log("aaaa");
     }
 
-    options(){
-        
+    options(){        
+        for (let objeto in panelOptions) {
+            panelOptions[objeto].setVisible(true);
+        }
+
+        for (let objeto in panelMainMenu) {
+            panelMainMenu[objeto].setVisible(false);
+        }
+
     }
 
     credits(){
 
+    }
+
+    returnToMenu(){
+        for (let objeto in panelOptions) {
+            panelOptions[objeto].setVisible(false);
+        }
+
+        for (let objeto in panelMainMenu) {
+            panelMainMenu[objeto].setVisible(true);
+        }
     }
 
 }
