@@ -12,6 +12,8 @@ export class Preloads extends Phaser.Scene {
         this.load.image('background', 'assets/fondoDojo.png');
         this.load.image('platformDojo', 'assets/fondoPlataformaDojo.png');
         this.load.image('pisoDojo', 'assets/pisoDojo.png');
+        this.load.image('dojoParedDer', 'assets/bambuDojoDer.png');
+        this.load.image('dojoParedIzq', 'assets/bambuDojoIzq.png');
         
         this.load.image('point', 'assets/moneda.png');
         

@@ -160,7 +160,7 @@ export class Game extends Phaser.Scene {
             gameOver = true;
             player.lose = true;
             this.animPlayerDead(player, player.nameDead, gameOver, 0.25);
-            this.delaySysVictoria(this.player1, this.player2);
+            //this.delaySysVictoria(this.player1, this.player2);
         }
 
         player.contador = contador;
@@ -426,24 +426,29 @@ export class Game extends Phaser.Scene {
         this.platforms = this.physics.add.group();
         
         // Plataformas Lateral Izquierdo
-        this.platforms.create(widthScr * 0.15, heightScr * 0.3, 'platformDojo').setScale(platformsScale).refreshBody().setImmovable();
-        this.platforms.create(widthScr * 0.15, heightScr * 0.6, 'platformDojo').setScale(platformsScale).refreshBody().setImmovable();
+        this.platforms.create(widthScr * 0.13, heightScr * 0.39, 'platformDojo').setScale(platformsScale).refreshBody().setImmovable().setDepth(1);
+        this.platforms.create(widthScr * 0.13, heightScr * 0.69, 'platformDojo').setScale(platformsScale).refreshBody().setImmovable().setDepth(3);
         
         // Plataformas Centrales
-        this.platforms.create(widthScr * 0.5, heightScr * 0.15, 'platformDojo').setScale(platformsScale).refreshBody().setImmovable();
-        this.platforms.create(widthScr * 0.5, heightScr * 0.45, 'platformDojo').setScale(platformsScale).refreshBody().setImmovable();
-        this.platforms.create(widthScr * 0.5, heightScr * 0.75, 'platformDojo').setScale(platformsScale).refreshBody().setImmovable();
+        this.platforms.create(widthScr * 0.5, heightScr * 0.29, 'platformDojo').setScale(platformsScale).refreshBody().setImmovable();
+        this.platforms.create(widthScr * 0.5, heightScr * 0.54, 'platformDojo').setScale(platformsScale).refreshBody().setImmovable();
+        this.platforms.create(widthScr * 0.5, heightScr * 0.79, 'platformDojo').setScale(platformsScale).refreshBody().setImmovable();
         
         // Plataformas Lateral Derecho
-        this.platforms.create(widthScr * 0.85, heightScr * 0.3, 'platformDojo').setScale(platformsScale).refreshBody().setImmovable();
-        this.platforms.create(widthScr * 0.85, heightScr * 0.6, 'platformDojo').setScale(platformsScale).refreshBody().setImmovable();
+        this.platforms.create(widthScr * 0.87, heightScr * 0.39, 'platformDojo').setScale(platformsScale).refreshBody().setImmovable().setDepth(1);
+        this.platforms.create(widthScr * 0.87, heightScr * 0.69, 'platformDojo').setScale(platformsScale).refreshBody().setImmovable().setDepth(3);
         
         // Tamaño de cada plataforma
         this.platforms.children.iterate(function (platform) {
             platform.body.setSize(2575, 300);
         });
         
-        this.platforms.create(widthScr * 0.5, heightScr * 0.97, 'pisoDojo').refreshBody().setImmovable().setSize(1920, 88).setOffset(0, 10).setDisplaySize(widthScr * 1.01, heightScr * 0.1);
+        this.platforms.create(widthScr * 0.5, heightScr * 0.99, 'pisoDojo').refreshBody().setImmovable().setSize(1920, 88).setOffset(0, 10).setDisplaySize(widthScr * 1.01, heightScr * 0.1).setDepth(3);
+
+        this.platforms.create(widthScr * 0.5, 0, 'pisoDojo').refreshBody().setImmovable().setSize(1920, 88).setOffset(0, -10).setDisplaySize(widthScr * 1.01, heightScr * 0.1).setFlipY(true).setDepth(3);
+
+        this.platforms.create(widthScr * 0.945, heightScr * 0.5, 'dojoParedDer').refreshBody().setImmovable().setSize(125, 1080).setOffset(160, 0).setScale(0.75).setDepth(2);
+        this.platforms.create(widthScr * 0.047, heightScr * 0.5, 'dojoParedIzq').refreshBody().setImmovable().setSize(125, 1080).setOffset(-75, 0).setScale(0.75).setDepth(2);
         
         // Quitando gravedad a todas las plataformas
         this.platforms.children.iterate(function (platform) {
