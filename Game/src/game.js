@@ -1,5 +1,5 @@
-let widthScr = 1450;
-let heightScr = 850;
+let widthScr;
+let heightScr;
 
 let speedPlayers = 600;
 let jump = 1400;
@@ -18,7 +18,7 @@ let contNumero1 = document.getElementById('num');
 let contNumero2 = document.getElementById('num2');
 
 let limMax = 15;
-let widthMaxBarra = widthScr * 0.5;
+let widthMaxBarra;
 
 let intervaloPuntos = 4;
 let existingPoint;
@@ -33,11 +33,14 @@ export class Game extends Phaser.Scene {
     
     create(){
         // Estandarizando variables al iniciar la escena
+        widthScr = this.game.config.width;
+        heightScr = this.game.config.height;
         gameOver = false;
         empate = false;
         existingPoint = false;
         tiempoReal = 0;
         playerDeath = -1;
+        widthMaxBarra = widthScr * 0.5;
 
         // Imagen de fondo
         this.add.image(widthScr * 0.5, heightScr * 0.5, 'background').setDisplaySize(widthScr, heightScr);
@@ -55,7 +58,7 @@ export class Game extends Phaser.Scene {
         this.creatingPoints();
         
         // Sistema de pausa
-        this.scene.launch('Pause', { widthScreen: widthScr, heightScreen: heightScr});
+        this.scene.launch('Pause');
         
         //this.mainMenu();
     }
@@ -459,7 +462,7 @@ export class Game extends Phaser.Scene {
     }
 
     mainMenu(){
-        this.scene.start('Menu', {widthScreen: widthScr, heightScreen: heightScr});
+        this.scene.start('Menu');
     }
 }
 

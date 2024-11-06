@@ -8,15 +8,11 @@ export class Menu extends Phaser.Scene {
     }
 
     create(){
-        widthScr = this.scene.settings.data.widthScreen;
-        heightScr = this.scene.settings.data.heightScreen;
+        widthScr = this.game.config.width;
+        heightScr = this.game.config.height;
 
         // Imagen de fondo
-        this.add.image(0, 0, 'fondoMenu').setDisplaySize(widthScr * 0.5, heightScr * 0.5).setDepth(0).setOrigin(0, 0);
-        this.add.image(0, heightScr * 0.5, 'fondoMenu').setDisplaySize(widthScr * 0.5, heightScr * 0.5).setDepth(0).setOrigin(0, 0);
-        this.add.image(widthScr * 0.5, 0, 'fondoMenu').setDisplaySize(widthScr * 0.5, heightScr * 0.5).setDepth(0).setOrigin(0, 0);
-        this.add.image(widthScr * 0.5, heightScr * 0.5, 'fondoMenu').setDisplaySize(widthScr * 0.5, heightScr * 0.5).setDepth(0).setOrigin(0, 0);
-        
+        this.fondoMenu = this.add.image(0, 0, 'fondoMenu').setDisplaySize(widthScr * 1.5, heightScr).setDepth(0).setOrigin(0, 0);
 
         this.add.image(widthScr * 0.5, heightScr * 0.3, 'logoImg').setScale(0.55);
 
@@ -32,17 +28,25 @@ export class Menu extends Phaser.Scene {
         creditBtn.on('pointerdown', () => this.credits());
     }
 
+    update(){
+        this.fondoMenu.x += 0.4;
+
+        if (this.fondoMenu.x >= 0){
+            this.fondoMenu.x = -(widthScr * 0.5);
+        }
+    }
+
     play(){
         this.scene.start('Game');
         console.log("aaaa");
     }
 
     options(){
-        this.scene.start('Options', {widthScreen: widthScr, heightScreen: heightScr});
+        
     }
 
     credits(){
-        this.scene.start('Credits', {widthScreen: widthScr, heightScreen: heightScr});
+
     }
 
 }

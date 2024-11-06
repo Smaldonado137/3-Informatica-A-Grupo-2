@@ -10,8 +10,9 @@ export class Pause extends Phaser.Scene {
     }
     
     create(){
-        widthScr = this.scene.settings.data.widthScreen;
-        heightScr = this.scene.settings.data.heightScreen;
+        widthScr = this.game.config.width;
+        heightScr = this.game.config.height;
+
         inPause = false;
         pausePulsable = true;
 
