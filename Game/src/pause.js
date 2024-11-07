@@ -113,6 +113,7 @@ export class Pause extends Phaser.Scene {
     }
 
     mainMenu(){
+        this.scene.stop('Game');
         this.scene.start('Menu');
     }
 }

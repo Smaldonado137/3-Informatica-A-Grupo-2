@@ -20,7 +20,7 @@ let contNumero2 = document.getElementById('num2');
 let limMax = 3;
 let widthMaxBarra;
 
-let intervaloPuntos = 3;
+let intervaloPuntos = 2;
 let existingPoint;
 
 let platformsScale = 0.12;
@@ -160,7 +160,7 @@ export class Game extends Phaser.Scene {
             gameOver = true;
             player.lose = true;
             this.animPlayerDead(player, player.nameDead, gameOver, 0.25);
-            //this.delaySysVictoria(this.player1, this.player2);
+            this.delaySysVictoria(this.player1, this.player2);
         }
 
         player.contador = contador;
