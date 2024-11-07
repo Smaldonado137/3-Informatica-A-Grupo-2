@@ -57,10 +57,11 @@ export class Game extends Phaser.Scene {
         // Creando grupo de puntos
         this.creatingPoints();
         
+        // Creando animaciones
+        this.creatingAnims();
+
         // Sistema de pausa
         this.scene.launch('Pause');
-        
-        //this.mainMenu();
     }
     
     update(){
@@ -70,7 +71,8 @@ export class Game extends Phaser.Scene {
             this.onPlayerNoMov(this.player1);
             this.onPlayerNoMov(this.player2);
 
-            if (Math.abs(this.player1.puntaje - this.player2.puntaje) == 2){
+            // Victoria por puntos
+            if (Math.abs(this.player1.puntaje - this.player2.puntaje) == 3){
                 if (this.player1.puntaje > this.player2.puntaje){
                     this.player2.lose = true;
                     this.animPlayerDead(this.player2, this.player2.nameDead, 0.25);
@@ -100,14 +102,22 @@ export class Game extends Phaser.Scene {
         if (player.izquierda.isDown) {
             player.setVelocityX(-speedPlayers);
             player.setFlipX(false);
+            player.anims.play(player.animMovName, true);
         }
         else if (player.derecha.isDown) {
             player.setVelocityX(speedPlayers);
             player.setFlipX(true);
+            player.anims.play(player.animMovName, true);
+
         }
         else {
             player.setVelocityX(0);
             player.setFlipX(false);
+            player.anims.play(player.animNoMovName);
+        }
+        
+        if (player.body.velocity.x != 0){
+        } else {
         }
 
         this.jumpPlayer(player);
@@ -292,6 +302,7 @@ export class Game extends Phaser.Scene {
         let player;
         let winTxt = 'Ganador';
         let winImg;
+        let winImgScale = 0.55;
         
         if (player1.lose != true){
             player = player1;            
@@ -315,36 +326,37 @@ export class Game extends Phaser.Scene {
         if (empate){
             winTxt = 'Empate';
             winImg = 'empateImg';
+            winImgScale = 0.22;
         }
 
         this.scene.pause('Pause');
 
         this.winPanel = {
-            fondoNegroPantalla: this.add.graphics().fillStyle(0x000000, 0.3).fillRect(0, 0, widthScr, heightScr).setDepth(6),
+            fondoNegroPantalla: this.add.graphics().fillStyle(0x000000, 0.3).fillRect(0, 0, widthScr, heightScr).setDepth(10),
 
-            fondoPausa: this.add.image(widthScr * 0.5, heightScr * 0.5, 'fondoPausa').setDisplaySize(widthScr * 0.65, heightScr * 0.8).setDepth(7),
+            fondoPausa: this.add.image(widthScr * 0.5, heightScr * 0.5, 'fondoPausa').setDisplaySize(widthScr * 0.65, heightScr * 0.8).setDepth(11),
             
             ganadorTxt: this.add.text(widthScr * 0.5, heightScr * 0.2, winTxt,{
                 fontFamily: 'Japan',
                 fontSize : '40px',
                 fill: '#000000',
-            }).setOrigin(0.5).setDepth(8),
+            }).setOrigin(0.5).setDepth(12),
 
-            spriteGanador: this.add.image(widthScr * 0.5, heightScr * 0.46, winImg).setScale(0.15).setDepth(8),
+            spriteGanador: this.add.image(widthScr * 0.5, heightScr * 0.46, winImg).setScale(winImgScale).setDepth(12),
 
-            reiniciarBtn: this.add.image(widthScr * 0.35, heightScr * 0.75, 'button').setScale(0.27).setDepth(8).setInteractive(),
+            reiniciarBtn: this.add.image(widthScr * 0.35, heightScr * 0.75, 'button').setScale(0.27).setDepth(12).setInteractive(),
             reiniciarTxt: this.add.text(widthScr * 0.35, heightScr * 0.75, 'Reiniciar',{
                 fontFamily: 'Japan',
                 fontSize : '45px',
                 fill: '#000000',
-            }).setOrigin(0.5).setDepth(8),
+            }).setOrigin(0.5).setDepth(12),
             
-            menuBtn: this.add.image(widthScr * 0.65, heightScr * 0.75, 'button').setScale(0.27).setDepth(8).setInteractive(),
+            menuBtn: this.add.image(widthScr * 0.65, heightScr * 0.75, 'button').setScale(0.27).setDepth(12).setInteractive(),
             menuTxt: this.add.text(widthScr * 0.65, heightScr * 0.75, 'Menu',{
                 fontFamily: 'Japan',
                 fontSize : '45px',
                 fill: '#000000',
-            }).setOrigin(0.5).setDepth(8),
+            }).setOrigin(0.5).setDepth(12),
         }        
 
         this.winPanel.reiniciarBtn.on('pointerdown', () => this.resetGame());
@@ -374,8 +386,11 @@ export class Game extends Phaser.Scene {
 
     creatingPlayers(){
         // Crear Player
-        this.player1 = this.physics.add.image(widthScr * 0.45, heightScr * 0.87, 'player1').setScale(0.06);
-        this.player1.body.setSize(1000, 1650);
+        this.player1 = this.physics.add.sprite(widthScr * 0.45, heightScr * 0.87, 'player1').setScale(0.26);
+        this.player1.body.setSize(300, 420);
+        this.player1.name = 'player1';
+        this.player1.animMovName = 'movP1';
+        this.player1.animNoMovName = 'noMovP1';
         
         // Crear atributos del player respecto al contador de vida
         this.player1.contador = contadorPlayers;
@@ -394,10 +409,10 @@ export class Game extends Phaser.Scene {
         this.player1.derecha = this.cursors.d;
         
         // Asignando la imagen y tamaño de la barra con su respectivo jugador
-        this.player1.barraMov = this.add.image(widthScr * 0.05, heightScr * 0.07, 'barraMovP1').setScale(0.55).setDepth(10);
+        this.player1.barraMov = this.add.image(widthScr * 0.05, heightScr * 0.07, 'barraMovP1').setScale(0.55).setDepth(8);
         this.player1.barraMov.cantidad = this.player1.contador * limMax / widthMaxBarra;
         this.player1.barraMov.displayOriginX = 0;
-        this.player1.icon = this.add.image(widthScr * 0.053, heightScr * 0.09, 'cabezaTaza').setScale(0.04).setDepth(11);
+        this.player1.icon = this.add.image(widthScr * 0.053, heightScr * 0.09, 'cabezaTaza').setScale(0.04).setDepth(9);
 
         // Puntos
         this.player1.numeroContador = this.add.text(widthScr * 0.1, heightScr * 0.15, '0',{
@@ -414,8 +429,11 @@ export class Game extends Phaser.Scene {
 
 
         // Creando al segundo player con el mismo proceso que el primero
-        this.player2 = this.physics.add.image(widthScr * 0.55, heightScr * 0.87, 'player2').setScale(0.06);
-        this.player2.body.setSize(1000, 1650);        
+        this.player2 = this.physics.add.sprite(widthScr * 0.55, heightScr * 0.87, 'player2').setScale(0.26);
+        this.player2.body.setSize(300, 420);
+        this.player2.name = 'player2';
+        this.player2.animMovName = 'movP2';
+        this.player2.animNoMovName = 'noMovP2';  
         
         this.player2.contador = contadorPlayers;
         this.player2.nameDead = 'deadPlayer2';
@@ -430,10 +448,10 @@ export class Game extends Phaser.Scene {
         this.player2.izquierda = this.cursors.left;
         this.player2.derecha = this.cursors.right;
         
-        this.player2.barraMov = this.add.image(widthScr * 0.95, heightScr * 0.07, 'barraMovP2').setScale(0.55).setDepth(10);
+        this.player2.barraMov = this.add.image(widthScr * 0.95, heightScr * 0.07, 'barraMovP2').setScale(0.55).setDepth(8);
         this.player2.barraMov.cantidad = this.player2.contador * limMax / widthMaxBarra;
         this.player2.barraMov.displayOriginX = this.player2.barraMov.width;
-        this.player2.icon = this.add.image(widthScr * 0.95, heightScr * 0.09, 'cabezaPan').setScale(0.04).setDepth(11);
+        this.player2.icon = this.add.image(widthScr * 0.95, heightScr * 0.09, 'cabezaPan').setScale(0.04).setDepth(9);
 
         this.player2.numeroContador = this.add.text(widthScr * 0.9, heightScr * 0.15, '0',{
             fontFamily: 'Japan',
@@ -492,6 +510,36 @@ export class Game extends Phaser.Scene {
         this.physics.add.overlap(this.player1, this.point, this.onCollectPoint, null, this);
         this.physics.add.overlap(this.player2, this.point, this.onCollectPoint, null, this);
         this.createPoint();
+    }
+
+    creatingAnims(){
+        if (!this.anims.exists('movP1')) {
+            this.anims.create({
+                key: 'movP1',
+                frames: this.anims.generateFrameNumbers(this.player1.name, {start: 0, end: 7}),
+                frameRate: 20,
+                repeat: -1,
+            });
+    
+            this.anims.create({
+                key: 'noMovP1',
+                frames: [{ key: this.player1.name, frame: 8}],
+                frameRate: 1,
+            });
+    
+            this.anims.create({
+                key: 'movP2',
+                frames: this.anims.generateFrameNumbers(this.player2.name, {start: 0, end: 7}),
+                frameRate: 20,
+                repeat: -1,
+            });
+    
+            this.anims.create({
+                key: 'noMovP2',
+                frames: [{ key: this.player2.name, frame: 8}],
+                frameRate: 1,
+            });            
+        }
     }
 
 }

@@ -23,10 +23,8 @@ export class Preloads extends Phaser.Scene {
         
         this.load.image('point', 'assets/moneda.png');
         
-        this.load.image('player1', 'assets/tazaFrente.png');
-        this.load.image('player2', 'assets/panFrente.png');
-        //this.load.spritesheet('player1', 'assets/spritesheetTaza.png', {frameWidth: 1920, frameHeight: 1920});
-        //this.load.spritesheet('player2', 'assets/spritesheetPan.png', {frameWidth: 1920, frameHeight: 1920});
+        this.load.spritesheet('player1', 'assets/a.png', {frameWidth: 488, frameHeight: 489});
+        this.load.spritesheet('player2', 'assets/b.png', {frameWidth: 488, frameHeight: 489});
 
         this.load.image('deadPlayer1', 'assets/muerteRojo.png');
         this.load.image('deadPlayer2', 'assets/muerteAmarillo.png');
