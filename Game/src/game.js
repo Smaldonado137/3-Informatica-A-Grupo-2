@@ -349,10 +349,7 @@ export class Game extends Phaser.Scene {
         this.scene.start('Menu');
     }
 
-    creatingPlayers(){        
-        //this.physics.add.collider(this.player1, this.border); 
-        //this.physics.add.collider(this.player2, this.border);
-
+    creatingPlayers(){
         // Crear Player
         this.player1 = this.physics.add.image(widthScr * 0.45, heightScr * 0.87, 'player1').setScale(0.06);
         this.player1.body.setSize(1000, 1650);
