@@ -12,12 +12,12 @@ let empate;
 
 let tiempoReal;
 
-let contadorPlayers = 3 * 1000;
+let contadorPlayers = 5 * 1000;
 
 let contNumero1 = document.getElementById('num');
 let contNumero2 = document.getElementById('num2');
 
-let limMax = 3;
+let limMax = 5;
 let widthMaxBarra;
 
 let intervaloPuntos = 2;
@@ -40,7 +40,7 @@ export class Game extends Phaser.Scene {
         existingPoint = false;
         tiempoReal = 0;
         playerDeath = -1;
-        widthMaxBarra = widthScr * 0.015;
+        widthMaxBarra = widthScr * 0.04;
 
         // Imagen de fondo
         this.add.image(widthScr * 0.5, heightScr * 0.5, 'background').setDisplaySize(widthScr, heightScr);
