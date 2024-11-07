@@ -4,6 +4,9 @@ let heightScr;
 let returnBtn;
 let panelMainMenu;
 let panelOptions;
+let panelCredits;
+
+let isMuted = false;
 
 export class Menu extends Phaser.Scene {    
 
@@ -39,19 +42,34 @@ export class Menu extends Phaser.Scene {
 
         // Panel de opciones
         panelOptions = {
-            muteBtn: this.add.image(widthScr * 0.5, heightScr * 0.2, 'menuBtn').setScale(0.3).setInteractive().setDepth(6),
+            muteBtn: this.add.image(widthScr * 0.5, heightScr * 0.35, 'menuBtn').setScale(0.3).setInteractive().setDepth(6),
             
-            fullScrBtn: this.add.image(widthScr * 0.5, heightScr * 0.5, 'menuBtn').setScale(0.3).setInteractive().setDepth(6),
+            fullScrBtn: this.add.image(widthScr * 0.5, heightScr * 0.65, 'menuBtn').setScale(0.3).setInteractive().setDepth(6),
 
             returnBtn: returnBtn.setVisible(true),
         }
 
+        panelOptions.muteBtn.on('pointerdown', this.silenciar, this);
         panelOptions.fullScrBtn.on('pointerdown', this.fullScreen, this);
         panelOptions.returnBtn.on('pointerdown', this.returnToMenu, this);
 
-
         for (let objeto in panelOptions) {
             panelOptions[objeto].setVisible(false);
+        }
+
+        // Panel creditos
+        panelCredits = {
+            creditosTxt: this.add.text(widthScr * 0.5, heightScr * 0.25, 'Hecho',{
+                fontFamily: 'Japanese Brush',
+                fontSize : '100px',
+                fill: '#000000',
+            }).setOrigin(0.5).setDepth(8),
+
+            returnBtn: returnBtn.setVisible(true),
+        }
+
+        for (let objeto in panelCredits) {
+            panelCredits[objeto].setVisible(false);
         }
         
     }
@@ -62,6 +80,12 @@ export class Menu extends Phaser.Scene {
         if (this.fondoMenu.x >= 0){
             this.fondoMenu.x = -(widthScr * 0.5);
         }
+    }
+
+    silenciar() {
+        isMuted = !isMuted;
+        this.sound.mute = isMuted;
+        console.log("aaaa");
     }
 
     fullScreen(){
@@ -75,7 +99,6 @@ export class Menu extends Phaser.Scene {
 
     play(){
         this.scene.start('Game');
-        console.log("aaaa");
     }
 
     options(){        
@@ -86,16 +109,25 @@ export class Menu extends Phaser.Scene {
         for (let objeto in panelMainMenu) {
             panelMainMenu[objeto].setVisible(false);
         }
-
     }
 
     credits(){
+        for (let objeto in panelCredits) {
+            panelCredits[objeto].setVisible(true);
+        }
 
+        for (let objeto in panelMainMenu) {
+            panelMainMenu[objeto].setVisible(false);
+        }
     }
 
     returnToMenu(){
         for (let objeto in panelOptions) {
             panelOptions[objeto].setVisible(false);
+        }
+
+        for (let objeto in panelCredits) {
+            panelCredits[objeto].setVisible(false);
         }
 
         for (let objeto in panelMainMenu) {

@@ -12,12 +12,12 @@ let empate;
 
 let tiempoReal;
 
-let contadorPlayers = 15 * 1000;
+let contadorPlayers = 3 * 1000;
 
 let contNumero1 = document.getElementById('num');
 let contNumero2 = document.getElementById('num2');
 
-let limMax = 15;
+let limMax = 3;
 let widthMaxBarra;
 
 let intervaloPuntos = 3;
@@ -40,7 +40,7 @@ export class Game extends Phaser.Scene {
         existingPoint = false;
         tiempoReal = 0;
         playerDeath = -1;
-        widthMaxBarra = widthScr * 0.5;
+        widthMaxBarra = widthScr * 0.015;
 
         // Imagen de fondo
         this.add.image(widthScr * 0.5, heightScr * 0.5, 'background').setDisplaySize(widthScr, heightScr);
@@ -60,7 +60,7 @@ export class Game extends Phaser.Scene {
         // Sistema de pausa
         this.scene.launch('Pause');
         
-        this.mainMenu();
+        //this.mainMenu();
     }
     
     update(){
@@ -89,8 +89,8 @@ export class Game extends Phaser.Scene {
         this.player2.barraMov.setScrollFactor(0);
         this.player2.barraMov.displayWidth = this.player2.barraMov.cantidad;
         
-        //contNumero1.textContent = Math.round(this.player1.contador/100);
-        //contNumero2.textContent = Math.round(this.player2.contador/100);
+        contNumero1.textContent = Math.round(this.player1.contador/100);
+        contNumero2.textContent = Math.round(this.player2.contador/100);
         
         this.movementPlayer(this.player1);
         this.movementPlayer(this.player2);
@@ -139,18 +139,18 @@ export class Game extends Phaser.Scene {
 
     onPlayerNoMov(player){
         if (!player.body.touching.down || player.body.touching.left || player.body.touching.right || player.body.velocity.x == 0){
-            player.barraMov.cantidad = this.changeNumberPlayer(-1, player, player.contador, player.tiempoPlaying);
+            player.barraMov.cantidad = this.changeNumberPlayer(-1, player, player.contador, player.tiempoPlaying, 0);
         } else {
-            player.barraMov.cantidad = this.changeNumberPlayer(1, player, player.contador, player.tiempoPlaying);
+            player.barraMov.cantidad = this.changeNumberPlayer(1, player, player.contador, player.tiempoPlaying, 10);
         }
     }
     
-    changeNumberPlayer(negable_frecuency, player, contador, tiempoP) {
+    changeNumberPlayer(negable_frecuency, player, contador, tiempoP, sumable) {
         if (tiempoReal > tiempoP) {
             player.contadorAuxP1 = tiempoReal - tiempoP;
             tiempoP = tiempoReal;
             player.contadorAuxP1 *= negable_frecuency;
-            contador = contador + player.contadorAuxP1;
+            contador = contador + player.contadorAuxP1 + sumable;
         }
 
         if ((contador/1000) >= limMax){
@@ -160,7 +160,7 @@ export class Game extends Phaser.Scene {
             gameOver = true;
             player.lose = true;
             this.animPlayerDead(player, player.nameDead, gameOver, 0.25);
-            this.delaySysVictoria(this.player1, this.player2);
+            //this.delaySysVictoria(this.player1, this.player2);
         }
 
         player.contador = contador;
@@ -374,12 +374,12 @@ export class Game extends Phaser.Scene {
         this.player1.derecha = this.cursors.d;
         
         // Asignando la imagen y tamaño de la barra con su respectivo jugador
-        this.player1.barraMov = this.add.image(widthScr * 0.05, heightScr * 0.93, 'barraMovP1').setScale(0.55).setDepth(10);
+        this.player1.barraMov = this.add.image(widthScr * 0.05, heightScr * 0.07, 'barraMovP1').setScale(0.55).setDepth(10);
         this.player1.barraMov.cantidad = this.player1.contador * limMax / widthMaxBarra;
         this.player1.barraMov.displayOriginX = 0;
         
         // Puntos
-        this.player1.numeroContador = this.add.text(widthScr * 0.1, heightScr * 0.86, '0',{
+        this.player1.numeroContador = this.add.text(widthScr * 0.1, heightScr * 0.15, '0',{
             fontSize : '50px',
             fill: '#ffffff',
         }).setOrigin(0.5).setDepth(6).setVisible(true);
@@ -408,11 +408,11 @@ export class Game extends Phaser.Scene {
         this.player2.izquierda = this.cursors.left;
         this.player2.derecha = this.cursors.right;
         
-        this.player2.barraMov = this.add.image(widthScr * 0.95, heightScr * 0.93, 'barraMovP2').setScale(0.55).setDepth(10);
+        this.player2.barraMov = this.add.image(widthScr * 0.95, heightScr * 0.07, 'barraMovP2').setScale(0.55).setDepth(10);
         this.player2.barraMov.cantidad = this.player2.contador * limMax / widthMaxBarra;
         this.player2.barraMov.displayOriginX = this.player2.barraMov.width;
         
-        this.player2.numeroContador = this.add.text(widthScr * 0.9, heightScr * 0.86, '0',{
+        this.player2.numeroContador = this.add.text(widthScr * 0.9, heightScr * 0.15, '0',{
             fontSize : '50px',
             fill: '#ffffff',
         }).setOrigin(0.5).setDepth(6).setVisible(true);
@@ -471,5 +471,3 @@ export class Game extends Phaser.Scene {
     }
 
 }
-
-
