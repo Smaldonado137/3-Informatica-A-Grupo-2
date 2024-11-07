@@ -8,6 +8,10 @@ const config = {
     width: 1450,
     height: 850,
     parent: 'Preloads',
+    scale: {
+        mode: Phaser.Scale.FIT,
+        autoCenter: Phaser.Scale.CENTER_BOTH,
+    },
     scene: [Preloads, Game, Pause, Menu],
     physics: {
         default: 'arcade',
