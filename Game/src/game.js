@@ -379,10 +379,10 @@ export class Game extends Phaser.Scene {
         this.player1.barraMov.displayOriginX = 0;
         this.player1.icon = this.add.image(widthScr * 0.053, heightScr * 0.09, 'cabezaTaza').setScale(0.04).setDepth(11);
 
-
         // Puntos
         this.player1.numeroContador = this.add.text(widthScr * 0.1, heightScr * 0.15, '0',{
-            fontSize : '50px',
+            fontFamily: 'Japan',
+            fontSize : '75px',
             fill: '#ffffff',
         }).setOrigin(0.5).setDepth(6).setVisible(true);
         this.player1.puntaje = 0;
@@ -416,7 +416,8 @@ export class Game extends Phaser.Scene {
         this.player2.icon = this.add.image(widthScr * 0.95, heightScr * 0.09, 'cabezaPan').setScale(0.04).setDepth(11);
 
         this.player2.numeroContador = this.add.text(widthScr * 0.9, heightScr * 0.15, '0',{
-            fontSize : '50px',
+            fontFamily: 'Japan',
+            fontSize : '75px',
             fill: '#ffffff',
         }).setOrigin(0.5).setDepth(6).setVisible(true);
         this.player2.puntaje = 0;

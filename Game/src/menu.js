@@ -29,10 +29,25 @@ export class Menu extends Phaser.Scene {
             logo: this.add.image(widthScr * 0.5, heightScr * 0.3, 'logoImg').setScale(0.55),
 
             playBtn: this.add.image(widthScr * 0.5, heightScr * 0.5, 'button').setScale(0.35).setInteractive().setDepth(6),
+            platTxt: this.add.text(widthScr * 0.5, heightScr * 0.5, 'Jugar',{
+                fontFamily: 'Japan',
+                fontSize : '40px',
+                fill: '#000000',
+            }).setOrigin(0.5).setDepth(8),
             
             optionBtn: this.add.image(widthScr * 0.3, heightScr * 0.75, 'button').setScale(0.25).setInteractive().setDepth(6),
-                        
+            optionTxt: this.add.text(widthScr * 0.3, heightScr * 0.75, 'Opciones',{
+                fontFamily: 'Japan',
+                fontSize : '40px',
+                fill: '#000000',
+            }).setOrigin(0.5).setDepth(8),         
+            
             creditBtn: this.add.image(widthScr * 0.7, heightScr * 0.75, 'button').setScale(0.25).setInteractive().setDepth(6),
+            creditTxt: this.add.text(widthScr * 0.7, heightScr * 0.75, 'Creditos',{
+                fontFamily: 'Japan',
+                fontSize : '40px',
+                fill: '#000000',
+            }).setOrigin(0.5).setDepth(8),
         }
         
         panelMainMenu.playBtn.on('pointerdown', this.play, this);

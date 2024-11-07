@@ -28,12 +28,26 @@ export class Pause extends Phaser.Scene {
                 fill: '#000000',
             }).setOrigin(0.5).setDepth(8),
 
-            continuarBtn: this.add.image(widthScr * 0.5, heightScr * 0.35, 'button').setScale(0.2).setDepth(8).setInteractive(),
+            continuarBtn: this.add.image(widthScr * 0.5, heightScr * 0.35, 'button').setScale(0.25).setDepth(8).setInteractive(),
+            continuarTxt: this.add.text(widthScr * 0.5, heightScr * 0.35, 'Continuar',{
+                fontFamily: 'Japan',
+                fontSize : '40px',
+                fill: '#000000',
+            }).setOrigin(0.5).setDepth(8),
 
-            reiniciarBtn: this.add.image(widthScr * 0.5, heightScr * 0.53, 'button').setScale(0.2).setDepth(8).setInteractive(),
+            reiniciarBtn: this.add.image(widthScr * 0.5, heightScr * 0.53, 'button').setScale(0.25).setDepth(8).setInteractive(),
+            reiniciarTxt: this.add.text(widthScr * 0.5, heightScr * 0.53, 'Reiniciar',{
+                fontFamily: 'Japan',
+                fontSize : '40px',
+                fill: '#000000',
+            }).setOrigin(0.5).setDepth(8),
 
-            menuBtn: this.add.image(widthScr * 0.5, heightScr * 0.71, 'button').setScale(0.2).setDepth(8).setInteractive(),
-            
+            menuBtn: this.add.image(widthScr * 0.5, heightScr * 0.71, 'button').setScale(0.25).setDepth(8).setInteractive(),
+            menuTxt: this.add.text(widthScr * 0.5, heightScr * 0.71, 'Menu',{
+                fontFamily: 'Japan',
+                fontSize : '40px',
+                fill: '#000000',
+            }).setOrigin(0.5).setDepth(8),
         }        
         for (let objeto in this.pausePanel) {
             this.pausePanel[objeto].setVisible(false);
