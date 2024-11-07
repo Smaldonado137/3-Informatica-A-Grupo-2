@@ -1,3 +1,9 @@
+
+@font-face {
+    font-family: 'Japan';
+    src: url('../assets/japab.ttf') format('truetype');
+}
+
 body{
     background-color: antiquewhite;
 }

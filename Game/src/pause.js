@@ -23,7 +23,7 @@ export class Pause extends Phaser.Scene {
             fondoPausa: this.add.image(widthScr * 0.5, heightScr * 0.5, 'fondoPausa').setScale(0.3).setDepth(7),
             
             pausaTxt: this.add.text(widthScr * 0.5, heightScr * 0.2, 'Pausa',{
-                fontFamily: 'Japanese Brush',
+                fontFamily: 'Japan',
                 fontSize : '60px',
                 fill: '#000000',
             }).setOrigin(0.5).setDepth(8),

@@ -60,7 +60,7 @@ export class Menu extends Phaser.Scene {
         // Panel creditos
         panelCredits = {
             creditosTxt: this.add.text(widthScr * 0.5, heightScr * 0.25, 'Hecho',{
-                fontFamily: 'Japanese Brush',
+                fontFamily: 'Japan',
                 fontSize : '100px',
                 fill: '#000000',
             }).setOrigin(0.5).setDepth(8),
