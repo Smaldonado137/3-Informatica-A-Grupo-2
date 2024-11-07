@@ -20,14 +20,12 @@ export class Preloads extends Phaser.Scene {
         this.load.image('pisoDojo', 'assets/pisoDojo.png');
         this.load.image('dojoParedDer', 'assets/bambuDojoDer.png');
         this.load.image('dojoParedIzq', 'assets/bambuDojoIzq.png');
-        
-        this.load.image('point', 'assets/moneda.png');
-        
+
+        this.load.spritesheet('queso', 'assets/c.png', {frameWidth: 400, frameHeight: 400});
+
         this.load.spritesheet('player1', 'assets/a.png', {frameWidth: 488, frameHeight: 489});
         this.load.spritesheet('player2', 'assets/b.png', {frameWidth: 488, frameHeight: 489});
 
-        this.load.image('deadPlayer1', 'assets/muerteRojo.png');
-        this.load.image('deadPlayer2', 'assets/muerteAmarillo.png');
         this.load.image('empateImg', 'assets/empateImg.png');
         this.load.image('barraMovP1', 'assets/barraMovP1.png');
         this.load.image('barraMovP2', 'assets/barraMovP2.png');

@@ -23,6 +23,7 @@ export class Menu extends Phaser.Scene {
 
         returnBtn = this.add.image(widthScr * 0.05, heightScr * 0.92, 'botonPausa').setScale(0.2).setInteractive().setDepth(6).setVisible(false);
 
+
         // Panel del menú principal
         panelMainMenu = {
             logo: this.add.image(widthScr * 0.5, heightScr * 0.3, 'logoImg').setScale(0.55),

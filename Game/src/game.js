@@ -12,12 +12,12 @@ let empate;
 
 let tiempoReal;
 
-let contadorPlayers = 5 * 1000;
+let contadorPlayers = 3 * 1000;
 
 let contNumero1 = document.getElementById('num');
 let contNumero2 = document.getElementById('num2');
 
-let limMax = 5;
+let limMax = 3;
 let widthMaxBarra;
 
 let intervaloPuntos = 2;
@@ -40,7 +40,7 @@ export class Game extends Phaser.Scene {
         existingPoint = false;
         tiempoReal = 0;
         playerDeath = -1;
-        widthMaxBarra = widthScr * 0.04;
+        widthMaxBarra = widthScr * 0.014;
 
         // Imagen de fondo
         this.add.image(widthScr * 0.5, heightScr * 0.5, 'background').setDisplaySize(widthScr, heightScr);
@@ -55,7 +55,7 @@ export class Game extends Phaser.Scene {
         this.creatingPlatforms();
         
         // Creando grupo de puntos
-        this.creatingPoints();
+        this.createPoint();
         
         // Creando animaciones
         this.creatingAnims();
@@ -169,7 +169,7 @@ export class Game extends Phaser.Scene {
             contador = 0;
             gameOver = true;
             player.lose = true;
-            this.animPlayerDead(player, player.nameDead, 0.4);
+            this.animPlayerDead(player, player.nameDead, 0.036);
             this.delaySysVictoria(this.player1, this.player2);
         }
 
@@ -183,6 +183,7 @@ export class Game extends Phaser.Scene {
         player.disableBody(true, true);
 
         this.bodyDead = this.physics.add.image(player.x, (player.y - 0.1), name).setScale(scale);
+        this.bodyDead.setSize(1500, 1450);
         this.physics.add.collider(this.bodyDead, this.platforms);
         this.physics.add.collider(this.bodyDead, this.player1);
         this.physics.add.collider(this.bodyDead, this.player2);
@@ -265,16 +266,21 @@ export class Game extends Phaser.Scene {
     pointsAppear(porcentPosX, porcentPosY) {
         // Código para instanciar el objeto
         let pointPosX = widthScr * porcentPosX;
-        let pointPosY = heightScr * porcentPosY;        
-        this.point.create(pointPosX, pointPosY, 'point').setScale(0.05).refreshBody().setCircle(700, 65, 65);
-        this.point.setDepth(1);
+        let pointPosY = heightScr * porcentPosY;  
+        
         existingPoint = true;
+        let queso = this.physics.add.sprite(pointPosX, pointPosY, 'queso').setScale(0.35).refreshBody().setSize(200, 250).setDepth(1);
+        queso.body.allowGravity = false;
+
+        this.physics.add.overlap(this.player1, queso, this.onCollectPoint, null, this);
+        this.physics.add.overlap(this.player2, queso, this.onCollectPoint, null, this);
+
+        queso.anims.play('quesoAnim', true);
     }
 
-    onCollectPoint(player, points){
-        this.point.children.iterate(function (p) {
-            p.destroy();
-        });
+    onCollectPoint(player, point){
+        point.destroy();
+
         if (!gameOver){
             existingPoint = false;
             player.puntaje++;
@@ -386,7 +392,7 @@ export class Game extends Phaser.Scene {
 
     creatingPlayers(){
         // Crear Player
-        this.player1 = this.physics.add.sprite(widthScr * 0.45, heightScr * 0.87, 'player1').setScale(0.26);
+        this.player1 = this.physics.add.sprite(widthScr * 0.45, heightScr * 0.87, 'player1').setScale(0.26).setDepth(4);
         this.player1.body.setSize(300, 420);
         this.player1.name = 'player1';
         this.player1.animMovName = 'movP1';
@@ -394,7 +400,7 @@ export class Game extends Phaser.Scene {
         
         // Crear atributos del player respecto al contador de vida
         this.player1.contador = contadorPlayers;
-        this.player1.nameDead = 'deadPlayer1';
+        this.player1.nameDead = 'cabezaTaza';
         this.player1.tiempoPlaying = 0;
         
         // Atributos de salto
@@ -423,20 +429,19 @@ export class Game extends Phaser.Scene {
         this.player1.puntaje = 0;
         
         this.player1.lose = false;
-        this.player1.victoriaImg = 'player1';
-        
+        this.player1.victoriaImg = 'player1';        
         
 
 
         // Creando al segundo player con el mismo proceso que el primero
-        this.player2 = this.physics.add.sprite(widthScr * 0.55, heightScr * 0.87, 'player2').setScale(0.26);
+        this.player2 = this.physics.add.sprite(widthScr * 0.55, heightScr * 0.87, 'player2').setScale(0.26).setDepth(4);
         this.player2.body.setSize(300, 420);
         this.player2.name = 'player2';
         this.player2.animMovName = 'movP2';
         this.player2.animNoMovName = 'noMovP2';  
         
         this.player2.contador = contadorPlayers;
-        this.player2.nameDead = 'deadPlayer2';
+        this.player2.nameDead = 'cabezaPan';
         this.player2.tiempoPlaying = 0;
         
         this.player2.onGround = true;
@@ -502,16 +507,6 @@ export class Game extends Phaser.Scene {
         this.physics.add.collider(this.player2, this.platforms, this.onTouchPlatformPlayer, null, this);    
     }
 
-    creatingPoints(){
-        this.point = this.physics.add.group({
-            allowGravity: false,
-        });
-        this.physics.add.collider(this.point, this.platforms);
-        this.physics.add.overlap(this.player1, this.point, this.onCollectPoint, null, this);
-        this.physics.add.overlap(this.player2, this.point, this.onCollectPoint, null, this);
-        this.createPoint();
-    }
-
     creatingAnims(){
         if (!this.anims.exists('movP1')) {
             this.anims.create({
@@ -538,7 +533,14 @@ export class Game extends Phaser.Scene {
                 key: 'noMovP2',
                 frames: [{ key: this.player2.name, frame: 8}],
                 frameRate: 1,
-            });            
+            });
+            
+            this.anims.create({
+                key: 'quesoAnim',
+                frames: this.anims.generateFrameNumbers('queso', {start: 0, end: 10}),
+                frameRate: 15,
+                repeat: -1,
+            });
         }
     }
 
