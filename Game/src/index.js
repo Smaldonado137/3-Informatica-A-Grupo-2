@@ -1,7 +1,7 @@
 import { Preloads } from './preloads.js';
+import { Menu } from './menu.js';
 import { Game } from './game.js';
 import { Pause } from './pause.js';
-import { Menu } from './menu.js';
 
 const config = {
     type: Phaser.AUTO,
@@ -12,7 +12,7 @@ const config = {
         mode: Phaser.Scale.FIT,
         autoCenter: Phaser.Scale.CENTER_BOTH,
     },
-    scene: [Preloads, Game, Pause, Menu],
+    scene: [Preloads, Menu, Game, Pause],
     physics: {
         default: 'arcade',
         arcade: {    
