@@ -89,8 +89,8 @@ export class Game extends Phaser.Scene {
         this.player2.barraMov.setScrollFactor(0);
         this.player2.barraMov.displayWidth = this.player2.barraMov.cantidad;
         
-        contNumero1.textContent = Math.round(this.player1.contador/100);
-        contNumero2.textContent = Math.round(this.player2.contador/100);
+        //contNumero1.textContent = Math.round(this.player1.contador/100);
+        //contNumero2.textContent = Math.round(this.player2.contador/100);
         
         this.movementPlayer(this.player1);
         this.movementPlayer(this.player2);
@@ -159,7 +159,7 @@ export class Game extends Phaser.Scene {
             contador = 0;
             gameOver = true;
             player.lose = true;
-            this.animPlayerDead(player, player.nameDead, gameOver, 0.25);
+            this.animPlayerDead(player, player.nameDead, 0.4);
             this.delaySysVictoria(this.player1, this.player2);
         }
 
@@ -325,20 +325,43 @@ export class Game extends Phaser.Scene {
             fondoPausa: this.add.image(widthScr * 0.5, heightScr * 0.5, 'fondoPausa').setDisplaySize(widthScr * 0.65, heightScr * 0.8).setDepth(7),
             
             ganadorTxt: this.add.text(widthScr * 0.5, heightScr * 0.2, winTxt,{
+                fontFamily: 'Japan',
                 fontSize : '40px',
                 fill: '#000000',
             }).setOrigin(0.5).setDepth(8),
 
             spriteGanador: this.add.image(widthScr * 0.5, heightScr * 0.46, winImg).setScale(0.15).setDepth(8),
 
-            reiniciarBtn: this.add.image(widthScr * 0.35, heightScr * 0.75, 'botonReiniciar').setScale(0.22).setDepth(8).setInteractive(),
+            reiniciarBtn: this.add.image(widthScr * 0.35, heightScr * 0.75, 'button').setScale(0.27).setDepth(8).setInteractive(),
+            reiniciarTxt: this.add.text(widthScr * 0.35, heightScr * 0.75, 'Reiniciar',{
+                fontFamily: 'Japan',
+                fontSize : '45px',
+                fill: '#000000',
+            }).setOrigin(0.5).setDepth(8),
             
-            menuBtn: this.add.image(widthScr * 0.65, heightScr * 0.75, 'botonMenu').setScale(0.22).setDepth(8).setInteractive(),
+            menuBtn: this.add.image(widthScr * 0.65, heightScr * 0.75, 'button').setScale(0.27).setDepth(8).setInteractive(),
+            menuTxt: this.add.text(widthScr * 0.65, heightScr * 0.75, 'Menu',{
+                fontFamily: 'Japan',
+                fontSize : '45px',
+                fill: '#000000',
+            }).setOrigin(0.5).setDepth(8),
         }        
 
         this.winPanel.reiniciarBtn.on('pointerdown', () => this.resetGame());
+        this.winPanel.reiniciarBtn.on('pointerover', () => {
+            this.winPanel.reiniciarBtn.setTexture('buttonPressed');
+        });
+        this.winPanel.reiniciarBtn.on('pointerout', () => {
+            this.winPanel.reiniciarBtn.setTexture('button');
+        });
 
         this.winPanel.menuBtn.on('pointerdown', () => this.mainMenu());
+        this.winPanel.menuBtn.on('pointerover', () => {
+            this.winPanel.menuBtn.setTexture('buttonPressed');
+        });
+        this.winPanel.menuBtn.on('pointerout', () => {
+            this.winPanel.menuBtn.setTexture('button');
+        });
     }
 
     resetGame(){
