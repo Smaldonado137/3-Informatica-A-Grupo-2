@@ -28,23 +28,42 @@ export class Menu extends Phaser.Scene {
         panelMainMenu = {
             logo: this.add.image(widthScr * 0.5, heightScr * 0.3, 'logoImg').setScale(0.55),
 
-            playBtn: this.add.image(widthScr * 0.5, heightScr * 0.5, 'menuBtn').setScale(0.35).setInteractive().setDepth(6),
+            playBtn: this.add.image(widthScr * 0.5, heightScr * 0.5, 'button').setScale(0.35).setInteractive().setDepth(6),
             
-            optionBtn: this.add.image(widthScr * 0.3, heightScr * 0.75, 'menuBtn').setScale(0.25).setInteractive().setDepth(6),
+            optionBtn: this.add.image(widthScr * 0.3, heightScr * 0.75, 'button').setScale(0.25).setInteractive().setDepth(6),
                         
-            creditBtn: this.add.image(widthScr * 0.7, heightScr * 0.75, 'menuBtn').setScale(0.25).setInteractive().setDepth(6),
+            creditBtn: this.add.image(widthScr * 0.7, heightScr * 0.75, 'button').setScale(0.25).setInteractive().setDepth(6),
         }
         
         panelMainMenu.playBtn.on('pointerdown', this.play, this);
-        panelMainMenu.optionBtn.on('pointerdown', this.options, this);
-        panelMainMenu.creditBtn.on('pointerdown', this.credits, this);
+        panelMainMenu.playBtn.on('pointerover', () => {
+            panelMainMenu.playBtn.setTexture('buttonPressed');
+        });
+        panelMainMenu.playBtn.on('pointerout', () => {
+            panelMainMenu.playBtn.setTexture('button');
+        });
 
+        panelMainMenu.optionBtn.on('pointerdown', this.options, this);
+        panelMainMenu.optionBtn.on('pointerover', () => {
+            panelMainMenu.optionBtn.setTexture('buttonPressed');
+        });
+        panelMainMenu.optionBtn.on('pointerout', () => {
+            panelMainMenu.optionBtn.setTexture('button');
+        });
+
+        panelMainMenu.creditBtn.on('pointerdown', this.credits, this);
+        panelMainMenu.creditBtn.on('pointerover', () => {
+            panelMainMenu.creditBtn.setTexture('buttonPressed');
+        });
+        panelMainMenu.creditBtn.on('pointerout', () => {
+            panelMainMenu.creditBtn.setTexture('button');
+        });
 
         // Panel de opciones
         panelOptions = {
-            muteBtn: this.add.image(widthScr * 0.5, heightScr * 0.35, 'menuBtn').setScale(0.3).setInteractive().setDepth(6),
+            muteBtn: this.add.image(widthScr * 0.5, heightScr * 0.32, 'unmuteBtn').setScale(0.18).setInteractive().setDepth(6),
             
-            fullScrBtn: this.add.image(widthScr * 0.5, heightScr * 0.65, 'menuBtn').setScale(0.3).setInteractive().setDepth(6),
+            fullScrBtn: this.add.image(widthScr * 0.5, heightScr * 0.68, 'fullScrBtn').setScale(0.1).setInteractive().setDepth(6),
 
             returnBtn: returnBtn.setVisible(true),
         }
@@ -84,6 +103,11 @@ export class Menu extends Phaser.Scene {
 
     silenciar() {
         isMuted = !isMuted;
+        if (isMuted){
+            panelOptions.muteBtn.setTexture('muteBtn');
+        } else {
+            panelOptions.muteBtn.setTexture('unmuteBtn');
+        }
         this.sound.mute = isMuted;
         console.log("aaaa");
     }

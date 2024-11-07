@@ -28,11 +28,11 @@ export class Pause extends Phaser.Scene {
                 fill: '#000000',
             }).setOrigin(0.5).setDepth(8),
 
-            continuarBtn: this.add.image(widthScr * 0.5, heightScr * 0.35, 'botonContinuar').setScale(0.2).setDepth(8).setInteractive(),
+            continuarBtn: this.add.image(widthScr * 0.5, heightScr * 0.35, 'button').setScale(0.2).setDepth(8).setInteractive(),
 
-            reiniciarBtn: this.add.image(widthScr * 0.5, heightScr * 0.53, 'botonReiniciar').setScale(0.2).setDepth(8).setInteractive(),
+            reiniciarBtn: this.add.image(widthScr * 0.5, heightScr * 0.53, 'button').setScale(0.2).setDepth(8).setInteractive(),
 
-            menuBtn: this.add.image(widthScr * 0.5, heightScr * 0.71, 'botonMenu').setScale(0.2).setDepth(8).setInteractive(),
+            menuBtn: this.add.image(widthScr * 0.5, heightScr * 0.71, 'button').setScale(0.2).setDepth(8).setInteractive(),
             
         }        
         for (let objeto in this.pausePanel) {
@@ -41,12 +41,30 @@ export class Pause extends Phaser.Scene {
 
         // Función del botón continuar
         this.pausePanel.continuarBtn.on('pointerdown', () => this.pause(this.pausePanel));
+        this.pausePanel.continuarBtn.on('pointerover', () => {
+            this.pausePanel.continuarBtn.setTexture('buttonPressed');
+        });
+        this.pausePanel.continuarBtn.on('pointerout', () => {
+            this.pausePanel.continuarBtn.setTexture('button');
+        });
 
         // Función del botón reiniciar
         this.pausePanel.reiniciarBtn.on('pointerdown', () => this.resetGame());
+        this.pausePanel.reiniciarBtn.on('pointerover', () => {
+            this.pausePanel.reiniciarBtn.setTexture('buttonPressed');
+        });
+        this.pausePanel.reiniciarBtn.on('pointerout', () => {
+            this.pausePanel.reiniciarBtn.setTexture('button');
+        });
 
         // Función del botón menú
         this.pausePanel.menuBtn.on('pointerdown', () => this.mainMenu());
+        this.pausePanel.menuBtn.on('pointerover', () => {
+            this.pausePanel.menuBtn.setTexture('buttonPressed');
+        });
+        this.pausePanel.menuBtn.on('pointerout', () => {
+            this.pausePanel.menuBtn.setTexture('button');
+        });
 
         this.pauseKey = this.input.keyboard.createCursorKeys();
     }
@@ -81,6 +99,6 @@ export class Pause extends Phaser.Scene {
     }
 
     mainMenu(){
-        this.scene.start('Menu', {widthScreen: widthScr, heightScreen: heightScr});
+        this.scene.start('Menu');
     }
 }
