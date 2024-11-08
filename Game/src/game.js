@@ -77,6 +77,7 @@ export class Game extends Phaser.Scene {
 
         // Sistema de pausa
         this.scene.launch('Pause');
+
     }
     
     update(){
@@ -91,10 +92,10 @@ export class Game extends Phaser.Scene {
                 if (Math.abs(this.player1.puntaje - this.player2.puntaje) == 3){
                     if (this.player1.puntaje > this.player2.puntaje){
                         this.player2.lose = true;
-                        this.animPlayerDead(this.player2, this.player2.nameDead, 0.25);
+                        this.animPlayerDead(this.player2, this.player2.nameDead, 0.036);
                     } else {
                         this.player1.lose = true;
-                        this.animPlayerDead(this.player1, this.player1.nameDead, 0.25);
+                        this.animPlayerDead(this.player1, this.player1.nameDead, 0.036);
                     }
                     gameOver = true;
                     this.delaySysVictoria(this.player1, this.player2);                
@@ -150,17 +151,24 @@ export class Game extends Phaser.Scene {
             player.setVelocityX(-speedPlayers);
             player.setFlipX(false);
             player.anims.play(player.animMovName, true);
+
+            player.body.setOffset(30, 40);
         }
         else if (player.derecha.isDown) {
             player.setVelocityX(speedPlayers);
             player.setFlipX(true);
             player.anims.play(player.animMovName, true);
 
+            player.body.setOffset(190, 40);
         }
         else {
             player.setVelocityX(0);
             player.setFlipX(false);
             player.anims.play(player.animNoMovName);
+            player.body.setOffset(
+                (player.width - 250) / 2,
+                (player.height - 420) / 2
+            );
         }
         
         if (player.body.velocity.x != 0){
@@ -440,7 +448,8 @@ export class Game extends Phaser.Scene {
     creatingPlayers(){
         // Crear Player
         this.player1 = this.physics.add.sprite(widthScr * 0.45, heightScr * 0.87, 'player1').setScale(0.26).setDepth(4);
-        this.player1.body.setSize(300, 420);
+        this.player1.body.setSize(250, 420);
+        
         this.player1.name = 'player1';
         this.player1.animMovName = 'movP1';
         this.player1.animNoMovName = 'noMovP1';
@@ -476,13 +485,14 @@ export class Game extends Phaser.Scene {
         this.player1.puntaje = 0;
         
         this.player1.lose = false;
-        this.player1.victoriaImg = 'player1';        
+        this.player1.victoriaImg = 'player1';      
         
+        this.player1.setCollideWorldBounds(true);
 
 
         // Creando al segundo player con el mismo proceso que el primero
         this.player2 = this.physics.add.sprite(widthScr * 0.55, heightScr * 0.87, 'player2').setScale(0.26).setDepth(4);
-        this.player2.body.setSize(300, 420);
+        this.player2.body.setSize(250, 420);
         this.player2.name = 'player2';
         this.player2.animMovName = 'movP2';
         this.player2.animNoMovName = 'noMovP2';  
@@ -514,6 +524,7 @@ export class Game extends Phaser.Scene {
 
         this.player2.lose = false;
         this.player2.victoriaImg = 'player2';
+        this.player2.setCollideWorldBounds(true);
     }
     
     creatingPlatforms(){
