@@ -25,6 +25,11 @@ let existingPoint;
 
 let platformsScale = 0.12;
 
+let contadorInicialTxt;
+let contadorInicial;
+let inCount;
+let initialCountEvent;
+
 export class Game extends Phaser.Scene {    
 
     constructor(){
@@ -36,6 +41,7 @@ export class Game extends Phaser.Scene {
         widthScr = this.game.config.width;
         heightScr = this.game.config.height;
         gameOver = false;
+        inCount = true
         empate = false;
         existingPoint = false;
         tiempoReal = 0;
@@ -44,6 +50,15 @@ export class Game extends Phaser.Scene {
 
         // Imagen de fondo
         this.add.image(widthScr * 0.5, heightScr * 0.5, 'background').setDisplaySize(widthScr, heightScr);
+
+        // Contador inicial
+        contadorInicial = 3;
+        contadorInicialTxt = this.add.text(widthScr * 0.5, heightScr * 0.5, contadorInicial,{
+            fontFamily: 'Japan',
+            fontSize : '450px',
+            fill: '#ffffff',
+        }).setOrigin(0.5).setDepth(7).setStroke('#000000', 30),
+        this.initialCount();
 
         // Asignando teclas pulsables
         this.cursors = this.input.keyboard.createCursorKeys();
@@ -65,37 +80,69 @@ export class Game extends Phaser.Scene {
     }
     
     update(){
-        tiempoReal += 10;
+        if (!inCount){
+            tiempoReal += 10;
 
-        if (!gameOver){
-            this.onPlayerNoMov(this.player1);
-            this.onPlayerNoMov(this.player2);
-
-            // Victoria por puntos
-            if (Math.abs(this.player1.puntaje - this.player2.puntaje) == 3){
-                if (this.player1.puntaje > this.player2.puntaje){
-                    this.player2.lose = true;
-                    this.animPlayerDead(this.player2, this.player2.nameDead, 0.25);
-                } else {
-                    this.player1.lose = true;
-                    this.animPlayerDead(this.player1, this.player1.nameDead, 0.25);
+            if (!gameOver){
+                this.onPlayerNoMov(this.player1);
+                this.onPlayerNoMov(this.player2);
+    
+                // Victoria por puntos
+                if (Math.abs(this.player1.puntaje - this.player2.puntaje) == 3){
+                    if (this.player1.puntaje > this.player2.puntaje){
+                        this.player2.lose = true;
+                        this.animPlayerDead(this.player2, this.player2.nameDead, 0.25);
+                    } else {
+                        this.player1.lose = true;
+                        this.animPlayerDead(this.player1, this.player1.nameDead, 0.25);
+                    }
+                    gameOver = true;
+                    this.delaySysVictoria(this.player1, this.player2);                
                 }
-                gameOver = true;
-                this.delaySysVictoria(this.player1, this.player2);                
             }
-        }
+    
+            this.player1.barraMov.setScrollFactor(0);
+            this.player1.barraMov.displayWidth = this.player1.barraMov.cantidad;
+            
+            this.player2.barraMov.setScrollFactor(0);
+            this.player2.barraMov.displayWidth = this.player2.barraMov.cantidad;
+            
+            //contNumero1.textContent = Math.round(this.player1.contador/100);
+            //contNumero2.textContent = Math.round(this.player2.contador/100);
+            
+            this.movementPlayer(this.player1);
+            this.movementPlayer(this.player2);
+        }        
+    }
 
-        this.player1.barraMov.setScrollFactor(0);
-        this.player1.barraMov.displayWidth = this.player1.barraMov.cantidad;
-        
-        this.player2.barraMov.setScrollFactor(0);
-        this.player2.barraMov.displayWidth = this.player2.barraMov.cantidad;
-        
-        //contNumero1.textContent = Math.round(this.player1.contador/100);
-        //contNumero2.textContent = Math.round(this.player2.contador/100);
-        
-        this.movementPlayer(this.player1);
-        this.movementPlayer(this.player2);
+    initialCount(){
+        initialCountEvent = this.time.addEvent({
+            delay: 650,
+            callback: this.decreaseInitialCount,
+            callbackScope: this,
+            loop: true,
+            paused: !inCount,
+        });
+    }
+    
+    decreaseInitialCount(){
+        contadorInicial--;
+        contadorInicialTxt.setText(contadorInicial);
+
+        if (contadorInicial == 0){
+            contadorInicialTxt.setText('¡YA!');
+            inCount = false;
+            initialCountEvent.paused = !inCount;
+            contadorInicialTxt.setStyle({ fontSize: `225px` });
+
+            this.time.addEvent({
+                delay: 675,
+                callback: this.decreaseInitialCount,
+                callbackScope: this,
+            });
+        } else if (contadorInicial < 0){
+            contadorInicialTxt.setVisible(false);
+        }
     }
 
     movementPlayer(player){        
@@ -541,7 +588,10 @@ export class Game extends Phaser.Scene {
                 frameRate: 15,
                 repeat: -1,
             });
+
         }
+        this.player1.anims.play(this.player1.animNoMovName);
+        this.player2.anims.play(this.player2.animNoMovName);
     }
 
 }

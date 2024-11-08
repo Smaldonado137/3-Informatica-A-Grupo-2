@@ -7,7 +7,7 @@ export class Preloads extends Phaser.Scene {
     preload(){
         this.load.image('fondoMenu', 'assets/fondoMenu.png');
         this.load.image('logoImg', 'assets/logo.png');
-        this.load.image('menuBtn', 'assets/botonMenuPrincipal.png');
+        
         this.load.image('fullScrBtn', 'assets/flechasPantalla.png');
         this.load.image('muteBtn', 'assets/muted.png');
         this.load.image('unmuteBtn', 'assets/noMuted.png');
@@ -34,9 +34,6 @@ export class Preloads extends Phaser.Scene {
         
         this.load.image('fondoPausa', 'assets/menuFondo.png');
         this.load.image('botonPausa', 'assets/pausaBoton.png');
-        this.load.image('botonContinuar', 'assets/botonContinuar.png');
-        this.load.image('botonReiniciar', 'assets/botonReiniciar.png');
-        this.load.image('botonMenu', 'assets/botonMenu.png');
         
     }
 
