@@ -6,6 +6,8 @@ let jump = 1400;
 
 let margenSalto = 10;
 
+let canReset;
+
 let gameOver;
 let playerDeath;
 let empate;
@@ -40,6 +42,7 @@ export class Game extends Phaser.Scene {
         // Estandarizando variables al iniciar la escena
         widthScr = this.game.config.width;
         heightScr = this.game.config.height;
+        canReset = false;
         gameOver = false;
         inCount = true
         empate = false;
@@ -62,6 +65,7 @@ export class Game extends Phaser.Scene {
 
         // Asignando teclas pulsables
         this.cursors = this.input.keyboard.createCursorKeys();
+        this.input.setDefaultCursor('default');
         
         // Creando Jugadores
         this.creatingPlayers();        
@@ -76,8 +80,8 @@ export class Game extends Phaser.Scene {
         this.creatingAnims();
 
         // Sistema de pausa
-        this.scene.launch('Pause');
-
+        this.scene.launch('Pause');        
+            
     }
     
     update(){
@@ -110,6 +114,12 @@ export class Game extends Phaser.Scene {
             
             //contNumero1.textContent = Math.round(this.player1.contador/100);
             //contNumero2.textContent = Math.round(this.player2.contador/100);
+
+            if (canReset){
+                if (this.cursors.r.isDown){
+                    this.resetGame();
+                }                
+            }
             
             this.movementPlayer(this.player1);
             this.movementPlayer(this.player2);
@@ -360,10 +370,11 @@ export class Game extends Phaser.Scene {
     }
 
     sysVictory(player1, player2){
+        canReset = true;
         let player;
         let winTxt = 'Ganador';
         let winImg;
-        let winImgScale = 0.55;
+        let winImgScale = 0.21;
         
         if (player1.lose != true){
             player = player1;            
@@ -387,7 +398,7 @@ export class Game extends Phaser.Scene {
         if (empate){
             winTxt = 'Empate';
             winImg = 'empateImg';
-            winImgScale = 0.22;
+            winImgScale = 0.15;
         }
 
         this.scene.pause('Pause');
@@ -395,7 +406,7 @@ export class Game extends Phaser.Scene {
         this.winPanel = {
             fondoNegroPantalla: this.add.graphics().fillStyle(0x000000, 0.3).fillRect(0, 0, widthScr, heightScr).setDepth(10),
 
-            fondoPausa: this.add.image(widthScr * 0.5, heightScr * 0.5, 'fondoPausa').setDisplaySize(widthScr * 0.65, heightScr * 0.8).setDepth(11),
+            fondoPausa: this.add.image(widthScr * 0.5, heightScr * 0.5, 'panel').setDisplaySize(widthScr * 0.66, heightScr * 0.85).setDepth(11),
             
             ganadorTxt: this.add.text(widthScr * 0.5, heightScr * 0.2, winTxt,{
                 fontFamily: 'Japan',
@@ -423,17 +434,21 @@ export class Game extends Phaser.Scene {
         this.winPanel.reiniciarBtn.on('pointerdown', () => this.resetGame());
         this.winPanel.reiniciarBtn.on('pointerover', () => {
             this.winPanel.reiniciarBtn.setTexture('buttonPressed');
+            this.input.setDefaultCursor('pointer');
         });
         this.winPanel.reiniciarBtn.on('pointerout', () => {
             this.winPanel.reiniciarBtn.setTexture('button');
+            this.input.setDefaultCursor('default');
         });
 
         this.winPanel.menuBtn.on('pointerdown', () => this.mainMenu());
         this.winPanel.menuBtn.on('pointerover', () => {
             this.winPanel.menuBtn.setTexture('buttonPressed');
+            this.input.setDefaultCursor('pointer');
         });
         this.winPanel.menuBtn.on('pointerout', () => {
             this.winPanel.menuBtn.setTexture('button');
+            this.input.setDefaultCursor('default');
         });
     }
 
@@ -474,6 +489,7 @@ export class Game extends Phaser.Scene {
         this.player1.barraMov = this.add.image(widthScr * 0.05, heightScr * 0.07, 'barraMovP1').setScale(0.55).setDepth(8);
         this.player1.barraMov.cantidad = this.player1.contador * limMax / widthMaxBarra;
         this.player1.barraMov.displayOriginX = 0;
+        this.player1.barraMov.displayWidth = this.player1.barraMov.cantidad;
         this.player1.icon = this.add.image(widthScr * 0.053, heightScr * 0.09, 'cabezaTaza').setScale(0.04).setDepth(9);
 
         // Puntos
@@ -485,11 +501,11 @@ export class Game extends Phaser.Scene {
         this.player1.puntaje = 0;
         
         this.player1.lose = false;
-        this.player1.victoriaImg = 'player1';      
+        this.player1.victoriaImg = 'victP1';      
         
         this.player1.setCollideWorldBounds(true);
-
-
+            
+        
         // Creando al segundo player con el mismo proceso que el primero
         this.player2 = this.physics.add.sprite(widthScr * 0.55, heightScr * 0.87, 'player2').setScale(0.26).setDepth(4);
         this.player2.body.setSize(250, 420);
@@ -513,17 +529,18 @@ export class Game extends Phaser.Scene {
         this.player2.barraMov = this.add.image(widthScr * 0.95, heightScr * 0.07, 'barraMovP2').setScale(0.55).setDepth(8);
         this.player2.barraMov.cantidad = this.player2.contador * limMax / widthMaxBarra;
         this.player2.barraMov.displayOriginX = this.player2.barraMov.width;
+        this.player2.barraMov.displayWidth = this.player2.barraMov.cantidad;
         this.player2.icon = this.add.image(widthScr * 0.95, heightScr * 0.09, 'cabezaPan').setScale(0.04).setDepth(9);
-
+        
         this.player2.numeroContador = this.add.text(widthScr * 0.9, heightScr * 0.15, '0',{
             fontFamily: 'Japan',
             fontSize : '75px',
             fill: '#ffffff',
         }).setOrigin(0.5).setDepth(6).setVisible(true);
         this.player2.puntaje = 0;
-
+        
         this.player2.lose = false;
-        this.player2.victoriaImg = 'player2';
+        this.player2.victoriaImg = 'victP2';
         this.player2.setCollideWorldBounds(true);
     }
     

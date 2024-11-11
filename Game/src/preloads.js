@@ -5,15 +5,16 @@ export class Preloads extends Phaser.Scene {
     }
     
     preload(){
-        this.load.image('fondoMenu', 'assets/fondoMenu.png');
+        this.load.image('fondoMenu', 'assets/fondoMenu1.png');
         this.load.image('logoImg', 'assets/logo.png');
         
-        this.load.image('fullScrBtn', 'assets/flechasPantalla.png');
+        this.load.image('NofullScrBtn', 'assets/flechasPantalla.png');
+        this.load.image('fullScrBtn', 'assets/flechasPantallaMinimizar.png');
         this.load.image('muteBtn', 'assets/muted.png');
         this.load.image('unmuteBtn', 'assets/noMuted.png');
         this.load.image('button', 'assets/botonNoPresionado.png');
         this.load.image('buttonPressed', 'assets/botonPresionado.png');
-
+        this.load.image('regresarBtn', 'assets/flechaVolver.png');
 
         this.load.image('background', 'assets/fondoDojo.png');
         this.load.image('platformDojo', 'assets/fondoPlataformaDojo.png');
@@ -26,13 +27,15 @@ export class Preloads extends Phaser.Scene {
         this.load.spritesheet('player1', 'assets/a.png', {frameWidth: 488, frameHeight: 489});
         this.load.spritesheet('player2', 'assets/b.png', {frameWidth: 488, frameHeight: 489});
 
+        this.load.image('victP1', 'assets/tazaFrente.png');
+        this.load.image('victP2', 'assets/panFrente.png');
         this.load.image('empateImg', 'assets/empateImg.png');
         this.load.image('barraMovP1', 'assets/barraMovP1.png');
         this.load.image('barraMovP2', 'assets/barraMovP2.png');
         this.load.image('cabezaTaza', 'assets/cabezaTaza.png');
         this.load.image('cabezaPan', 'assets/cabezaPan.png');
         
-        this.load.image('fondoPausa', 'assets/menuFondo.png');
+        this.load.image('panel', 'assets/panel.png');
         this.load.image('botonPausa', 'assets/pausaBoton.png');
         
     }
