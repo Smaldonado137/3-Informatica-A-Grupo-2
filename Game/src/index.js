@@ -8,15 +8,15 @@ const config = {
     width: 1450,
     height: 850,
     parent: 'Preloads',
-    scale: {
+    scale: {        // Propiedades de la escala de la ventana
         mode: Phaser.Scale.FIT,
         autoCenter: Phaser.Scale.CENTER_BOTH,
     },
-    scene: [Preloads, Menu, Game, Pause],
-    physics: {
+    scene: [Preloads, Menu, Game, Pause],   // Escenas del juego
+    physics: {      // Sistema de físicas por aplicar
         default: 'arcade',
         arcade: {    
-            gravity: { y: 5000},        
+            gravity: { y: 5000},     // Gravedad   
             debug: false,
         }
     }

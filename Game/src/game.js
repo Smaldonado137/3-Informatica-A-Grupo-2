@@ -85,10 +85,10 @@ export class Game extends Phaser.Scene {
     }
     
     update(){
-        if (!inCount){
-            tiempoReal += 10;
+        if (!inCount){      // Si está en la cuenta regresiva inicial no se ejecutará nada
+            tiempoReal += 10;       // Se toma el tiempo que transcurre mientras la escena está activa y despausada
 
-            if (!gameOver){
+            if (!gameOver){     // Mientras el juego no se acabe se procesará lo siguiente
                 this.onPlayerNoMov(this.player1);
                 this.onPlayerNoMov(this.player2);
     
@@ -105,7 +105,8 @@ export class Game extends Phaser.Scene {
                     this.delaySysVictoria(this.player1, this.player2);                
                 }
             }
-    
+            
+            // Asignando que la barra de vida es estática y que se ajusta a la cantidad numérica del player relacionada con dicha barra
             this.player1.barraMov.setScrollFactor(0);
             this.player1.barraMov.displayWidth = this.player1.barraMov.cantidad;
             
@@ -115,6 +116,7 @@ export class Game extends Phaser.Scene {
             //contNumero1.textContent = Math.round(this.player1.contador/100);
             //contNumero2.textContent = Math.round(this.player2.contador/100);
 
+            // Atajo para reiniciar presionando R al terminar una partida
             if (canReset){
                 if (this.cursors.r.isDown){
                     this.resetGame();
@@ -126,52 +128,52 @@ export class Game extends Phaser.Scene {
         }        
     }
 
-    initialCount(){
+    initialCount(){     // Función con el contador inicial que disminuye la cuenta cada Cierto tiempo
         initialCountEvent = this.time.addEvent({
-            delay: 650,
-            callback: this.decreaseInitialCount,
+            delay: 650,     // <- "Cierto tiempo" en milisegundos
+            callback: this.decreaseInitialCount, // Función a llamar
             callbackScope: this,
             loop: true,
-            paused: !inCount,
+            paused: !inCount,   // Se pausará el conteo si pausan la escena
         });
     }
     
-    decreaseInitialCount(){
+    decreaseInitialCount(){     // Disminuye el número del contador cada que es llamado
         contadorInicial--;
         contadorInicialTxt.setText(contadorInicial);
 
         if (contadorInicial == 0){
-            contadorInicialTxt.setText('¡YA!');
-            inCount = false;
-            initialCountEvent.paused = !inCount;
+            contadorInicialTxt.setText('¡YA!');     // En lugar de un "0" se coloca un "¡YA!" el cual es ligeramente más pequeño
+            inCount = false;        
+            initialCountEvent.paused = !inCount;    // Se deja de estar en contador
             contadorInicialTxt.setStyle({ fontSize: `225px` });
 
-            this.time.addEvent({
+            this.time.addEvent({        // Se llama una última vez
                 delay: 675,
                 callback: this.decreaseInitialCount,
                 callbackScope: this,
             });
-        } else if (contadorInicial < 0){
-            contadorInicialTxt.setVisible(false);
+        } else if (contadorInicial < 0){       
+            contadorInicialTxt.setVisible(false);     // Al llamarse por última vez desaparece el "¡YA!"
         }
     }
 
-    movementPlayer(player){        
-        if (player.izquierda.isDown) {
-            player.setVelocityX(-speedPlayers);
-            player.setFlipX(false);
-            player.anims.play(player.animMovName, true);
+    movementPlayer(player){         // Función que detecta los inputs y el movimiento del jugador
+        if (player.izquierda.isDown) {      // Detecta inputs cuando va a la izquierda
+            player.setVelocityX(-speedPlayers);     // Le asigna su respectiva velocidad
+            player.setFlipX(false);     // Flipea o no la imagen
+            player.anims.play(player.animMovName, true);    // Activa la animación 
 
-            player.body.setOffset(30, 40);
+            player.body.setOffset(30, 40);      // Para mejorar la jugabilidad hace el collider más pequeño y asi evitar choques inesperados
         }
-        else if (player.derecha.isDown) {
+        else if (player.derecha.isDown) {       // Detecta input a la derecha y hace el mismo proceso
             player.setVelocityX(speedPlayers);
             player.setFlipX(true);
             player.anims.play(player.animMovName, true);
 
             player.body.setOffset(190, 40);
         }
-        else {
+        else {      // Detecta cuando no hay inputs y se queda quieto
             player.setVelocityX(0);
             player.setFlipX(false);
             player.anims.play(player.animNoMovName);
@@ -180,90 +182,87 @@ export class Game extends Phaser.Scene {
                 (player.height - 420) / 2
             );
         }
-        
-        if (player.body.velocity.x != 0){
-        } else {
-        }
 
         this.jumpPlayer(player);
     }
 
-    jumpPlayer(player){
-        if (player.body.touching.down){
+    jumpPlayer(player){     // Función que detecta el salto del jugador
+        if (player.body.touching.down){     // Esta condición detecta cuánto tiempo lleva en el aire el player
             player.tiempoEnAire = 0;
         } else {
-            player.tiempoEnAire++;
+            player.tiempoEnAire++;          // Al tocar suelo la cuenta se reinicia
         }
         
-        if (player.arriba.isDown && !player.jumper && player.onGround){
-            player.jumper = true;
-            if (player.body.touching.down){
+        if (player.arriba.isDown && !player.jumper && player.onGround){      // Para poder saltar el jugador debe Recién Presionar la tecla de salto,
+            player.jumper = true;                                            // tener contacto con un suelo 
+            if (player.body.touching.down){                                  // y que el contacto físico sea con los pies del personaje
                 player.setVelocityY(-jump);
                 player.onGround = false;
             } else {
-                if (player.tiempoEnAire < margenSalto){
-                    player.setVelocityY(-jump);
-                    player.onGround = false;
-                }
+                if (player.tiempoEnAire < margenSalto){           // En caso de que no haya contacto con un suelo pero si con una plataforma
+                    player.setVelocityY(-jump);                   // significará que está cayendo, y se le deja un margen de tiempo para,       
+                    player.onGround = false;                      // según cuánto tiempo lleva en el aire, todavía poder saltar
+                }                                                 // Esto crea un "Coyote Time", lo que mejora la experiencia de juego
             }
         }
-        if (player.arriba.isUp){
+        if (player.arriba.isUp){        // Detecta cuando se suelta la tecla de salto y está disponible para volver a efectuarla
             player.jumper = false;
         }
     }
 
-    onPlayerNoMov(player){
-        if (!player.body.touching.down || player.body.touching.left || player.body.touching.right || player.body.velocity.x == 0){
-            player.barraMov.cantidad = this.changeNumberPlayer(-1, player, player.contador, player.tiempoPlaying, 0);
+    onPlayerNoMov(player){      // Función para detectar cuando el player no se está moviendo
+        if (!player.body.touching.down || player.body.touching.left || player.body.touching.right || player.body.velocity.x == 0){ // Detecta si está moviendose o tocando una pared quieto
+            player.barraMov.cantidad = this.changeNumberPlayer(-1, player, player.contador, player.tiempoPlaying, 0); // Si no se mueve disminuirá la vida
         } else {
-            player.barraMov.cantidad = this.changeNumberPlayer(1, player, player.contador, player.tiempoPlaying, 10);
+            player.barraMov.cantidad = this.changeNumberPlayer(1, player, player.contador, player.tiempoPlaying, 10); // Si se mueve aumentará la vida
         }
     }
     
-    changeNumberPlayer(negable_frecuency, player, contador, tiempoP, sumable) {
-        if (tiempoReal > tiempoP) {
-            player.contadorAuxP1 = tiempoReal - tiempoP;
-            tiempoP = tiempoReal;
-            player.contadorAuxP1 *= negable_frecuency;
-            contador = contador + player.contadorAuxP1 + sumable;
-        }
+    changeNumberPlayer(negable_frecuency, player, contador, tiempoP, sumable) {     // Función para aumentar o disminuir la vida
+        if (tiempoReal > tiempoP) {     // Si el tiempo que ha pasado es mayor que el tiempo del jugador
+            player.contadorAuxP1 = tiempoReal - tiempoP;    // Se obtiene una unidad por la diferencia de tiempos
+            tiempoP = tiempoReal;       // Se iguala el tiempo del jugador al tiempo que ha pasado
+            player.contadorAuxP1 *= negable_frecuency;      // Se aplica esto según si se necesita aumentar o disminuir
+            contador = contador + player.contadorAuxP1 + sumable;       // Se incrementea o decrementa el contador por unidad, 
+        }                                                               // el sumable representa que se recupera más rápido de lo que pierde vida
 
-        if ((contador/1000) >= limMax){
-            contador = limMax * 1000;
-        } else if ((contador/1000) <= 0){
+        if ((contador/1000) >= limMax){     // Limita la vida en caso de excederse
+            contador = limMax * 1000;       
+        } else if ((contador/1000) <= 0){   // Activa los procesos de muerte en caso de que el contador de vida sea 0 o menos
             contador = 0;
-            gameOver = true;
-            player.lose = true;
+            gameOver = true;        // Se terminó el juego
+            player.lose = true;     // Determina cual player perdió
             this.animPlayerDead(player, player.nameDead, 0.036);
             this.delaySysVictoria(this.player1, this.player2);
         }
 
         player.contador = contador;
-        player.tiempoPlaying = tiempoP;
+        player.tiempoPlaying = tiempoP;     // Se reasignan los valores pasados como parámetros
 
-        return contador * limMax / widthMaxBarra;
-    }
+        return contador * limMax / widthMaxBarra;    // Se retorna una regla de 3 donde el ancho Máximo de Barra y el Límite Máximo son el tope
+    }                                                // y se coloca el equivalente del Contador actual como ancho de la barra
 
-    animPlayerDead(player, name, scale){
-        player.disableBody(true, true);
+    animPlayerDead(player, name, scale){        // Activa la animación del jugador que pierde
+        player.disableBody(true, true);         // Desactiva el cuerpo del personaje
 
-        this.bodyDead = this.physics.add.image(player.x, (player.y - 0.1), name).setScale(scale);
-        this.bodyDead.setSize(1500, 1450);
-        this.physics.add.collider(this.bodyDead, this.platforms);
+        this.bodyDead = this.physics.add.image(player.x, (player.y - 0.1), name).setScale(scale);     
+        this.bodyDead.setSize(1500, 1450);                                                        // Instancia el sprite de derrota y se le asignan
+        this.physics.add.collider(this.bodyDead, this.platforms);                                 // propiedades físicas
         this.physics.add.collider(this.bodyDead, this.player1);
         this.physics.add.collider(this.bodyDead, this.player2);
         this.bodyDead.setCollideWorldBounds(true);
         this.bodyDead.body.setMass(1000);
         this.bodyDead.setDrag(2000);
-        this.bodyDead.body.gravity.y = 2000;            
-        playerDeath++;
+        this.bodyDead.body.gravity.y = 2000;          
 
-        if (playerDeath == 1){
+        playerDeath++;      // Aumenta el conteo de jugadores muertos iniciando desde el -1
+
+        if (playerDeath == 1){      // Si el conteo es 1 significa que los 2 murieron al mismo tiempo y que hay un empate
             empate = true;
         }
     }
 
-    createPoint() {        
+    createPoint() {        // Función para el contador que instancia los puntos por conseguir
         this.time.addEvent({
             delay: intervaloPuntos * 1000, // milisegundos * 1000 = segundos
             callback: this.randomPosPoints, // Funcion por llamar cada determinado tiempo
@@ -272,49 +271,49 @@ export class Game extends Phaser.Scene {
         });
     }
 
-    randomPosPoints(){
-        if (!gameOver){
-            let randomPos = Math.floor(Math.random() * 9) + 1;
+    randomPosPoints(){      // Se genera un número aleatorio que representará la ubicación del punto por encima de una plataforma
+        if (!gameOver){     // Los puntos se seguirán ubicando y posicionando mientras el juego no termine
+            let randomPos = Math.floor(Math.random() * 9) + 1; // Se genera el número aleatorio
             let randomPossiblePos = {
-                1:{
+                1:{     // Plataforma arriba izquierda
                     ranPosX: 0.13,
                     ranPosY: 0.3,
                 },
     
-                2:{
+                2:{     // Plataforma medio izquierda
                     ranPosX: 0.13,
                     ranPosY: 0.6,
                 },
     
-                3:{
+                3:{     // Suelo abajo izquierda
                     ranPosX: 0.13,
                     ranPosY: 0.9,
                 },
-                4:{
+                4:{     // Plataforma arriba centro
                     ranPosX: 0.5,
                     ranPosY: 0.2,
                 },
     
-                5:{
+                5:{     // Plataforma medio centro
                     ranPosX: 0.5,
                     ranPosY: 0.45,
                 },
     
-                6:{
+                6:{     // Plataforma abajo centro
                     ranPosX: 0.5,
                     ranPosY: 0.7,
                 },
-                7:{
+                7:{     // Plataforma arriba derecha
                     ranPosX: 0.87,
                     ranPosY: 0.3,
                 },
     
-                8:{
+                8:{     // Plataforma medio derecha
                     ranPosX: 0.87,
                     ranPosY: 0.6,
                 },
     
-                9:{
+                9:{     // Suelo abajo derecha
                     ranPosX: 0.87,
                     ranPosY: 0.9,
                 },
@@ -323,7 +322,7 @@ export class Game extends Phaser.Scene {
             let xR = randomPossiblePos[randomPos].ranPosX;
             let yR = randomPossiblePos[randomPos].ranPosY;
     
-            this.pointsAppear(xR, yR);
+            this.pointsAppear(xR, yR); // Se manda la ubicación del punto a manera de coordenadas
         }
 
     }
