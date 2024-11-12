@@ -288,7 +288,7 @@ export class Game extends Phaser.Scene {
     
                 3:{     // Suelo abajo izquierda
                     ranPosX: 0.13,
-                    ranPosY: 0.9,
+                    ranPosY: 0.88,
                 },
                 4:{     // Plataforma arriba centro
                     ranPosX: 0.5,
@@ -316,7 +316,7 @@ export class Game extends Phaser.Scene {
     
                 9:{     // Suelo abajo derecha
                     ranPosX: 0.87,
-                    ranPosY: 0.9,
+                    ranPosY: 0.88,
                 },
             }
             
