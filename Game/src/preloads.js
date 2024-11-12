@@ -4,6 +4,7 @@ export class Preloads extends Phaser.Scene {
         super({ key: 'Preloads' });
     }
     
+    // Se declara del directorio donde se sacan los assets y se les asigna un nombre
     preload(){
         this.load.image('fondoMenu', 'assets/fondoMenu1.png');
         this.load.image('logoImg', 'assets/logo.png');
@@ -22,7 +23,7 @@ export class Preloads extends Phaser.Scene {
         this.load.image('dojoParedDer', 'assets/bambuDojoDer.png');
         this.load.image('dojoParedIzq', 'assets/bambuDojoIzq.png');
 
-        this.load.spritesheet('queso', 'assets/c.png', {frameWidth: 400, frameHeight: 400});
+        this.load.spritesheet('queso', 'assets/spritesheetQueso.png', {frameWidth: 700, frameHeight: 700});
 
         this.load.spritesheet('player1', 'assets/a.png', {frameWidth: 488, frameHeight: 489});
         this.load.spritesheet('player2', 'assets/b.png', {frameWidth: 488, frameHeight: 489});
@@ -40,6 +41,7 @@ export class Preloads extends Phaser.Scene {
         
     }
 
+    // Inmediatamente se direcciona a la escena del menú principal
     create(){
         this.scene.start('Menu');
     }

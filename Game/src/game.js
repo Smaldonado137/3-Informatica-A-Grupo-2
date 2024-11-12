@@ -334,7 +334,7 @@ export class Game extends Phaser.Scene {
         let pointPosY = heightScr * porcentPosY;  
         
         existingPoint = true;
-        let queso = this.physics.add.sprite(pointPosX, pointPosY, 'queso').setScale(0.35).refreshBody().setSize(200, 250).setDepth(1);
+        let queso = this.physics.add.sprite(pointPosX, pointPosY, 'queso').setScale(0.25).refreshBody().setSize(200, 250).setDepth(1);
         queso.body.allowGravity = false;
 
         this.physics.add.overlap(this.player1, queso, this.onCollectPoint, null, this);
@@ -613,7 +613,7 @@ export class Game extends Phaser.Scene {
             this.anims.create({
                 key: 'quesoAnim',
                 frames: this.anims.generateFrameNumbers('queso', {start: 0, end: 10}),
-                frameRate: 15,
+                frameRate: 17,
                 repeat: -1,
             });
 
