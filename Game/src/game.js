@@ -240,7 +240,8 @@ export class Game extends Phaser.Scene {
         player.tiempoPlaying = tiempoP;     // Se reasignan los valores pasados como parámetros
 
         return contador * limMax / widthMaxBarra;    // Se retorna una regla de 3 donde el ancho Máximo de Barra y el Límite Máximo son el tope
-    }                                                // y se coloca el equivalente del Contador actual como ancho de la barra
+                                                     // y se coloca el equivalente del Contador actual como ancho de la barra
+    }                                                
 
     animPlayerDead(player, name, scale){        // Activa la animación del jugador que pierde
         player.disableBody(true, true);         // Desactiva el cuerpo del personaje
