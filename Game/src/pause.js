@@ -110,7 +110,7 @@ export class Pause extends Phaser.Scene {
         if (canReset){
             if (this.pauseKey.r.isDown){
                 this.resetGame();
-            }                
+            }             
         }
     }
     
