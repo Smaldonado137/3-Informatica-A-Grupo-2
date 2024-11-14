@@ -50,6 +50,7 @@ export class Preloads extends Phaser.Scene {
         this.load.image('empateImg', 'assets/empateImg.png');
         this.load.image('barraMovP1', 'assets/barraMovP1.png');
         this.load.image('barraMovP2', 'assets/barraMovP2.png');
+        this.load.image('marcoBarra', 'assets/marcoVida.png');
         this.load.image('cabezaTaza', 'assets/cabezaTaza.png');
         this.load.image('cabezaPan', 'assets/cabezaPan.png');
         

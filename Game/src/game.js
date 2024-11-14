@@ -480,10 +480,14 @@ export class Game extends Phaser.Scene {
         this.player1.barraMov.cantidad = this.player1.contador * limMax / widthMaxBarra;
         this.player1.barraMov.displayOriginX = 0;
         this.player1.barraMov.displayWidth = this.player1.barraMov.cantidad;
-        this.player1.icon = this.add.image(widthScr * 0.053, heightScr * 0.09, 'cabezaTaza').setScale(0.04).setDepth(9);
+        this.player1.marco = this.add.image(widthScr * 0.005, heightScr * 0.07, 'marcoBarra').setScale(0.5).setDepth(9);
+        this.player1.marco.displayOriginX = 0;
+        this.player1.marco.setDisplaySize(this.player1.barraMov.displayWidth * 1.28, this.player1.marco.displayHeight);
+        this.player1.icon = this.add.image(widthScr * 0.035, heightScr * 0.1, 'cabezaTaza').setScale(0.045).setDepth(10);
+
 
         // Puntos
-        this.player1.numeroContador = this.add.text(widthScr * 0.1, heightScr * 0.15, '0',{
+        this.player1.numeroContador = this.add.text(widthScr * 0.07, heightScr * 0.18, '0',{
             fontFamily: 'Japan',
             fontSize : '75px',
             fill: '#ffffff',
@@ -516,13 +520,16 @@ export class Game extends Phaser.Scene {
         this.player2.izquierda = this.cursors.left;
         this.player2.derecha = this.cursors.right;
         
-        this.player2.barraMov = this.add.image(widthScr * 0.95, heightScr * 0.07, 'barraMovP2').setScale(0.55).setDepth(8);
+        this.player2.barraMov = this.add.image(widthScr * 0.946, heightScr * 0.07, 'barraMovP2').setScale(0.55).setDepth(8);
         this.player2.barraMov.cantidad = this.player2.contador * limMax / widthMaxBarra;
         this.player2.barraMov.displayOriginX = this.player2.barraMov.width;
         this.player2.barraMov.displayWidth = this.player2.barraMov.cantidad;
-        this.player2.icon = this.add.image(widthScr * 0.95, heightScr * 0.09, 'cabezaPan').setScale(0.04).setDepth(9);
+        this.player2.marco = this.add.image(widthScr * 0.986, heightScr * 0.07, 'marcoBarra').setScale(0.5).setDepth(9);
+        this.player2.marco.displayOriginX = this.player2.marco.width;
+        this.player2.marco.setDisplaySize(this.player2.barraMov.displayWidth * 1.28, this.player2.marco.displayHeight);
+        this.player2.icon = this.add.image(widthScr * 0.965, heightScr * 0.1, 'cabezaPan').setScale(0.045).setDepth(10);
         
-        this.player2.numeroContador = this.add.text(widthScr * 0.9, heightScr * 0.15, '0',{
+        this.player2.numeroContador = this.add.text(widthScr * 0.93, heightScr * 0.18, '0',{
             fontFamily: 'Japan',
             fontSize : '75px',
             fill: '#ffffff',
