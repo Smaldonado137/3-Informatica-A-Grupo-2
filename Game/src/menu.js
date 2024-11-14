@@ -4,6 +4,7 @@ let heightScr;
 let returnBtn;
 let panelMainMenu;
 let panelOptions;
+let panelControls;
 let panelCredits;
 
 let isMuted = false;
@@ -29,55 +30,53 @@ export class Menu extends Phaser.Scene {
         panelMainMenu = {
             logo: this.add.image(widthScr * 0.5, heightScr * 0.23, 'logoImg').setScale(0.29),
 
-            playBtn: this.add.image(widthScr * 0.5, heightScr * 0.52, 'button').setScale(0.35).setInteractive().setDepth(6),
-            platTxt: this.add.text(widthScr * 0.5, heightScr * 0.52, 'Jugar',{
-                fontFamily: 'Japan',
-                fontSize : '40px',
-                fill: '#000000',
-            }).setOrigin(0.5).setDepth(8),
+            playBtn: this.add.image(widthScr * 0.5, heightScr * 0.52, 'jugarNoPress').setScale(0.35).setInteractive().setDepth(6),
             
-            optionBtn: this.add.image(widthScr * 0.3, heightScr * 0.75, 'button').setScale(0.25).setInteractive().setDepth(6),
-            optionTxt: this.add.text(widthScr * 0.3, heightScr * 0.75, 'Opciones',{
-                fontFamily: 'Japan',
-                fontSize : '40px',
-                fill: '#000000',
-            }).setOrigin(0.5).setDepth(8),         
+            optionBtn: this.add.image(widthScr * 0.25, heightScr * 0.75, 'opcionesNoPress').setScale(0.2).setInteractive().setDepth(6),     
             
-            creditBtn: this.add.image(widthScr * 0.7, heightScr * 0.75, 'button').setScale(0.25).setInteractive().setDepth(6),
-            creditTxt: this.add.text(widthScr * 0.7, heightScr * 0.75, 'Creditos',{
-                fontFamily: 'Japan',
-                fontSize : '40px',
-                fill: '#000000',
-            }).setOrigin(0.5).setDepth(8),
+            controlBtn: this.add.image(widthScr * 0.5, heightScr * 0.75, 'jugarNoPress').setScale(0.2).setInteractive().setDepth(6),
+
+            creditBtn: this.add.image(widthScr * 0.75, heightScr * 0.75, 'creditosNoPress').setScale(0.2).setInteractive().setDepth(6),
         }
+
         // Funciones del menú principal
         panelMainMenu.playBtn.on('pointerdown', this.play, this);
         panelMainMenu.playBtn.on('pointerover', () => {
-            panelMainMenu.playBtn.setTexture('buttonPressed');
+            panelMainMenu.playBtn.setTexture('jugarPress');
             this.input.setDefaultCursor('pointer');
         });
         panelMainMenu.playBtn.on('pointerout', () => {
-            panelMainMenu.playBtn.setTexture('button');
+            panelMainMenu.playBtn.setTexture('jugarNoPress');
             this.input.setDefaultCursor('default');
         });
 
         panelMainMenu.optionBtn.on('pointerdown', this.options, this);
         panelMainMenu.optionBtn.on('pointerover', () => {
-            panelMainMenu.optionBtn.setTexture('buttonPressed');
+            panelMainMenu.optionBtn.setTexture('opcionesPress');
             this.input.setDefaultCursor('pointer');
         });
         panelMainMenu.optionBtn.on('pointerout', () => {
-            panelMainMenu.optionBtn.setTexture('button');
+            panelMainMenu.optionBtn.setTexture('opcionesNoPress');
+            this.input.setDefaultCursor('default');
+        });
+
+        panelMainMenu.controlBtn.on('pointerdown', this.controls, this);
+        panelMainMenu.controlBtn.on('pointerover', () => {
+            panelMainMenu.controlBtn.setTexture('jugarPress');
+            this.input.setDefaultCursor('pointer');
+        });
+        panelMainMenu.controlBtn.on('pointerout', () => {
+            panelMainMenu.controlBtn.setTexture('jugarNoPress');
             this.input.setDefaultCursor('default');
         });
 
         panelMainMenu.creditBtn.on('pointerdown', this.credits, this);
         panelMainMenu.creditBtn.on('pointerover', () => {
-            panelMainMenu.creditBtn.setTexture('buttonPressed');
+            panelMainMenu.creditBtn.setTexture('creditosPress');
             this.input.setDefaultCursor('pointer');
         });
         panelMainMenu.creditBtn.on('pointerout', () => {
-            panelMainMenu.creditBtn.setTexture('button');
+            panelMainMenu.creditBtn.setTexture('creditosNoPress');
             this.input.setDefaultCursor('default');
         });
 
@@ -99,6 +98,22 @@ export class Menu extends Phaser.Scene {
             .on('pointerout', () => this.input.setDefaultCursor('default'));
         }
 
+        // Panel controles
+        panelControls = {
+            player1Txt: this.add.image(widthScr * 0.3, heightScr * 0.14, 'jugadorP1Txt').setScale(0.25).setDepth(6),
+            player2Txt: this.add.image(widthScr * 0.7, heightScr * 0.14, 'jugadorP2Txt').setScale(0.25).setDepth(6),
+            player1Img: this.add.image(widthScr * 0.3, heightScr * 0.39, 'victP1').setScale(0.17).setDepth(6),
+            player2Img: this.add.image(widthScr * 0.7, heightScr * 0.39, 'victP2').setScale(0.17).setDepth(6),
+            wasdImg:this.add.image(widthScr * 0.3, heightScr * 0.74, 'wasdTeclado').setScale(0.55).setDepth(6),
+            arrowsImg: this.add.image(widthScr * 0.7, heightScr * 0.74, 'flechasTeclado').setScale(0.55).setDepth(6),
+
+            returnBtn: returnBtn.setVisible(true),
+        }
+
+        for (let objeto in panelControls) {
+            panelControls[objeto].setVisible(false);
+        }
+
         // Panel creditos
         panelCredits = {
             creditosTxt: this.add.text(widthScr * 0.5, heightScr * 0.25, 'Hecho por Santiago Maldonado y Juan Navia',{
@@ -109,7 +124,6 @@ export class Menu extends Phaser.Scene {
 
             returnBtn: returnBtn.setVisible(true),
         }
-        // Funciones creditos
         for (let objeto in panelCredits) {
             panelCredits[objeto].setVisible(false);
         }
@@ -164,6 +178,16 @@ export class Menu extends Phaser.Scene {
         }
     }
 
+    controls(){        
+        for (let objeto in panelControls) {
+            panelControls[objeto].setVisible(true);
+        }
+
+        for (let objeto in panelMainMenu) {
+            panelMainMenu[objeto].setVisible(false);
+        }
+    }
+
     credits(){
         for (let objeto in panelCredits) {
             panelCredits[objeto].setVisible(true);
@@ -177,6 +201,10 @@ export class Menu extends Phaser.Scene {
     returnToMenu(){
         for (let objeto in panelOptions) {
             panelOptions[objeto].setVisible(false);
+        }
+
+        for (let objeto in panelControls) {
+            panelControls[objeto].setVisible(false);
         }
 
         for (let objeto in panelCredits) {

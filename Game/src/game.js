@@ -2,7 +2,7 @@ let widthScr;
 let heightScr;
 
 let speedPlayers = 600;
-let jump = 1400;
+let jump = 1350;
 
 let margenSalto = 10;
 
@@ -84,9 +84,9 @@ export class Game extends Phaser.Scene {
             
     }
     
-    update(){
+    update(time, delta){
         if (!inCount){      // Si está en la cuenta regresiva inicial no se ejecutará nada
-            tiempoReal += 10;       // Se toma el tiempo que transcurre mientras la escena está activa y despausada
+            tiempoReal += delta;       // Se toma el tiempo que transcurre mientras la escena está activa y despausada
 
             if (!gameOver){     // Mientras el juego no se acabe se procesará lo siguiente
                 this.onPlayerNoMov(this.player1);
@@ -164,22 +164,22 @@ export class Game extends Phaser.Scene {
             player.setFlipX(false);     // Flipea o no la imagen
             player.anims.play(player.animMovName, true);    // Activa la animación 
 
-            player.body.setOffset(30, 40);      // Para mejorar la jugabilidad hace el collider más pequeño y asi evitar choques inesperados
+            player.body.setOffset(100, 80);      // Para mejorar la jugabilidad hace el collider más pequeño y asi evitar choques inesperados
         }
         else if (player.derecha.isDown) {       // Detecta input a la derecha y hace el mismo proceso
             player.setVelocityX(speedPlayers);
             player.setFlipX(true);
             player.anims.play(player.animMovName, true);
 
-            player.body.setOffset(190, 40);
+            player.body.setOffset(300, 80);
         }
         else {      // Detecta cuando no hay inputs y se queda quieto
             player.setVelocityX(0);
             player.setFlipX(false);
             player.anims.play(player.animNoMovName);
             player.body.setOffset(
-                (player.width - 250) / 2,
-                (player.height - 420) / 2
+                (player.width - 300) / 2,
+                (player.height - 575) / 2
             );
         }
 
@@ -416,38 +416,28 @@ export class Game extends Phaser.Scene {
 
             spriteGanador: this.add.image(widthScr * 0.5, heightScr * 0.46, winImg).setScale(winImgScale).setDepth(12),
 
-            reiniciarBtn: this.add.image(widthScr * 0.35, heightScr * 0.75, 'button').setScale(0.27).setDepth(12).setInteractive(),
-            reiniciarTxt: this.add.text(widthScr * 0.35, heightScr * 0.75, 'Reiniciar',{
-                fontFamily: 'Japan',
-                fontSize : '45px',
-                fill: '#000000',
-            }).setOrigin(0.5).setDepth(12),
+            reiniciarBtn: this.add.image(widthScr * 0.35, heightScr * 0.75, 'reiniciarNoPress').setScale(0.27).setDepth(12).setInteractive(),
             
-            menuBtn: this.add.image(widthScr * 0.65, heightScr * 0.75, 'button').setScale(0.27).setDepth(12).setInteractive(),
-            menuTxt: this.add.text(widthScr * 0.65, heightScr * 0.75, 'Menu',{
-                fontFamily: 'Japan',
-                fontSize : '45px',
-                fill: '#000000',
-            }).setOrigin(0.5).setDepth(12),
+            menuBtn: this.add.image(widthScr * 0.65, heightScr * 0.75, 'menuNoPress').setScale(0.27).setDepth(12).setInteractive(),
         }        
 
         this.winPanel.reiniciarBtn.on('pointerdown', () => this.resetGame());
         this.winPanel.reiniciarBtn.on('pointerover', () => {
-            this.winPanel.reiniciarBtn.setTexture('buttonPressed');
+            this.winPanel.reiniciarBtn.setTexture('reiniciarPress');
             this.input.setDefaultCursor('pointer');
         });
         this.winPanel.reiniciarBtn.on('pointerout', () => {
-            this.winPanel.reiniciarBtn.setTexture('button');
+            this.winPanel.reiniciarBtn.setTexture('reiniciarNoPress');
             this.input.setDefaultCursor('default');
         });
 
         this.winPanel.menuBtn.on('pointerdown', () => this.mainMenu());
         this.winPanel.menuBtn.on('pointerover', () => {
-            this.winPanel.menuBtn.setTexture('buttonPressed');
+            this.winPanel.menuBtn.setTexture('menuPress');
             this.input.setDefaultCursor('pointer');
         });
         this.winPanel.menuBtn.on('pointerout', () => {
-            this.winPanel.menuBtn.setTexture('button');
+            this.winPanel.menuBtn.setTexture('menuNoPress');
             this.input.setDefaultCursor('default');
         });
     }
@@ -462,8 +452,8 @@ export class Game extends Phaser.Scene {
 
     creatingPlayers(){
         // Crear Player
-        this.player1 = this.physics.add.sprite(widthScr * 0.45, heightScr * 0.87, 'player1').setScale(0.26).setDepth(4);
-        this.player1.body.setSize(250, 420);
+        this.player1 = this.physics.add.sprite(widthScr * 0.45, heightScr * 0.87, 'player1').setScale(0.18).setDepth(4);
+        this.player1.body.setSize(300, 575);
         
         this.player1.name = 'player1';
         this.player1.animMovName = 'movP1';
@@ -507,8 +497,8 @@ export class Game extends Phaser.Scene {
             
         
         // Creando al segundo player con el mismo proceso que el primero
-        this.player2 = this.physics.add.sprite(widthScr * 0.55, heightScr * 0.87, 'player2').setScale(0.26).setDepth(4);
-        this.player2.body.setSize(250, 420);
+        this.player2 = this.physics.add.sprite(widthScr * 0.55, heightScr * 0.87, 'player2').setScale(0.18).setDepth(4);
+        this.player2.body.setSize(300, 575);
         this.player2.name = 'player2';
         this.player2.animMovName = 'movP2';
         this.player2.animNoMovName = 'noMovP2';  

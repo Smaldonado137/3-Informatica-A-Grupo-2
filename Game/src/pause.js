@@ -31,26 +31,11 @@ export class Pause extends Phaser.Scene {
                 fill: '#000000',
             }).setOrigin(0.5).setDepth(8),
 
-            continuarBtn: this.add.image(widthScr * 0.5, heightScr * 0.35, 'button').setScale(0.25).setDepth(8).setInteractive(),
-            continuarTxt: this.add.text(widthScr * 0.5, heightScr * 0.35, 'Continuar',{
-                fontFamily: 'Japan',
-                fontSize : '40px',
-                fill: '#000000',
-            }).setOrigin(0.5).setDepth(8),
+            continuarBtn: this.add.image(widthScr * 0.5, heightScr * 0.35, 'continuarNoPress').setScale(0.25).setDepth(8).setInteractive(),
 
-            reiniciarBtn: this.add.image(widthScr * 0.5, heightScr * 0.53, 'button').setScale(0.25).setDepth(8).setInteractive(),
-            reiniciarTxt: this.add.text(widthScr * 0.5, heightScr * 0.53, 'Reiniciar',{
-                fontFamily: 'Japan',
-                fontSize : '40px',
-                fill: '#000000',
-            }).setOrigin(0.5).setDepth(8),
+            reiniciarBtn: this.add.image(widthScr * 0.5, heightScr * 0.53, 'reiniciarNoPress').setScale(0.25).setDepth(8).setInteractive(),
 
-            menuBtn: this.add.image(widthScr * 0.5, heightScr * 0.71, 'button').setScale(0.25).setDepth(8).setInteractive(),
-            menuTxt: this.add.text(widthScr * 0.5, heightScr * 0.71, 'Menu',{
-                fontFamily: 'Japan',
-                fontSize : '40px',
-                fill: '#000000',
-            }).setOrigin(0.5).setDepth(8),
+            menuBtn: this.add.image(widthScr * 0.5, heightScr * 0.71, 'menuNoPress').setScale(0.25).setDepth(8).setInteractive(),
 
             fullScrBtn: this.add.image(widthScr * 0.92, heightScr * 0.88, 'fullScrBtn').setScale(0.09).setInteractive().setDepth(6),
         }        
@@ -62,28 +47,28 @@ export class Pause extends Phaser.Scene {
         // Función del botón continuar
         pausePanel.continuarBtn.on('pointerdown', () => this.pause(pausePanel));
         pausePanel.continuarBtn.on('pointerover', () => {
-            pausePanel.continuarBtn.setTexture('buttonPressed');
+            pausePanel.continuarBtn.setTexture('continuarPress');
         });
         pausePanel.continuarBtn.on('pointerout', () => {
-            pausePanel.continuarBtn.setTexture('button');
+            pausePanel.continuarBtn.setTexture('continuarNoPress');
         });
         
         // Función del botón reiniciar
         pausePanel.reiniciarBtn.on('pointerdown', () => this.resetGame());
         pausePanel.reiniciarBtn.on('pointerover', () => {
-            pausePanel.reiniciarBtn.setTexture('buttonPressed');
+            pausePanel.reiniciarBtn.setTexture('reiniciarPress');
         });
         pausePanel.reiniciarBtn.on('pointerout', () => {
-            pausePanel.reiniciarBtn.setTexture('button');
+            pausePanel.reiniciarBtn.setTexture('reiniciarNoPress');
         });
         
         // Función del botón menú
         pausePanel.menuBtn.on('pointerdown', () => this.mainMenu());
         pausePanel.menuBtn.on('pointerover', () => {
-            pausePanel.menuBtn.setTexture('buttonPressed');
+            pausePanel.menuBtn.setTexture('menuPress');
         });
         pausePanel.menuBtn.on('pointerout', () => {
-            pausePanel.menuBtn.setTexture('button');
+            pausePanel.menuBtn.setTexture('menuNoPress');
         });
 
         pausePanel.fullScrBtn.on('pointerdown', this.fullScreen, this);

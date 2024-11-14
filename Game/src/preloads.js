@@ -13,8 +13,25 @@ export class Preloads extends Phaser.Scene {
         this.load.image('fullScrBtn', 'assets/flechasPantallaMinimizar.png');
         this.load.image('muteBtn', 'assets/muted.png');
         this.load.image('unmuteBtn', 'assets/noMuted.png');
-        this.load.image('button', 'assets/botonNoPresionado.png');
-        this.load.image('buttonPressed', 'assets/botonPresionado.png');
+        this.load.image('jugadorP1Txt', 'assets/jugadorP1Txt.png');
+        this.load.image('jugadorP2Txt', 'assets/jugadorP2Txt.png');
+        this.load.image('wasdTeclado', 'assets/wasdTeclado.png');
+        this.load.image('flechasTeclado', 'assets/flechasTeclado.png');
+
+        this.load.image('continuarPress', 'assets/continuarPress.png');
+        this.load.image('continuarNoPress', 'assets/continuarNoPress.png');
+        this.load.image('reiniciarPress', 'assets/reiniciarPress.png');
+        this.load.image('reiniciarNoPress', 'assets/reiniciarNoPress.png');
+        this.load.image('menuPress', 'assets/menuPress.png');
+        this.load.image('menuNoPress', 'assets/menuNoPress.png');
+
+        this.load.image('jugarPress', 'assets/jugarPress.png');
+        this.load.image('jugarNoPress', 'assets/jugarNoPress.png');
+        this.load.image('opcionesPress', 'assets/opcionesPress.png');
+        this.load.image('opcionesNoPress', 'assets/opcionesNoPress.png');
+        this.load.image('creditosPress', 'assets/creditosPress.png');
+        this.load.image('creditosNoPress', 'assets/creditosNoPress.png');
+
         this.load.image('regresarBtn', 'assets/flechaVolver.png');
 
         this.load.image('background', 'assets/fondoDojo.png');
@@ -25,8 +42,8 @@ export class Preloads extends Phaser.Scene {
 
         this.load.spritesheet('queso', 'assets/spritesheetQueso.png', {frameWidth: 700, frameHeight: 700});
 
-        this.load.spritesheet('player1', 'assets/a.png', {frameWidth: 488, frameHeight: 489});
-        this.load.spritesheet('player2', 'assets/b.png', {frameWidth: 488, frameHeight: 489});
+        this.load.spritesheet('player1', 'assets/spritesheetTaza.png', {frameWidth: 700, frameHeight: 700});
+        this.load.spritesheet('player2', 'assets/spritesheetPan.png', {frameWidth: 700, frameHeight: 700});
 
         this.load.image('victP1', 'assets/tazaFrente.png');
         this.load.image('victP2', 'assets/panFrente.png');
@@ -37,7 +54,6 @@ export class Preloads extends Phaser.Scene {
         this.load.image('cabezaPan', 'assets/cabezaPan.png');
         
         this.load.image('panel', 'assets/panel.png');
-        this.load.image('botonPausa', 'assets/pausaBoton.png');
         
     }
 
