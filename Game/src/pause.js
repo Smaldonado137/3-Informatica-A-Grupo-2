@@ -31,11 +31,11 @@ export class Pause extends Phaser.Scene {
                 fill: '#000000',
             }).setOrigin(0.5).setDepth(8),
 
-            continuarBtn: this.add.image(widthScr * 0.5, heightScr * 0.35, 'continuarNoPress').setScale(0.25).setDepth(8).setInteractive(),
+            continuarBtn: this.add.image(widthScr * 0.5, heightScr * 0.35, 'continuarNoPress').setScale(0.23).setDepth(8).setInteractive(),
 
-            reiniciarBtn: this.add.image(widthScr * 0.5, heightScr * 0.53, 'reiniciarNoPress').setScale(0.25).setDepth(8).setInteractive(),
+            reiniciarBtn: this.add.image(widthScr * 0.5, heightScr * 0.53, 'reiniciarNoPress').setScale(0.23).setDepth(8).setInteractive(),
 
-            menuBtn: this.add.image(widthScr * 0.5, heightScr * 0.71, 'menuNoPress').setScale(0.25).setDepth(8).setInteractive(),
+            menuBtn: this.add.image(widthScr * 0.5, heightScr * 0.71, 'menuNoPress').setScale(0.23).setDepth(8).setInteractive(),
 
             fullScrBtn: this.add.image(widthScr * 0.92, heightScr * 0.88, 'fullScrBtn').setScale(0.09).setInteractive().setDepth(6),
         }        

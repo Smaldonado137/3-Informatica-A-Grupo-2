@@ -30,15 +30,15 @@ export class Menu extends Phaser.Scene {
         panelMainMenu = {
             logo: this.add.image(widthScr * 0.5, heightScr * 0.23, 'logoImg').setScale(0.29),
 
-            playBtn: this.add.image(widthScr * 0.5, heightScr * 0.52, 'jugarNoPress').setScale(0.35).setInteractive().setDepth(6),
+            playBtn: this.add.image(widthScr * 0.5, heightScr * 0.54, 'jugarNoPress').setScale(0.3).setInteractive().setDepth(6),
             
-            optionBtn: this.add.image(widthScr * 0.25, heightScr * 0.75, 'opcionesNoPress').setScale(0.2).setInteractive().setDepth(6),     
+            optionBtn: this.add.image(widthScr * 0.22, heightScr * 0.77, 'opcionesNoPress').setScale(0.22).setInteractive().setDepth(6),     
             
-            controlBtn: this.add.image(widthScr * 0.5, heightScr * 0.75, 'jugarNoPress').setScale(0.2).setInteractive().setDepth(6),
+            controlBtn: this.add.image(widthScr * 0.5, heightScr * 0.77, 'jugarNoPress').setScale(0.22).setInteractive().setDepth(6),
 
-            creditBtn: this.add.image(widthScr * 0.75, heightScr * 0.75, 'creditosNoPress').setScale(0.2).setInteractive().setDepth(6),
+            creditBtn: this.add.image(widthScr * 0.78, heightScr * 0.77, 'creditosNoPress').setScale(0.22).setInteractive().setDepth(6),
         }
-
+        
         // Funciones del menú principal
         panelMainMenu.playBtn.on('pointerdown', this.play, this);
         panelMainMenu.playBtn.on('pointerover', () => {

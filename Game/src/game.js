@@ -25,6 +25,7 @@ let widthMaxBarra;
 let intervaloPuntos = 2;
 let existingPoint;
 let firstAppear;
+let instancePanWin;
 
 let platformsScale = 0.12;
 
@@ -48,6 +49,7 @@ export class Game extends Phaser.Scene {
         inCount = true
         empate = false;
         firstAppear = true;
+        instancePanWin = 0;
         existingPoint = false;
         tiempoReal = 0;
         playerDeath = -1;
@@ -411,43 +413,46 @@ export class Game extends Phaser.Scene {
 
         this.scene.pause('Pause');  
 
-        this.winPanel = {
-            fondoNegroPantalla: this.add.graphics().fillStyle(0x000000, 0.3).fillRect(0, 0, widthScr, heightScr).setDepth(10),
-
-            fondoPausa: this.add.image(widthScr * 0.5, heightScr * 0.5, 'panel').setDisplaySize(widthScr * 0.66, heightScr * 0.85).setDepth(11),
-            
-            ganadorTxt: this.add.text(widthScr * 0.5, heightScr * 0.2, winTxt,{
-                fontFamily: 'Japan',
-                fontSize : '40px',
-                fill: '#000000',
-            }).setOrigin(0.5).setDepth(12),
-
-            spriteGanador: this.add.image(widthScr * 0.5, heightScr * 0.46, winImg).setScale(winImgScale).setDepth(12),
-
-            reiniciarBtn: this.add.image(widthScr * 0.35, heightScr * 0.75, 'reiniciarNoPress').setScale(0.27).setDepth(12).setInteractive(),
-            
-            menuBtn: this.add.image(widthScr * 0.65, heightScr * 0.75, 'menuNoPress').setScale(0.27).setDepth(12).setInteractive(),
-        }        
-
-        this.winPanel.reiniciarBtn.on('pointerdown', () => this.resetGame());
-        this.winPanel.reiniciarBtn.on('pointerover', () => {
-            this.winPanel.reiniciarBtn.setTexture('reiniciarPress');
-            this.input.setDefaultCursor('pointer');
-        });
-        this.winPanel.reiniciarBtn.on('pointerout', () => {
-            this.winPanel.reiniciarBtn.setTexture('reiniciarNoPress');
-            this.input.setDefaultCursor('default');
-        });
-
-        this.winPanel.menuBtn.on('pointerdown', () => this.mainMenu());
-        this.winPanel.menuBtn.on('pointerover', () => {
-            this.winPanel.menuBtn.setTexture('menuPress');
-            this.input.setDefaultCursor('pointer');
-        });
-        this.winPanel.menuBtn.on('pointerout', () => {
-            this.winPanel.menuBtn.setTexture('menuNoPress');
-            this.input.setDefaultCursor('default');
-        });
+        if (instancePanWin == 0){
+            this.winPanel = {
+                fondoNegroPantalla: this.add.graphics().fillStyle(0x000000, 0.3).fillRect(0, 0, widthScr, heightScr).setDepth(10),
+    
+                fondoPausa: this.add.image(widthScr * 0.5, heightScr * 0.5, 'panel').setDisplaySize(widthScr * 0.66, heightScr * 0.85).setDepth(11),
+                
+                ganadorTxt: this.add.text(widthScr * 0.5, heightScr * 0.2, winTxt,{
+                    fontFamily: 'Japan',
+                    fontSize : '40px',
+                    fill: '#000000',
+                }).setOrigin(0.5).setDepth(12),
+    
+                spriteGanador: this.add.image(widthScr * 0.5, heightScr * 0.46, winImg).setScale(winImgScale).setDepth(12),
+    
+                reiniciarBtn: this.add.image(widthScr * 0.35, heightScr * 0.75, 'reiniciarNoPress').setScale(0.23).setDepth(12).setInteractive(),
+                
+                menuBtn: this.add.image(widthScr * 0.65, heightScr * 0.75, 'menuNoPress').setScale(0.23).setDepth(12).setInteractive(),
+            }        
+    
+            this.winPanel.reiniciarBtn.on('pointerdown', () => this.resetGame());
+            this.winPanel.reiniciarBtn.on('pointerover', () => {
+                this.winPanel.reiniciarBtn.setTexture('reiniciarPress');
+                this.input.setDefaultCursor('pointer');
+            });
+            this.winPanel.reiniciarBtn.on('pointerout', () => {
+                this.winPanel.reiniciarBtn.setTexture('reiniciarNoPress');
+                this.input.setDefaultCursor('default');
+            });
+    
+            this.winPanel.menuBtn.on('pointerdown', () => this.mainMenu());
+            this.winPanel.menuBtn.on('pointerover', () => {
+                this.winPanel.menuBtn.setTexture('menuPress');
+                this.input.setDefaultCursor('pointer');
+            });
+            this.winPanel.menuBtn.on('pointerout', () => {
+                this.winPanel.menuBtn.setTexture('menuNoPress');
+                this.input.setDefaultCursor('default');
+            });
+        }
+        instancePanWin++;
     }
 
     resetGame(){        // Reinicia esta escena
@@ -491,6 +496,9 @@ export class Game extends Phaser.Scene {
         this.player1.marco = this.add.image(widthScr * 0.005, heightScr * 0.07, 'marcoBarra').setScale(0.5).setDepth(9);
         this.player1.marco.displayOriginX = 0;
         this.player1.marco.setDisplaySize(this.player1.barraMov.displayWidth * 1.28, this.player1.marco.displayHeight);
+        this.player1.fondoBarra = this.add.image(widthScr * 0.005, heightScr * 0.07, 'fondoBarra').setScale(0.5).setDepth(7);
+        this.player1.fondoBarra.displayOriginX = 0;
+        this.player1.fondoBarra.setDisplaySize(this.player1.barraMov.displayWidth * 1.28, this.player1.marco.displayHeight);
         this.player1.icon = this.add.image(widthScr * 0.035, heightScr * 0.1, 'cabezaTaza').setScale(0.045).setDepth(10);
 
 
@@ -535,6 +543,9 @@ export class Game extends Phaser.Scene {
         this.player2.marco = this.add.image(widthScr * 0.986, heightScr * 0.07, 'marcoBarra').setScale(0.5).setDepth(9);
         this.player2.marco.displayOriginX = this.player2.marco.width;
         this.player2.marco.setDisplaySize(this.player2.barraMov.displayWidth * 1.28, this.player2.marco.displayHeight);
+        this.player2.fondoBarra = this.add.image(widthScr * 0.986, heightScr * 0.07, 'fondoBarra').setScale(0.5).setDepth(7);
+        this.player2.fondoBarra.displayOriginX = this.player2.marco.width;
+        this.player2.fondoBarra.setDisplaySize(this.player2.barraMov.displayWidth * 1.28, this.player2.marco.displayHeight);
         this.player2.icon = this.add.image(widthScr * 0.965, heightScr * 0.1, 'cabezaPan').setScale(0.045).setDepth(10);
         
         this.player2.numeroContador = this.add.text(widthScr * 0.93, heightScr * 0.18, '0',{
