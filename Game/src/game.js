@@ -16,8 +16,8 @@ let tiempoReal;
 
 let contadorPlayers = 3 * 1000;
 
-let contNumero1 = document.getElementById('num');
-let contNumero2 = document.getElementById('num2');
+// let contNumero1 = document.getElementById('num');
+// let contNumero2 = document.getElementById('num2');
 
 let limMax = 3;
 let widthMaxBarra;
