@@ -63,7 +63,9 @@ export class Preloads extends Phaser.Scene {
 
     // Inmediatamente se direcciona a la escena del menú principal
     create(){
-        this.scene.start('Menu');
+        document.fonts.load('0pt "Japab"').then(() => {     // Una vez que logra cargar la tipografía personalizada, puede proseguir
+            this.scene.start('Menu');
+        });
     }
 }
 
