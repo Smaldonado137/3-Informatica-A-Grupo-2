@@ -16,8 +16,8 @@ export class Menu extends Phaser.Scene {
     }
 
     create(){
-        widthScr = this.game.config.width;
-        heightScr = this.game.config.height;
+        widthScr = this.game.config.width;      // Saca el ancho y alto de la ventana del juego para ser usado de
+        heightScr = this.game.config.height;    // manera proporcional en ubicación y dimensiones de los objetos
         this.input.setDefaultCursor('default');
 
         // Imagen de fondo
@@ -168,6 +168,7 @@ export class Menu extends Phaser.Scene {
         this.scene.start('Game');
     }
 
+    // Al ir a opciones, se invisibiliza el panel principal y se hace visible el panel de opciones (con esta lógica se hacen los demás)
     options(){        
         for (let objeto in panelOptions) {
             panelOptions[objeto].setVisible(true);
@@ -198,6 +199,7 @@ export class Menu extends Phaser.Scene {
         }
     }
 
+    // Al regresar al menú, se invisibilizan todos los paneles y se hace visible el panel principal
     returnToMenu(){
         for (let objeto in panelOptions) {
             panelOptions[objeto].setVisible(false);

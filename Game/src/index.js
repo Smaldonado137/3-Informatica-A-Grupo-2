@@ -17,9 +17,9 @@ const config = {
         default: 'arcade',
         arcade: {    
             gravity: { y: 5000},     // Gravedad   
-            debug: false,
+            debug: false,       // Visibilidad de los colliders
         }
     }
 }
 
-var game = new Phaser.Game(config);
+var game = new Phaser.Game(config);     // Instancia el juego con esas configuraciones

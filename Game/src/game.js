@@ -31,6 +31,7 @@ let contadorInicialTxt;
 let contadorInicial;
 let inCount;
 let initialCountEvent;
+let firstAppear;
 
 export class Game extends Phaser.Scene {    
 
@@ -46,6 +47,7 @@ export class Game extends Phaser.Scene {
         gameOver = false;
         inCount = true
         empate = false;
+        firstAppear = true;
         existingPoint = false;
         tiempoReal = 0;
         playerDeath = -1;
@@ -274,7 +276,13 @@ export class Game extends Phaser.Scene {
 
     randomPosPoints(){      // Se genera un número aleatorio que representará la ubicación del punto por encima de una plataforma
         if (!gameOver){     // Los puntos se seguirán ubicando y posicionando mientras el juego no termine
-            let randomPos = Math.floor(Math.random() * 9) + 1; // Se genera el número aleatorio
+            let randomPos = Phaser.Math.Between(1, 9);  // Se genera el número aleatorio entre 1 y 9 incluido
+            
+            if (firstAppear){
+                randomPos = Phaser.Math.Between(4, 6);  // El primer punto en aparecer será en alguna parte del centro para que sea más justo
+            }
+            firstAppear = false;
+
             let randomPossiblePos = {
                 1:{     // Plataforma arriba izquierda
                     ranPosX: 0.13,
@@ -328,8 +336,8 @@ export class Game extends Phaser.Scene {
 
     }
 
-    pointsAppear(porcentPosX, porcentPosY) {
-        // Código para instanciar el objeto
+    pointsAppear(porcentPosX, porcentPosY) {    // Instancia un nuevo punto
+        // Código para instanciar el punto
         let pointPosX = widthScr * porcentPosX;
         let pointPosY = heightScr * porcentPosY;  
         
@@ -343,7 +351,7 @@ export class Game extends Phaser.Scene {
         queso.anims.play('quesoAnim', true);
     }
 
-    onCollectPoint(player, point){
+    onCollectPoint(player, point){      // Incrementa el puntaje al tocar un punto
         point.destroy();
 
         if (!gameOver){
@@ -354,13 +362,13 @@ export class Game extends Phaser.Scene {
         }
     }
 
-    onTouchPlatformPlayer(player, platforms){
+    onTouchPlatformPlayer(player, platforms){   // Detecta cuando se está pisando una plataforma
         if (player.body.touching.down) {
             player.onGround = true;
         }
     }
     
-    delaySysVictoria(player1, player2){
+    delaySysVictoria(player1, player2){     // Pequeña diferencia de tiempo entre que ganas y sale el panel de victoria
         this.time.addEvent({
             delay: 2500,
             callback: this.sysVictory,
@@ -369,7 +377,7 @@ export class Game extends Phaser.Scene {
         });
     }
 
-    sysVictory(player1, player2){
+    sysVictory(player1, player2){       // Muestra el panel de victoria con los resultados obtenidos
         canReset = true;
         let player;
         let winTxt = 'Ganador';
@@ -382,7 +390,7 @@ export class Game extends Phaser.Scene {
             player = player2;
         }
         
-        if (empate){
+        if (empate){        // Si mueren al mismo tiempo se busca cual tiene más puntos y ese gana
             if (player1.puntaje != player2.puntaje){
                 empate = false;
                 if (player1.puntaje > player2.puntaje){
@@ -395,13 +403,13 @@ export class Game extends Phaser.Scene {
 
         winImg = player.victoriaImg;
 
-        if (empate){
+        if (empate){        // En caso de empate total se cambiará el texto y la imagen a una de empate
             winTxt = 'Empate';
             winImg = 'empateImg';
             winImgScale = 0.15;
         }
 
-        this.scene.pause('Pause');
+        this.scene.pause('Pause');  
 
         this.winPanel = {
             fondoNegroPantalla: this.add.graphics().fillStyle(0x000000, 0.3).fillRect(0, 0, widthScr, heightScr).setDepth(10),
@@ -442,15 +450,15 @@ export class Game extends Phaser.Scene {
         });
     }
 
-    resetGame(){
+    resetGame(){        // Reinicia esta escena
         this.scene.get('Game').scene.restart();
     }
 
-    mainMenu(){
+    mainMenu(){     // Dirige al menú
         this.scene.start('Menu');
     }
 
-    creatingPlayers(){
+    creatingPlayers(){     // Función para crear a los jugadores y asignarles sus atributos
         // Crear Player
         this.player1 = this.physics.add.sprite(widthScr * 0.45, heightScr * 0.87, 'player1').setScale(0.18).setDepth(4);
         this.player1.body.setSize(300, 575);
@@ -541,7 +549,7 @@ export class Game extends Phaser.Scene {
         this.player2.setCollideWorldBounds(true);
     }
     
-    creatingPlatforms(){
+    creatingPlatforms(){    // Función para crear las plataformas, paredes, suelo y techo
         this.platforms = this.physics.add.group();
         
         // Plataformas Lateral Izquierdo
@@ -579,7 +587,7 @@ export class Game extends Phaser.Scene {
         this.physics.add.collider(this.player2, this.platforms, this.onTouchPlatformPlayer, null, this);    
     }
 
-    creatingAnims(){
+    creatingAnims(){        // Función para crear todas las animaciones usadas en la escena
         if (!this.anims.exists('movP1')) {
             this.anims.create({
                 key: 'movP1',
