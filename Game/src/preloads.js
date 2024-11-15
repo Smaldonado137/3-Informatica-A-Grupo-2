@@ -15,8 +15,10 @@ export class Preloads extends Phaser.Scene {
         this.load.image('unmuteBtn', 'assets/noMuted.png');
         this.load.image('jugadorP1Txt', 'assets/jugadorP1Txt.png');
         this.load.image('jugadorP2Txt', 'assets/jugadorP2Txt.png');
+        this.load.image('pausarTxt', 'assets/pausarTxt.png');
         this.load.image('wasdTeclado', 'assets/wasdTeclado.png');
         this.load.image('flechasTeclado', 'assets/flechasTeclado.png');
+        this.load.image('pTeclado', 'assets/pTeclado.png');
 
         this.load.image('continuarPress', 'assets/continuarPress.png');
         this.load.image('continuarNoPress', 'assets/continuarNoPress.png');

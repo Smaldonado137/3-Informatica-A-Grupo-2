@@ -100,12 +100,14 @@ export class Menu extends Phaser.Scene {
 
         // Panel controles
         panelControls = {
-            player1Txt: this.add.image(widthScr * 0.3, heightScr * 0.14, 'jugadorP1Txt').setScale(0.25).setDepth(6),
-            player2Txt: this.add.image(widthScr * 0.7, heightScr * 0.14, 'jugadorP2Txt').setScale(0.25).setDepth(6),
-            player1Img: this.add.image(widthScr * 0.3, heightScr * 0.39, 'victP1').setScale(0.17).setDepth(6),
-            player2Img: this.add.image(widthScr * 0.7, heightScr * 0.39, 'victP2').setScale(0.17).setDepth(6),
-            wasdImg:this.add.image(widthScr * 0.3, heightScr * 0.74, 'wasdTeclado').setScale(0.55).setDepth(6),
-            arrowsImg: this.add.image(widthScr * 0.7, heightScr * 0.74, 'flechasTeclado').setScale(0.55).setDepth(6),
+            player1Txt: this.add.image(widthScr * 0.28, heightScr * 0.14, 'jugadorP1Txt').setScale(0.25).setDepth(6),
+            player2Txt: this.add.image(widthScr * 0.72, heightScr * 0.14, 'jugadorP2Txt').setScale(0.25).setDepth(6),
+            pausarTxt: this.add.image(widthScr * 0.5, heightScr * 0.635, 'pausarTxt').setScale(0.2).setDepth(6),
+            player1Img: this.add.image(widthScr * 0.28, heightScr * 0.39, 'victP1').setScale(0.17).setDepth(6),
+            player2Img: this.add.image(widthScr * 0.72, heightScr * 0.39, 'victP2').setScale(0.17).setDepth(6),
+            wasdImg:this.add.image(widthScr * 0.28, heightScr * 0.74, 'wasdTeclado').setScale(0.55).setDepth(6),
+            arrowsImg: this.add.image(widthScr * 0.72, heightScr * 0.74, 'flechasTeclado').setScale(0.55).setDepth(6),
+            pImg: this.add.image(widthScr * 0.5, heightScr * 0.74, 'pTeclado').setScale(0.15).setDepth(6),
 
             returnBtn: returnBtn.setVisible(true),
         }
