@@ -24,6 +24,7 @@ let widthMaxBarra;
 
 let intervaloPuntos = 2;
 let existingPoint;
+let firstAppear;
 
 let platformsScale = 0.12;
 
@@ -31,7 +32,6 @@ let contadorInicialTxt;
 let contadorInicial;
 let inCount;
 let initialCountEvent;
-let firstAppear;
 
 export class Game extends Phaser.Scene {    
 
