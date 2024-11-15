@@ -427,9 +427,9 @@ export class Game extends Phaser.Scene {
     
                 spriteGanador: this.add.image(widthScr * 0.5, heightScr * 0.46, winImg).setScale(winImgScale).setDepth(12),
     
-                reiniciarBtn: this.add.image(widthScr * 0.35, heightScr * 0.75, 'reiniciarNoPress').setScale(0.23).setDepth(12).setInteractive(),
+                reiniciarBtn: this.add.image(widthScr * 0.35, heightScr * 0.76, 'reiniciarNoPress').setScale(0.23).setDepth(12).setInteractive(),
                 
-                menuBtn: this.add.image(widthScr * 0.65, heightScr * 0.75, 'menuNoPress').setScale(0.23).setDepth(12).setInteractive(),
+                menuBtn: this.add.image(widthScr * 0.65, heightScr * 0.76, 'menuNoPress').setScale(0.23).setDepth(12).setInteractive(),
             }        
     
             this.winPanel.reiniciarBtn.on('pointerdown', () => this.resetGame());
