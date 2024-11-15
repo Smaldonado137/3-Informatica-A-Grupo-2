@@ -421,7 +421,7 @@ export class Game extends Phaser.Scene {
                 
                 ganadorTxt: this.add.text(widthScr * 0.5, heightScr * 0.2, winTxt,{
                     fontFamily: 'Japab',
-                    fontSize : '40px',
+                    fontSize : '45px',
                     fill: '#000000',
                 }).setOrigin(0.5).setDepth(12),
     
