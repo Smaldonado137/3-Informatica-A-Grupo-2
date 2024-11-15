@@ -1,7 +1,9 @@
 
 @font-face {
-    font-family: 'Japan';
-    src: url('../assets/japab.ttf') format('truetype');
+    font-family: 'Japab';
+    src: url('../assets/japab.woff') format('woff'),
+         url('../assets/japab.woff2') format('woff2'),
+         url('../assets/japab.ttf') format('truetype');
 }
 
 body{

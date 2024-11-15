@@ -61,7 +61,7 @@ export class Game extends Phaser.Scene {
         // Contador inicial
         contadorInicial = 3;
         contadorInicialTxt = this.add.text(widthScr * 0.5, heightScr * 0.5, contadorInicial,{
-            fontFamily: 'Japan',
+            fontFamily: 'Japab',
             fontSize : '450px',
             fill: '#ffffff',
         }).setOrigin(0.5).setDepth(7).setStroke('#000000', 30),
@@ -420,7 +420,7 @@ export class Game extends Phaser.Scene {
                 fondoPausa: this.add.image(widthScr * 0.5, heightScr * 0.5, 'panel').setDisplaySize(widthScr * 0.66, heightScr * 0.85).setDepth(11),
                 
                 ganadorTxt: this.add.text(widthScr * 0.5, heightScr * 0.2, winTxt,{
-                    fontFamily: 'Japan',
+                    fontFamily: 'Japab',
                     fontSize : '40px',
                     fill: '#000000',
                 }).setOrigin(0.5).setDepth(12),
@@ -504,7 +504,7 @@ export class Game extends Phaser.Scene {
 
         // Puntos
         this.player1.numeroContador = this.add.text(widthScr * 0.07, heightScr * 0.18, '0',{
-            fontFamily: 'Japan',
+            fontFamily: 'Japab',
             fontSize : '75px',
             fill: '#ffffff',
         }).setOrigin(0.5).setDepth(6).setVisible(true);
@@ -549,7 +549,7 @@ export class Game extends Phaser.Scene {
         this.player2.icon = this.add.image(widthScr * 0.965, heightScr * 0.1, 'cabezaPan').setScale(0.045).setDepth(10);
         
         this.player2.numeroContador = this.add.text(widthScr * 0.93, heightScr * 0.18, '0',{
-            fontFamily: 'Japan',
+            fontFamily: 'Japab',
             fontSize : '75px',
             fill: '#ffffff',
         }).setOrigin(0.5).setDepth(6).setVisible(true);

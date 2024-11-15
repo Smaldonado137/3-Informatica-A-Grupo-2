@@ -22,4 +22,4 @@ const config = {
     }
 }
 
-var game = new Phaser.Game(config);     // Instancia el juego con esas configuraciones
+const game = new Phaser.Game(config);     // Instancia el juego con esas configuraciones
