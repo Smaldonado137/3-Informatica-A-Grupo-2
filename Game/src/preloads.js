@@ -4,7 +4,7 @@ export class Preloads extends Phaser.Scene {
         super({ key: 'Preloads' });
     }
     
-    // Se declara del directorio donde se sacan los assets y se les asigna un nombre
+    // Se declara del directorio donde se sacan los assets y se les asigna un nombre identificador
     preload(){
         this.load.image('fondoMenu', 'assets/fondoMenu1.png');
         this.load.image('logoImg', 'assets/logo.png');
