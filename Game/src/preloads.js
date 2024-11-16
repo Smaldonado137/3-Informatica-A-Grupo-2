@@ -19,6 +19,8 @@ export class Preloads extends Phaser.Scene {
         this.load.image('wasdTeclado', 'assets/wasdTeclado.png');
         this.load.image('flechasTeclado', 'assets/flechasTeclado.png');
         this.load.image('pTeclado', 'assets/pTeclado.png');
+        
+        this.load.image('panel', 'assets/panel.png');
 
         this.load.image('continuarPress', 'assets/continuarPress.png');
         this.load.image('continuarNoPress', 'assets/continuarNoPress.png');
@@ -57,8 +59,7 @@ export class Preloads extends Phaser.Scene {
         this.load.image('cabezaTaza', 'assets/cabezaTaza.png');
         this.load.image('cabezaPan', 'assets/cabezaPan.png');
         
-        this.load.image('panel', 'assets/panel.png');
-        
+        this.load.audio('sonidoGong', 'assets/sonidoGong.mp3');
     }
 
     // Inmediatamente se direcciona a la escena del menú principal una vez que logra cargar esa tipografía personalizada

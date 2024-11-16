@@ -33,6 +33,9 @@ let contadorInicialTxt;
 let contadorInicial;
 let inCount;
 let initialCountEvent;
+let initialSoundEvent;
+
+let sonidoIniciar;
 
 export class Game extends Phaser.Scene {    
 
@@ -57,6 +60,8 @@ export class Game extends Phaser.Scene {
 
         // Imagen de fondo
         this.add.image(widthScr * 0.5, heightScr * 0.5, 'background').setDisplaySize(widthScr, heightScr);
+
+        this.creatingAudios();
 
         // Contador inicial
         contadorInicial = 3;
@@ -140,6 +145,13 @@ export class Game extends Phaser.Scene {
             loop: true,
             paused: !inCount,   // Se pausará el conteo si pausan la escena
         });
+
+        initialSoundEvent = this.time.addEvent({
+            delay: 1700,     // <- "Cierto tiempo" en milisegundos
+            callback: this.soundInitialCount, // Función a llamar
+            callbackScope: this,
+            loop: false,
+        });
     }
     
     decreaseInitialCount(){     // Disminuye el número del contador cada que es llamado
@@ -148,10 +160,9 @@ export class Game extends Phaser.Scene {
 
         if (contadorInicial == 0){
             contadorInicialTxt.setText('¡YA!');     // En lugar de un "0" se coloca un "¡YA!" el cual es ligeramente más pequeño
+            contadorInicialTxt.setStyle({ fontSize: `225px` });
             inCount = false;        
             initialCountEvent.paused = !inCount;    // Se deja de estar en contador
-            contadorInicialTxt.setStyle({ fontSize: `225px` });
-
             this.time.addEvent({        // Se llama una última vez
                 delay: 675,
                 callback: this.decreaseInitialCount,
@@ -160,6 +171,10 @@ export class Game extends Phaser.Scene {
         } else if (contadorInicial < 0){       
             contadorInicialTxt.setVisible(false);     // Al llamarse por última vez desaparece el "¡YA!"
         }
+    }
+    
+    soundInitialCount(){
+        sonidoIniciar.play();        
     }
 
     movementPlayer(player){         // Función que detecta los inputs y el movimiento del jugador
@@ -456,11 +471,17 @@ export class Game extends Phaser.Scene {
     }
 
     resetGame(){        // Reinicia esta escena
+        sonidoIniciar.stop();
         this.scene.get('Game').scene.restart();
     }
 
     mainMenu(){     // Dirige al menú
+        sonidoIniciar.stop();
         this.scene.start('Menu');
+    }
+
+    creatingAudios(){
+        sonidoIniciar = this.sound.add('sonidoGong', {loop: false});
     }
 
     creatingPlayers(){     // Función para crear a los jugadores y asignarles sus atributos

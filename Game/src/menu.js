@@ -130,6 +130,12 @@ export class Menu extends Phaser.Scene {
             panelCredits[objeto].setVisible(false);
         }
         
+        if (isMuted){
+            panelOptions.muteBtn.setTexture('muteBtn');
+        } else {
+            panelOptions.muteBtn.setTexture('unmuteBtn');
+        }
+        
     }
 
     update(){
@@ -138,7 +144,7 @@ export class Menu extends Phaser.Scene {
         if (this.fondoMenu.x >= 0){
             this.fondoMenu.x = -(widthScr * 0.5);
         }
-
+        
         if (!this.scale.isFullscreen) {
             panelOptions.fullScrBtn.setTexture('NofullScrBtn');
         } else {
