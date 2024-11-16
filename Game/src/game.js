@@ -35,8 +35,6 @@ let inCount;
 let initialCountEvent;
 let initialSoundEvent;
 
-let sonidoIniciar;
-
 export class Game extends Phaser.Scene {    
 
     constructor(){
@@ -174,7 +172,7 @@ export class Game extends Phaser.Scene {
     }
     
     soundInitialCount(){
-        sonidoIniciar.play();        
+        this.sonidoIniciar.play();
     }
 
     movementPlayer(player){         // Función que detecta los inputs y el movimiento del jugador
@@ -471,17 +469,21 @@ export class Game extends Phaser.Scene {
     }
 
     resetGame(){        // Reinicia esta escena
-        sonidoIniciar.stop();
+        this.sound.sounds.forEach((audio) => {
+            audio.stop();
+        });
         this.scene.get('Game').scene.restart();
     }
 
-    mainMenu(){     // Dirige al menú
-        sonidoIniciar.stop();
+    mainMenu(){        // Dirige al menú
+        this.sound.sounds.forEach((audio) => {
+            audio.stop();
+        });
         this.scene.start('Menu');
     }
 
     creatingAudios(){
-        sonidoIniciar = this.sound.add('sonidoGong', {loop: false});
+        this.sonidoIniciar = this.sound.add('sonidoGong', {loop: false});
     }
 
     creatingPlayers(){     // Función para crear a los jugadores y asignarles sus atributos

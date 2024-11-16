@@ -123,10 +123,16 @@ export class Pause extends Phaser.Scene {
     }
 
     resetGame(){
+        this.scene.get('Game').sound.sounds.forEach((audio) => {
+            audio.stop();
+        });
         this.scene.get('Game').scene.restart();
     }
 
     mainMenu(){
+        this.scene.get('Game').sound.sounds.forEach((audio) => {
+            audio.stop();
+        });
         this.scene.stop('Game');
         this.scene.start('Menu');
     }
