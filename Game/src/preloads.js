@@ -60,6 +60,7 @@ export class Preloads extends Phaser.Scene {
         this.load.image('cabezaPan', 'assets/cabezaPan.png');
         
         this.load.audio('sonidoGong', 'assets/sonidoGong.mp3');
+        this.load.audio('musicaFondo', 'assets/musicaFondoDojo.mp3');
     }
 
     // Inmediatamente se direcciona a la escena del menú principal una vez que logra cargar esa tipografía personalizada

@@ -161,6 +161,7 @@ export class Game extends Phaser.Scene {
             contadorInicialTxt.setStyle({ fontSize: `225px` });
             inCount = false;        
             initialCountEvent.paused = !inCount;    // Se deja de estar en contador
+            this.musicaFondo.play();
             this.time.addEvent({        // Se llama una última vez
                 delay: 675,
                 callback: this.decreaseInitialCount,
@@ -295,8 +296,8 @@ export class Game extends Phaser.Scene {
             
             if (firstAppear){
                 randomPos = Phaser.Math.Between(4, 6);  // El primer punto en aparecer será en alguna parte del centro para que sea más justo
+                firstAppear = false;
             }
-            firstAppear = false;
 
             let randomPossiblePos = {
                 1:{     // Plataforma arriba izquierda
@@ -483,7 +484,8 @@ export class Game extends Phaser.Scene {
     }
 
     creatingAudios(){
-        this.sonidoIniciar = this.sound.add('sonidoGong', {loop: false});
+        this.sonidoIniciar = this.sound.add('sonidoGong', {loop: false}).setVolume(0.4);
+        this.musicaFondo = this.sound.add('musicaFondo', {loop: true}).setVolume(0.8);
     }
 
     creatingPlayers(){     // Función para crear a los jugadores y asignarles sus atributos

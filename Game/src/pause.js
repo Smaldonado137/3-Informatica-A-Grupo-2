@@ -4,6 +4,7 @@ let widthScr;
 let heightScr;
 let pausePanel;
 let canReset;
+let isMuted;
 
 export class Pause extends Phaser.Scene {    
     
@@ -14,11 +15,11 @@ export class Pause extends Phaser.Scene {
     create(){
         widthScr = this.game.config.width;
         heightScr = this.game.config.height;
-
+        isMuted = this.sound.mute;
         canReset = false;
         inPause = false;
         pausePulsable = true;
-
+        
         // Menu de Pausa
         pausePanel = {
             fondoNegroPantalla: this.add.graphics().fillStyle(0x000000, 0.4).fillRect(0, 0, widthScr, heightScr).setDepth(6),
@@ -37,11 +38,19 @@ export class Pause extends Phaser.Scene {
 
             menuBtn: this.add.image(widthScr * 0.5, heightScr * 0.71, 'menuNoPress').setScale(0.23).setDepth(8).setInteractive(),
 
+            muteBtn: this.add.image(widthScr * 0.92, heightScr * 0.62, 'unmuteBtn').setScale(0.15).setInteractive().setDepth(6),
+
             fullScrBtn: this.add.image(widthScr * 0.92, heightScr * 0.88, 'fullScrBtn').setScale(0.09).setInteractive().setDepth(6),
         }        
         for (let objeto in pausePanel) {
             pausePanel[objeto].setVisible(false).on('pointerover', () => this.input.setDefaultCursor('pointer'))
             .on('pointerout', () => this.input.setDefaultCursor('default'));
+        }
+        // Asegurando el sprite correcto para el botón del sonido
+        if (isMuted){
+            pausePanel.muteBtn.setTexture('muteBtn');
+        } else {
+            pausePanel.muteBtn.setTexture('unmuteBtn');
         }
         
         // Función del botón continuar
@@ -72,7 +81,8 @@ export class Pause extends Phaser.Scene {
         });
 
         pausePanel.fullScrBtn.on('pointerdown', this.fullScreen, this);
-        
+        pausePanel.muteBtn.on('pointerdown', this.silenciar, this);
+
         this.pauseKey = this.input.keyboard.createCursorKeys();
     }
     
@@ -99,6 +109,16 @@ export class Pause extends Phaser.Scene {
         }
     }
     
+    silenciar() {
+        isMuted = !isMuted;
+        if (isMuted){
+            pausePanel.muteBtn.setTexture('muteBtn');
+        } else {
+            pausePanel.muteBtn.setTexture('unmuteBtn');
+        }
+        this.sound.mute = isMuted;
+        console.log("aaaa");
+    }
     
     fullScreen(){
         if (!this.scale.isFullscreen) {

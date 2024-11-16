@@ -7,7 +7,7 @@ let panelOptions;
 let panelControls;
 let panelCredits;
 
-let isMuted = false;
+let isMuted;
 
 export class Menu extends Phaser.Scene {    
 
@@ -19,6 +19,7 @@ export class Menu extends Phaser.Scene {
         widthScr = this.game.config.width;      // Saca el ancho y alto de la ventana del juego para ser usado de
         heightScr = this.game.config.height;    // manera proporcional en ubicación y dimensiones de los objetos
         this.input.setDefaultCursor('default');
+        isMuted = this.sound.mute;
 
         // Imagen de fondo
         this.fondoMenu = this.add.image(0, 0, 'fondoMenu').setDisplaySize(widthScr * 1.5, heightScr).setDepth(0).setOrigin(0, 0);
@@ -135,7 +136,6 @@ export class Menu extends Phaser.Scene {
         } else {
             panelOptions.muteBtn.setTexture('unmuteBtn');
         }
-        
     }
 
     update(){
