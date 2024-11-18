@@ -147,7 +147,7 @@ export class Game extends Phaser.Scene {
         });
 
         initialSoundEvent = this.time.addEvent({
-            delay: 1700,     // <- "Cierto tiempo" en milisegundos
+            delay: 1750,     // <- "Cierto tiempo" en milisegundos
             callback: this.soundInitialCount, // Función a llamar
             callbackScope: this,
             loop: false,

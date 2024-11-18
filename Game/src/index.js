@@ -2,17 +2,18 @@ import { Preloads } from './preloads.js';
 import { Menu } from './menu.js';
 import { Game } from './game.js';
 import { Pause } from './pause.js';
+import { LoadBar } from './loadBar.js';
 
 const config = {
     type: Phaser.AUTO,
     width: 1450,
     height: 850,
-    parent: 'Preloads',
+    parent: 'LoadBar',
     scale: {        // Propiedades de la escala de la ventana
         mode: Phaser.Scale.FIT,
         autoCenter: Phaser.Scale.CENTER_BOTH,
     },
-    scene: [Preloads, Menu, Game, Pause],   // Escenas del juego
+    scene: [LoadBar, Preloads, Menu, Game, Pause],   // Escenas del juego
     physics: {      // Sistema de físicas por aplicar
         default: 'arcade',
         arcade: {    
