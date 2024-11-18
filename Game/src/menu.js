@@ -143,8 +143,8 @@ export class Menu extends Phaser.Scene {
     }
     
     update(){
-        this.fondoMenu.x += 0.4;
-        
+        // Movimiento en bucle del fondo
+        this.fondoMenu.x += 0.4;        
         if (this.fondoMenu.x >= 0){
             this.fondoMenu.x = -(widthScr * 0.5);
         }
