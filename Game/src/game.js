@@ -268,10 +268,9 @@ export class Game extends Phaser.Scene {
 
     animPlayerDead(player, name, scale){        // Activa la animación del jugador que pierde
         player.disableBody(true, true);         // Desactiva el cuerpo del personaje
-
-        this.bodyDead = this.physics.add.image(player.x, (player.y - 0.1), name).setScale(scale);     
-        this.bodyDead.setSize(1500, 1450);                                                        // Instancia el sprite de derrota y se le asignan
-        this.physics.add.collider(this.bodyDead, this.platforms);                                 // propiedades físicas
+        this.bodyDead = this.physics.add.image(player.x, (player.y - 30), name).setScale(scale);     
+        this.bodyDead.setSize(1500, 1450);                                                 // Instancia el sprite de derrota y se le asignan
+        this.physics.add.collider(this.bodyDead, this.platforms);                          // propiedades físicas
         this.physics.add.collider(this.bodyDead, this.player1);
         this.physics.add.collider(this.bodyDead, this.player2);
         this.bodyDead.setCollideWorldBounds(true);
