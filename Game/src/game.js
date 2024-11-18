@@ -68,6 +68,8 @@ export class Game extends Phaser.Scene {
             fontSize : '450px',
             fill: '#ffffff',
         }).setOrigin(0.5).setDepth(7).setStroke('#000000', 30),
+
+        this.sonidoConteo.play();
         this.initialCount();
 
         // Asignando teclas pulsables
@@ -155,6 +157,9 @@ export class Game extends Phaser.Scene {
     decreaseInitialCount(){     // Disminuye el número del contador cada que es llamado
         contadorInicial--;
         contadorInicialTxt.setText(contadorInicial);
+        if (contadorInicial > 0){
+            this.sonidoConteo.play();
+        }
 
         if (contadorInicial == 0){
             contadorInicialTxt.setText('¡YA!');     // En lugar de un "0" se coloca un "¡YA!" el cual es ligeramente más pequeño
@@ -484,7 +489,8 @@ export class Game extends Phaser.Scene {
     }
 
     creatingAudios(){
-        this.sonidoIniciar = this.sound.add('sonidoGong', {loop: false}).setVolume(0.4);
+        this.sonidoIniciar = this.sound.add('sonidoGong', {loop: false}).setVolume(0.5);
+        this.sonidoConteo = this.sound.add('sonidoTambor', {loop: false}).setVolume(0.5);
         this.musicaFondo = this.sound.add('musicaFondo', {loop: true}).setVolume(0.8);
     }
 

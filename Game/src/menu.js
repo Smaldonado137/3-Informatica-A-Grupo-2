@@ -20,23 +20,23 @@ export class Menu extends Phaser.Scene {
         heightScr = this.game.config.height;    // manera proporcional en ubicación y dimensiones de los objetos
         this.input.setDefaultCursor('default');
         isMuted = this.sound.mute;
-
+        
         // Imagen de fondo
         this.fondoMenu = this.add.image(0, 0, 'fondoMenu').setDisplaySize(widthScr * 1.5, heightScr).setDepth(0).setOrigin(0, 0);
-
+        
         returnBtn = this.add.image(widthScr * 0.08, heightScr * 0.89, 'regresarBtn').setScale(0.09).setInteractive().setDepth(6).setVisible(false).on('pointerover', () => this.input.setDefaultCursor('pointer')).on('pointerout', () => this.input.setDefaultCursor('default'));
-
-
+        
+        
         // Panel del menú principal
         panelMainMenu = {
             logo: this.add.image(widthScr * 0.5, heightScr * 0.23, 'logoImg').setScale(0.29),
-
+            
             playBtn: this.add.image(widthScr * 0.5, heightScr * 0.54, 'jugarNoPress').setScale(0.3).setInteractive().setDepth(6),
             
             optionBtn: this.add.image(widthScr * 0.22, heightScr * 0.77, 'opcionesNoPress').setScale(0.22).setInteractive().setDepth(6),     
             
             controlBtn: this.add.image(widthScr * 0.5, heightScr * 0.77, 'jugarNoPress').setScale(0.22).setInteractive().setDepth(6),
-
+            
             creditBtn: this.add.image(widthScr * 0.78, heightScr * 0.77, 'creditosNoPress').setScale(0.22).setInteractive().setDepth(6),
         }
         
@@ -50,7 +50,7 @@ export class Menu extends Phaser.Scene {
             panelMainMenu.playBtn.setTexture('jugarNoPress');
             this.input.setDefaultCursor('default');
         });
-
+        
         panelMainMenu.optionBtn.on('pointerdown', this.options, this);
         panelMainMenu.optionBtn.on('pointerover', () => {
             panelMainMenu.optionBtn.setTexture('opcionesPress');
@@ -60,7 +60,7 @@ export class Menu extends Phaser.Scene {
             panelMainMenu.optionBtn.setTexture('opcionesNoPress');
             this.input.setDefaultCursor('default');
         });
-
+        
         panelMainMenu.controlBtn.on('pointerdown', this.controls, this);
         panelMainMenu.controlBtn.on('pointerover', () => {
             panelMainMenu.controlBtn.setTexture('jugarPress');
@@ -70,7 +70,7 @@ export class Menu extends Phaser.Scene {
             panelMainMenu.controlBtn.setTexture('jugarNoPress');
             this.input.setDefaultCursor('default');
         });
-
+        
         panelMainMenu.creditBtn.on('pointerdown', this.credits, this);
         panelMainMenu.creditBtn.on('pointerover', () => {
             panelMainMenu.creditBtn.setTexture('creditosPress');
@@ -80,25 +80,25 @@ export class Menu extends Phaser.Scene {
             panelMainMenu.creditBtn.setTexture('creditosNoPress');
             this.input.setDefaultCursor('default');
         });
-
+        
         // Panel de opciones
         panelOptions = {
             muteBtn: this.add.image(widthScr * 0.505, heightScr * 0.32, 'unmuteBtn').setScale(0.15).setInteractive().setDepth(6),
             
             fullScrBtn: this.add.image(widthScr * 0.5, heightScr * 0.68, 'fullScrBtn').setScale(0.1).setInteractive().setDepth(6),
-
+            
             returnBtn: returnBtn.setVisible(true),
         }
         // Funciones de opciones
         panelOptions.muteBtn.on('pointerdown', this.silenciar, this);
         panelOptions.fullScrBtn.on('pointerdown', this.fullScreen, this);
         panelOptions.returnBtn.on('pointerdown', this.returnToMenu, this);
-
+        
         for (let objeto in panelOptions) {
             panelOptions[objeto].setVisible(false).on('pointerover', () => this.input.setDefaultCursor('pointer'))
             .on('pointerout', () => this.input.setDefaultCursor('default'));
         }
-
+        
         // Panel controles
         panelControls = {
             player1Txt: this.add.image(widthScr * 0.28, heightScr * 0.14, 'jugadorP1Txt').setScale(0.25).setDepth(6),
@@ -109,14 +109,14 @@ export class Menu extends Phaser.Scene {
             wasdImg:this.add.image(widthScr * 0.28, heightScr * 0.74, 'wasdTeclado').setScale(0.55).setDepth(6),
             arrowsImg: this.add.image(widthScr * 0.72, heightScr * 0.74, 'flechasTeclado').setScale(0.55).setDepth(6),
             pImg: this.add.image(widthScr * 0.5, heightScr * 0.74, 'pTeclado').setScale(0.15).setDepth(6),
-
+            
             returnBtn: returnBtn.setVisible(true),
         }
-
+        
         for (let objeto in panelControls) {
             panelControls[objeto].setVisible(false);
         }
-
+        
         // Panel creditos
         panelCredits = {
             creditosTxt: this.add.text(widthScr * 0.5, heightScr * 0.25, 'Hecho por Santiago Maldonado y Juan Navia',{
@@ -124,7 +124,7 @@ export class Menu extends Phaser.Scene {
                 fontSize : '40px',
                 fill: '#000000',
             }).setOrigin(0.5).setDepth(8),
-
+            
             returnBtn: returnBtn.setVisible(true),
         }
         for (let objeto in panelCredits) {
@@ -136,11 +136,15 @@ export class Menu extends Phaser.Scene {
         } else {
             panelOptions.muteBtn.setTexture('unmuteBtn');
         }
+        
+        // Iniciar la música
+        this.musicaFondoMenu = this.sound.add('musicaFondoMenu', {loop: true}).setVolume(0.4);
+        this.musicaFondoMenu.play();
     }
-
+    
     update(){
         this.fondoMenu.x += 0.4;
-
+        
         if (this.fondoMenu.x >= 0){
             this.fondoMenu.x = -(widthScr * 0.5);
         }
@@ -151,7 +155,7 @@ export class Menu extends Phaser.Scene {
             panelOptions.fullScrBtn.setTexture('fullScrBtn');
         }   
     }
-
+    
     silenciar() {
         isMuted = !isMuted;
         if (isMuted){
@@ -174,6 +178,7 @@ export class Menu extends Phaser.Scene {
 
     play(){
         this.scene.start('Game');
+        this.musicaFondoMenu.stop();
     }
 
     // Al ir a opciones, se invisibiliza el panel principal y se hace visible el panel de opciones (con esta lógica se hacen los demás)

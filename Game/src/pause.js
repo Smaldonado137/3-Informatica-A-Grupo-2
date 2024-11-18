@@ -135,9 +135,11 @@ export class Pause extends Phaser.Scene {
         canReset = pausePanel.fondoPausa.visible;
         if (inPause){
             this.scene.resume('Game'); 
+            this.scene.get('Game').musicaFondo.resume();
             inPause = false;
         } else {
             this.scene.pause('Game');
+            this.scene.get('Game').musicaFondo.pause();
             inPause = true;
         }
     }
