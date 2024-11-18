@@ -124,6 +124,8 @@ export class Menu extends Phaser.Scene {
                 fontSize : '40px',
                 fill: '#000000',
             }).setOrigin(0.5).setDepth(8),
+
+            phaserImg: this.add.image(widthScr * 0.5, heightScr * 0.85, 'logoPhaser').setScale(0.08).setDepth(6),
             
             returnBtn: returnBtn.setVisible(true),
         }
