@@ -28,7 +28,7 @@ export class Menu extends Phaser.Scene {
         this.musicaFondoMenu = this.sound.add('musicaFondoMenu', {loop: true}).setVolume(0.4);
         this.musicaFondoMenu.play();
         this.preSelectBtn = this.sound.add('sonidoPreselectBtn', {loop: false}).setVolume(0.2);
-        this.selectBtn = this.sound.add('sonidoSelectBtn', {loop: false}).setVolume(0.9);
+        this.selectBtn = this.sound.add('sonidoSelectBtn', {loop: false}).setVolume(0.7);
 
 
         returnBtn = this.add.image(widthScr * 0.08, heightScr * 0.89, 'regresarBtn').setScale(0.09).setInteractive().setDepth(6).setVisible(false).on('pointerover', () => this.input.setDefaultCursor('pointer')).on('pointerout', () => this.input.setDefaultCursor('default'));

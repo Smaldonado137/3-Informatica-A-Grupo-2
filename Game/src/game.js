@@ -495,7 +495,7 @@ export class Game extends Phaser.Scene {
         this.sonidoIniciar = this.sound.add('sonidoGong', {loop: false}).setVolume(0.5);
         this.sonidoConteo = this.sound.add('sonidoTambor', {loop: false}).setVolume(0.5);
         this.preSelectBtn = this.sound.add('sonidoPreselectBtn', {loop: false}).setVolume(0.2);
-        this.selectBtn = this.sound.add('sonidoSelectBtn', {loop: false}).setVolume(0.9);
+        this.selectBtn = this.sound.add('sonidoSelectBtn', {loop: false}).setVolume(0.7);
         this.musicaFondo = this.sound.add('musicaFondo', {loop: true}).setVolume(0.8);
     }
 
