@@ -24,8 +24,14 @@ export class Menu extends Phaser.Scene {
         // Imagen de fondo
         this.fondoMenu = this.add.image(0, 0, 'fondoMenu').setDisplaySize(widthScr * 1.5, heightScr).setDepth(0).setOrigin(0, 0);
         
+        // Se crean los sonidos y se inicia la música
+        this.musicaFondoMenu = this.sound.add('musicaFondoMenu', {loop: true}).setVolume(0.4);
+        this.musicaFondoMenu.play();
+        this.preSelectBtn = this.sound.add('sonidoPreselectBtn', {loop: false}).setVolume(0.2);
+        this.selectBtn = this.sound.add('sonidoSelectBtn', {loop: false}).setVolume(0.9);
+
+
         returnBtn = this.add.image(widthScr * 0.08, heightScr * 0.89, 'regresarBtn').setScale(0.09).setInteractive().setDepth(6).setVisible(false).on('pointerover', () => this.input.setDefaultCursor('pointer')).on('pointerout', () => this.input.setDefaultCursor('default'));
-        
         
         // Panel del menú principal
         panelMainMenu = {
@@ -45,6 +51,7 @@ export class Menu extends Phaser.Scene {
         panelMainMenu.playBtn.on('pointerover', () => {
             panelMainMenu.playBtn.setTexture('jugarPress');
             this.input.setDefaultCursor('pointer');
+            this.preSelectBtn.play();
         });
         panelMainMenu.playBtn.on('pointerout', () => {
             panelMainMenu.playBtn.setTexture('jugarNoPress');
@@ -55,6 +62,7 @@ export class Menu extends Phaser.Scene {
         panelMainMenu.optionBtn.on('pointerover', () => {
             panelMainMenu.optionBtn.setTexture('opcionesPress');
             this.input.setDefaultCursor('pointer');
+            this.preSelectBtn.play();
         });
         panelMainMenu.optionBtn.on('pointerout', () => {
             panelMainMenu.optionBtn.setTexture('opcionesNoPress');
@@ -65,6 +73,7 @@ export class Menu extends Phaser.Scene {
         panelMainMenu.controlBtn.on('pointerover', () => {
             panelMainMenu.controlBtn.setTexture('jugarPress');
             this.input.setDefaultCursor('pointer');
+            this.preSelectBtn.play();
         });
         panelMainMenu.controlBtn.on('pointerout', () => {
             panelMainMenu.controlBtn.setTexture('jugarNoPress');
@@ -75,11 +84,16 @@ export class Menu extends Phaser.Scene {
         panelMainMenu.creditBtn.on('pointerover', () => {
             panelMainMenu.creditBtn.setTexture('creditosPress');
             this.input.setDefaultCursor('pointer');
+            this.preSelectBtn.play();
         });
         panelMainMenu.creditBtn.on('pointerout', () => {
             panelMainMenu.creditBtn.setTexture('creditosNoPress');
             this.input.setDefaultCursor('default');
         });
+
+        for (let objeto in panelMainMenu) {
+            panelMainMenu[objeto].on('pointerdown', () => this.selectBtn.play());
+        }
         
         // Panel de opciones
         panelOptions = {
@@ -139,9 +153,6 @@ export class Menu extends Phaser.Scene {
             panelOptions.muteBtn.setTexture('unmuteBtn');
         }
         
-        // Iniciar la música
-        this.musicaFondoMenu = this.sound.add('musicaFondoMenu', {loop: true}).setVolume(0.4);
-        this.musicaFondoMenu.play();
     }
     
     update(){
@@ -216,6 +227,7 @@ export class Menu extends Phaser.Scene {
 
     // Al regresar al menú, se invisibilizan todos los paneles y se hace visible el panel principal
     returnToMenu(){
+        this.selectBtn.play()
         for (let objeto in panelOptions) {
             panelOptions[objeto].setVisible(false);
         }
