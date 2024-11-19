@@ -1,8 +1,8 @@
+import { LoadBar } from './loadBar.js';
 import { Preloads } from './preloads.js';
 import { Menu } from './menu.js';
 import { Game } from './game.js';
 import { Pause } from './pause.js';
-import { LoadBar } from './loadBar.js';
 
 const config = {
     type: Phaser.AUTO,
