@@ -37,6 +37,8 @@ export class Preloads extends Phaser.Scene {
         this.load.image('jugarNoPress', 'assets/jugarNoPress.png');
         this.load.image('opcionesPress', 'assets/opcionesPress.png');
         this.load.image('opcionesNoPress', 'assets/opcionesNoPress.png');
+        this.load.image('controlesPress', 'assets/controlesPress.png');
+        this.load.image('controlesNoPress', 'assets/controlesNoPress.png');
         this.load.image('creditosPress', 'assets/creditosPress.png');
         this.load.image('creditosNoPress', 'assets/creditosNoPress.png');
 

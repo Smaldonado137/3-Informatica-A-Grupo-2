@@ -41,7 +41,7 @@ export class Menu extends Phaser.Scene {
             
             optionBtn: this.add.image(widthScr * 0.22, heightScr * 0.77, 'opcionesNoPress').setScale(0.22).setInteractive().setDepth(6),     
             
-            controlBtn: this.add.image(widthScr * 0.5, heightScr * 0.77, 'jugarNoPress').setScale(0.22).setInteractive().setDepth(6),
+            controlBtn: this.add.image(widthScr * 0.5, heightScr * 0.77, 'controlesNoPress').setScale(0.22).setInteractive().setDepth(6),
             
             creditBtn: this.add.image(widthScr * 0.78, heightScr * 0.77, 'creditosNoPress').setScale(0.22).setInteractive().setDepth(6),
         }
@@ -71,12 +71,12 @@ export class Menu extends Phaser.Scene {
         
         panelMainMenu.controlBtn.on('pointerdown', this.controls, this);
         panelMainMenu.controlBtn.on('pointerover', () => {
-            panelMainMenu.controlBtn.setTexture('jugarPress');
+            panelMainMenu.controlBtn.setTexture('controlesPress');
             this.input.setDefaultCursor('pointer');
             this.preSelectBtn.play();
         });
         panelMainMenu.controlBtn.on('pointerout', () => {
-            panelMainMenu.controlBtn.setTexture('jugarNoPress');
+            panelMainMenu.controlBtn.setTexture('controlesNoPress');
             this.input.setDefaultCursor('default');
         });
         
