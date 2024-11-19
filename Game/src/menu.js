@@ -170,6 +170,7 @@ export class Menu extends Phaser.Scene {
     }
     
     silenciar() {
+        this.preSelectBtn.play();
         isMuted = !isMuted;
         if (isMuted){
             panelOptions.muteBtn.setTexture('muteBtn');
@@ -177,15 +178,15 @@ export class Menu extends Phaser.Scene {
             panelOptions.muteBtn.setTexture('unmuteBtn');
         }
         this.sound.mute = isMuted;
-        console.log("aaaa");
     }
 
     fullScreen(){
+        this.preSelectBtn.play();
         if (!this.scale.isFullscreen) {
             this.scale.startFullscreen();
         } else {
             this.scale.stopFullscreen();
-        }        
+        }    
     }
     
 

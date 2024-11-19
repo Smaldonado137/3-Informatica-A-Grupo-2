@@ -147,7 +147,7 @@ export class Game extends Phaser.Scene {
         });
 
         initialSoundEvent = this.time.addEvent({
-            delay: 1750,     // <- "Cierto tiempo" en milisegundos
+            delay: 1800,     // <- "Cierto tiempo" en milisegundos
             callback: this.soundInitialCount, // Función a llamar
             callbackScope: this,
             loop: false,
@@ -404,7 +404,7 @@ export class Game extends Phaser.Scene {
         let winImg;
         let winImgScale = 0.21;
         
-        if (player1.lose != true){
+        if (player1.lose != true){      // Si el que perdió es el 1, se le dará la victoria al 2...
             player = player1;            
         } else {
             player = player2;
@@ -454,6 +454,7 @@ export class Game extends Phaser.Scene {
             this.winPanel.reiniciarBtn.on('pointerover', () => {
                 this.winPanel.reiniciarBtn.setTexture('reiniciarPress');
                 this.input.setDefaultCursor('pointer');
+                this.preSelectBtn.play();
             });
             this.winPanel.reiniciarBtn.on('pointerout', () => {
                 this.winPanel.reiniciarBtn.setTexture('reiniciarNoPress');
@@ -464,6 +465,7 @@ export class Game extends Phaser.Scene {
             this.winPanel.menuBtn.on('pointerover', () => {
                 this.winPanel.menuBtn.setTexture('menuPress');
                 this.input.setDefaultCursor('pointer');
+                this.preSelectBtn.play();
             });
             this.winPanel.menuBtn.on('pointerout', () => {
                 this.winPanel.menuBtn.setTexture('menuNoPress');
@@ -477,19 +479,23 @@ export class Game extends Phaser.Scene {
         this.sound.sounds.forEach((audio) => {
             audio.stop();
         });
-        this.scene.get('Game').scene.restart();
+        this.selectBtn.play();
+        this.scene.restart();
     }
 
     mainMenu(){        // Dirige al menú
         this.sound.sounds.forEach((audio) => {
             audio.stop();
         });
+        this.selectBtn.play();
         this.scene.start('Menu');
     }
 
     creatingAudios(){
         this.sonidoIniciar = this.sound.add('sonidoGong', {loop: false}).setVolume(0.5);
         this.sonidoConteo = this.sound.add('sonidoTambor', {loop: false}).setVolume(0.5);
+        this.preSelectBtn = this.sound.add('sonidoPreselectBtn', {loop: false}).setVolume(0.2);
+        this.selectBtn = this.sound.add('sonidoSelectBtn', {loop: false}).setVolume(0.9);
         this.musicaFondo = this.sound.add('musicaFondo', {loop: true}).setVolume(0.8);
     }
 

@@ -46,6 +46,9 @@ export class Pause extends Phaser.Scene {
             pausePanel[objeto].setVisible(false).on('pointerover', () => this.input.setDefaultCursor('pointer'))
             .on('pointerout', () => this.input.setDefaultCursor('default'));
         }
+
+        pausePanel.continuarBtn.on('pointerdown', () => this.scene.get('Game').selectBtn.play());
+
         // Asegurando el sprite correcto para el botón del sonido
         if (isMuted){
             pausePanel.muteBtn.setTexture('muteBtn');
@@ -57,6 +60,7 @@ export class Pause extends Phaser.Scene {
         pausePanel.continuarBtn.on('pointerdown', () => this.pause(pausePanel));
         pausePanel.continuarBtn.on('pointerover', () => {
             pausePanel.continuarBtn.setTexture('continuarPress');
+            this.scene.get('Game').preSelectBtn.play();
         });
         pausePanel.continuarBtn.on('pointerout', () => {
             pausePanel.continuarBtn.setTexture('continuarNoPress');
@@ -66,6 +70,7 @@ export class Pause extends Phaser.Scene {
         pausePanel.reiniciarBtn.on('pointerdown', () => this.resetGame());
         pausePanel.reiniciarBtn.on('pointerover', () => {
             pausePanel.reiniciarBtn.setTexture('reiniciarPress');
+            this.scene.get('Game').preSelectBtn.play();
         });
         pausePanel.reiniciarBtn.on('pointerout', () => {
             pausePanel.reiniciarBtn.setTexture('reiniciarNoPress');
@@ -75,6 +80,7 @@ export class Pause extends Phaser.Scene {
         pausePanel.menuBtn.on('pointerdown', () => this.mainMenu());
         pausePanel.menuBtn.on('pointerover', () => {
             pausePanel.menuBtn.setTexture('menuPress');
+            this.scene.get('Game').preSelectBtn.play();
         });
         pausePanel.menuBtn.on('pointerout', () => {
             pausePanel.menuBtn.setTexture('menuNoPress');
@@ -89,6 +95,7 @@ export class Pause extends Phaser.Scene {
     update(){
         if (this.pauseKey.escape.isDown || this.pauseKey.p.isDown) {
             if (pausePulsable){
+                this.scene.get('Game').preSelectBtn.play()
                 this.pause(pausePanel);
                 pausePulsable = false;
             }
@@ -110,6 +117,7 @@ export class Pause extends Phaser.Scene {
     }
     
     silenciar() {
+        this.scene.get('Game').preSelectBtn.play()
         isMuted = !isMuted;
         if (isMuted){
             pausePanel.muteBtn.setTexture('muteBtn');
@@ -117,10 +125,10 @@ export class Pause extends Phaser.Scene {
             pausePanel.muteBtn.setTexture('unmuteBtn');
         }
         this.sound.mute = isMuted;
-        console.log("aaaa");
     }
     
     fullScreen(){
+        this.scene.get('Game').preSelectBtn.play()
         if (!this.scale.isFullscreen) {
             this.scale.startFullscreen();
         } else {
@@ -128,7 +136,7 @@ export class Pause extends Phaser.Scene {
         }        
     }
     
-    pause(pausePanel){
+    pause(pausePanel){        
         for (let objeto in pausePanel) {
             pausePanel[objeto].setVisible(!pausePanel[objeto].visible);
         }
@@ -149,6 +157,7 @@ export class Pause extends Phaser.Scene {
             audio.stop();
         });
         this.scene.get('Game').scene.restart();
+        this.scene.get('Game').selectBtn.play()
     }
 
     mainMenu(){
@@ -157,5 +166,6 @@ export class Pause extends Phaser.Scene {
         });
         this.scene.stop('Game');
         this.scene.start('Menu');
+        this.scene.get('Game').selectBtn.play()
     }
 }

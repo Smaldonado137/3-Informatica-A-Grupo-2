@@ -16,8 +16,7 @@ export class LoadBar extends Phaser.Scene {
         document.fonts.load('0pt "Japab"').then(() => {     // Empezará una vez que la tipografía Japab esté cargada
             this.scene.start('Preloads');
         });
-
-        
+        this.input.setDefaultCursor('progress');        // Señal simbólica de carga
     }
 }
 
