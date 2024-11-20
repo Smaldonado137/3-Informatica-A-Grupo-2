@@ -64,6 +64,7 @@ export class Preloads extends Phaser.Scene {
         this.load.image('cabezaTaza', 'assets/cabezaTaza.png');
         this.load.image('cabezaPan', 'assets/cabezaPan.png');
         
+        this.load.audio('sonidoPasos', 'assets/sonidoPasos.mp3');
         this.load.audio('sonidoGong', 'assets/sonidoGong.mp3');
         this.load.audio('sonidoTambor', 'assets/sonidoTambor.mp3');
         this.load.audio('sonidoPreselectBtn', 'assets/sonidoPreselectBtn.mp3');

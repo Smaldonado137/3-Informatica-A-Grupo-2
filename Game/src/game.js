@@ -134,6 +134,8 @@ export class Game extends Phaser.Scene {
             
             this.movementPlayer(this.player1);
             this.movementPlayer(this.player2);
+            this.soundPlayer(this.player1);
+            this.soundPlayer(this.player2);
         }        
     }
 
@@ -179,6 +181,21 @@ export class Game extends Phaser.Scene {
     
     soundInitialCount(){
         this.sonidoIniciar.play();
+    }
+
+    soundPlayer(player){
+        if (player.body.velocity.x != 0 && player.onGround == true){
+            console.log("Moviendose");
+            if (!player.caminarSonido.isPlaying){
+                player.caminarSonido.play();
+            }
+        } 
+
+        if (player.body.velocity.x == 0 || player.onGround == false){
+            if (player.caminarSonido.isPlaying){
+                player.caminarSonido.stop();
+            }
+        }
     }
 
     movementPlayer(player){         // Función que detecta los inputs y el movimiento del jugador
@@ -492,6 +509,8 @@ export class Game extends Phaser.Scene {
     }
 
     creatingAudios(){
+        this.sonidoPasosP1 = this.sound.add('sonidoPasos', {loop: true}).setVolume(1);
+        this.sonidoPasosP2 = this.sound.add('sonidoPasos', {loop: true}).setVolume(1);
         this.sonidoIniciar = this.sound.add('sonidoGong', {loop: false}).setVolume(0.5);
         this.sonidoConteo = this.sound.add('sonidoTambor', {loop: false}).setVolume(0.5);
         this.preSelectBtn = this.sound.add('sonidoPreselectBtn', {loop: false}).setVolume(0.2);
@@ -507,6 +526,7 @@ export class Game extends Phaser.Scene {
         this.player1.name = 'player1';
         this.player1.animMovName = 'movP1';
         this.player1.animNoMovName = 'noMovP1';
+        this.player1.caminarSonido = this.sonidoPasosP1;
         
         // Crear atributos del player respecto al contador de vida
         this.player1.contador = contadorPlayers;
@@ -555,9 +575,11 @@ export class Game extends Phaser.Scene {
         // Creando al segundo player con el mismo proceso que el primero
         this.player2 = this.physics.add.sprite(widthScr * 0.55, heightScr * 0.87, 'player2').setScale(0.18).setDepth(4);
         this.player2.body.setSize(300, 575);
+
         this.player2.name = 'player2';
         this.player2.animMovName = 'movP2';
-        this.player2.animNoMovName = 'noMovP2';  
+        this.player2.animNoMovName = 'noMovP2';
+        this.player2.caminarSonido = this.sonidoPasosP2;
         
         this.player2.contador = contadorPlayers;
         this.player2.nameDead = 'cabezaPan';
