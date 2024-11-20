@@ -191,7 +191,7 @@ export class Game extends Phaser.Scene {
             }
         } 
 
-        if (player.body.velocity.x == 0 || player.onGround == false){
+        if (player.body.velocity.x == 0 || player.tiempoEnAire != 0){
             if (player.caminarSonido.isPlaying){
                 player.caminarSonido.stop();
             }
@@ -509,8 +509,10 @@ export class Game extends Phaser.Scene {
     }
 
     creatingAudios(){
-        this.sonidoPasosP1 = this.sound.add('sonidoPasos', {loop: true}).setVolume(1);
-        this.sonidoPasosP2 = this.sound.add('sonidoPasos', {loop: true}).setVolume(1);
+        this.sonidoPasosP1 = this.sound.add('sonidoPasos', {loop: true}).setVolume(0.22);
+        this.sonidoPasosP1.rate = 2.3;
+        this.sonidoPasosP2 = this.sound.add('sonidoPasos', {loop: true}).setVolume(0.22);
+        this.sonidoPasosP2.rate = 2.3;
         this.sonidoIniciar = this.sound.add('sonidoGong', {loop: false}).setVolume(0.5);
         this.sonidoConteo = this.sound.add('sonidoTambor', {loop: false}).setVolume(0.5);
         this.preSelectBtn = this.sound.add('sonidoPreselectBtn', {loop: false}).setVolume(0.2);
