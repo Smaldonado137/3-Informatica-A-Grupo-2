@@ -65,12 +65,16 @@ export class Preloads extends Phaser.Scene {
         this.load.image('cabezaPan', 'assets/cabezaPan.png');
         
         this.load.audio('sonidoPasos', 'assets/sonidoPasos.mp3');
+        this.load.audio('sonidoCaida', 'assets/sonidoPreselectBtn.mp3');
         this.load.audio('sonidoGong', 'assets/sonidoGong.mp3');
         this.load.audio('sonidoTambor', 'assets/sonidoTambor.mp3');
+        this.load.audio('sonidoAparecer', 'assets/sonidoAparecer.mp3');
+        this.load.audio('sonidoObtener', 'assets/sonidoObtener.mp3');
         this.load.audio('sonidoPreselectBtn', 'assets/sonidoPreselectBtn.mp3');
         this.load.audio('sonidoSelectBtn', 'assets/sonidoSelectBtn.mp3');
-        this.load.audio('musicaFondo', 'assets/musicaFondoDojo.mp3');
         this.load.audio('musicaFondoMenu', 'assets/musicaFondoMenu.mp3');
+        this.load.audio('musicaFondo', 'assets/musicaFondoDojo.mp3');
+        this.load.audio('musicaGanar', 'assets/musicaGanar.mp3');
     }
 
     // Se direcciona a la escena del menú principal una vez que todos los elementos se han precargado

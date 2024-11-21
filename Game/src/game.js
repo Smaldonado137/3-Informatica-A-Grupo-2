@@ -16,9 +16,6 @@ let tiempoReal;
 
 let contadorPlayers = 3 * 1000;
 
-// let contNumero1 = document.getElementById('num');
-// let contNumero2 = document.getElementById('num2');
-
 let limMax = 3;
 let widthMaxBarra;
 
@@ -121,9 +118,6 @@ export class Game extends Phaser.Scene {
             
             this.player2.barraMov.setScrollFactor(0);
             this.player2.barraMov.displayWidth = this.player2.barraMov.cantidad;
-            
-            //contNumero1.textContent = Math.round(this.player1.contador/100);
-            //contNumero2.textContent = Math.round(this.player2.contador/100);
 
             // Atajo para reiniciar presionando R al terminar una partida
             if (canReset){
@@ -196,6 +190,12 @@ export class Game extends Phaser.Scene {
                 player.caminarSonido.stop();
             }
         }
+
+        if (player.tiempoEnAire > 10){
+            if (player.onGround = true){
+                player.sonidoCaida.play();
+            }
+        }
     }
 
     movementPlayer(player){         // Función que detecta los inputs y el movimiento del jugador
@@ -228,9 +228,9 @@ export class Game extends Phaser.Scene {
 
     jumpPlayer(player){     // Función que detecta el salto del jugador
         if (player.body.touching.down){     // Esta condición detecta cuánto tiempo lleva en el aire el player
-            player.tiempoEnAire = 0;
+            player.tiempoEnAire = 0;        // Al tocar suelo la cuenta se reinicia
         } else {
-            player.tiempoEnAire++;          // Al tocar suelo la cuenta se reinicia
+            player.tiempoEnAire++;          
         }
         
         if (player.arriba.isDown && !player.jumper && player.onGround){      // Para poder saltar el jugador debe Recién Presionar la tecla de salto,
@@ -306,6 +306,13 @@ export class Game extends Phaser.Scene {
         this.time.addEvent({
             delay: intervaloPuntos * 1000, // milisegundos * 1000 = segundos
             callback: this.randomPosPoints, // Funcion por llamar cada determinado tiempo
+            callbackScope: this,
+            paused: existingPoint, // Criterio para pausar o no el bucle
+        });
+
+        this.time.addEvent({
+            delay: (intervaloPuntos * 1000) - 1200, // milisegundos * 1000 = segundos
+            callback: this.soundPointsAppear, // Funcion por llamar cada determinado tiempo
             callbackScope: this,
             paused: existingPoint, // Criterio para pausar o no el bucle
         });
@@ -388,8 +395,15 @@ export class Game extends Phaser.Scene {
         queso.anims.play('quesoAnim', true);
     }
 
+    soundPointsAppear(){
+        if (!gameOver && !firstAppear){
+            this.sonidoAparecer.play();
+        }
+    }
+
     onCollectPoint(player, point){      // Incrementa el puntaje al tocar un punto
         point.destroy();
+        this.sonidoObtener.play();
 
         if (!gameOver){
             existingPoint = false;
@@ -490,6 +504,8 @@ export class Game extends Phaser.Scene {
             });
         }
         instancePanWin++;
+        this.musicaFondo.stop();
+        this.musicaGanar.play();
     }
 
     resetGame(){        // Reinicia esta escena
@@ -513,11 +529,16 @@ export class Game extends Phaser.Scene {
         this.sonidoPasosP1.rate = 2.3;
         this.sonidoPasosP2 = this.sound.add('sonidoPasos', {loop: true}).setVolume(0.23);
         this.sonidoPasosP2.rate = 2.3;
+        this.sonidoCaidaP1 =  this.sound.add('sonidoCaida', {loop: false}).setVolume(0.25);
+        this.sonidoCaidaP2 =  this.sound.add('sonidoCaida', {loop: false}).setVolume(0.25);
+        this.sonidoAparecer = this.sound.add('sonidoAparecer', {loop: false}).setVolume(2);
+        this.sonidoObtener = this.sound.add('sonidoObtener', {loop: false}).setVolume(1);
         this.sonidoIniciar = this.sound.add('sonidoGong', {loop: false}).setVolume(0.5);
         this.sonidoConteo = this.sound.add('sonidoTambor', {loop: false}).setVolume(0.5);
         this.preSelectBtn = this.sound.add('sonidoPreselectBtn', {loop: false}).setVolume(0.2);
         this.selectBtn = this.sound.add('sonidoSelectBtn', {loop: false}).setVolume(0.7);
-        this.musicaFondo = this.sound.add('musicaFondo', {loop: true}).setVolume(0.8);
+        this.musicaFondo = this.sound.add('musicaFondo', {loop: true}).setVolume(0.75);
+        this.musicaGanar = this.sound.add('musicaGanar', {loop: false}).setVolume(0.4);
     }
 
     creatingPlayers(){     // Función para crear a los jugadores y asignarles sus atributos
@@ -529,6 +550,7 @@ export class Game extends Phaser.Scene {
         this.player1.animMovName = 'movP1';
         this.player1.animNoMovName = 'noMovP1';
         this.player1.caminarSonido = this.sonidoPasosP1;
+        this.player1.sonidoCaida = this.sonidoCaidaP1;
         
         // Crear atributos del player respecto al contador de vida
         this.player1.contador = contadorPlayers;
@@ -582,6 +604,7 @@ export class Game extends Phaser.Scene {
         this.player2.animMovName = 'movP2';
         this.player2.animNoMovName = 'noMovP2';
         this.player2.caminarSonido = this.sonidoPasosP2;
+        this.player2.sonidoCaida = this.sonidoCaidaP2;
         
         this.player2.contador = contadorPlayers;
         this.player2.nameDead = 'cabezaPan';
