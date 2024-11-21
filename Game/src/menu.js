@@ -2,6 +2,8 @@ let widthScr;
 let heightScr;
 
 let returnBtn;
+let menuPulsable;
+let onMainMenu;
 let panelMainMenu;
 let panelOptions;
 let panelControls;
@@ -20,6 +22,8 @@ export class Menu extends Phaser.Scene {
         heightScr = this.game.config.height;    // manera proporcional en ubicación y dimensiones de los objetos
         this.input.setDefaultCursor('default');
         isMuted = this.sound.mute;
+        onMainMenu = true;
+        menuPulsable = true;
         
         // Imagen de fondo
         this.fondoMenu = this.add.image(0, 0, 'fondoMenu').setDisplaySize(widthScr * 1.5, heightScr).setDepth(0).setOrigin(0, 0);
@@ -153,6 +157,7 @@ export class Menu extends Phaser.Scene {
             panelOptions.muteBtn.setTexture('unmuteBtn');
         }
         
+        this.teclas = this.input.keyboard.createCursorKeys();
     }
     
     update(){
@@ -160,6 +165,17 @@ export class Menu extends Phaser.Scene {
         this.fondoMenu.x += 0.4;        
         if (this.fondoMenu.x >= 0){
             this.fondoMenu.x = -(widthScr * 0.5);
+        }
+
+        if (menuPulsable){
+            if (this.teclas.escape.isDown && onMainMenu == false) {
+                this.returnToMenu();
+            }
+            menuPulsable = false;
+        }
+        
+        if (this.teclas.escape.isUp){
+            menuPulsable = true;
         }
         
         if (!this.scale.isFullscreen) {
@@ -204,6 +220,7 @@ export class Menu extends Phaser.Scene {
         for (let objeto in panelMainMenu) {
             panelMainMenu[objeto].setVisible(false);
         }
+        onMainMenu = false;
     }
 
     controls(){        
@@ -214,6 +231,7 @@ export class Menu extends Phaser.Scene {
         for (let objeto in panelMainMenu) {
             panelMainMenu[objeto].setVisible(false);
         }
+        onMainMenu = false;
     }
 
     credits(){
@@ -224,11 +242,13 @@ export class Menu extends Phaser.Scene {
         for (let objeto in panelMainMenu) {
             panelMainMenu[objeto].setVisible(false);
         }
+        onMainMenu = false;
     }
 
     // Al regresar al menú, se invisibilizan todos los paneles y se hace visible el panel principal
     returnToMenu(){
-        this.selectBtn.play()
+        this.selectBtn.play();
+        onMainMenu = true;
         for (let objeto in panelOptions) {
             panelOptions[objeto].setVisible(false);
         }
