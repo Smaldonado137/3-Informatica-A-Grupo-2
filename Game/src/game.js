@@ -550,16 +550,16 @@ export class Game extends Phaser.Scene {
         this.sonidoPasosP1.rate = 2.3;
         this.sonidoPasosP2 = this.sound.add('sonidoPasos', {loop: true}).setVolume(0.23);
         this.sonidoPasosP2.rate = 2.3;
-        this.sonidoCaidaP1 =  this.sound.add('sonidoCaida', {loop: false}).setVolume(0.25);
-        this.sonidoCaidaP2 =  this.sound.add('sonidoCaida', {loop: false}).setVolume(0.25);
-        this.sonidoBodyCaida =  this.sound.add('sonidoCaida', {loop: false}).setVolume(0.25);
+        this.sonidoCaidaP1 =  this.sound.add('sonidoCaida', {loop: false}).setVolume(0.15);
+        this.sonidoCaidaP2 =  this.sound.add('sonidoCaida', {loop: false}).setVolume(0.15);
+        this.sonidoBodyCaida =  this.sound.add('sonidoCaida', {loop: false}).setVolume(0.15);
         this.sonidoAparecer = this.sound.add('sonidoAparecer', {loop: false}).setVolume(2);
-        this.sonidoObtener = this.sound.add('sonidoObtener', {loop: false}).setVolume(1);
+        this.sonidoObtener = this.sound.add('sonidoObtener', {loop: false});
         this.sonidoIniciar = this.sound.add('sonidoGong', {loop: false}).setVolume(0.5);
         this.sonidoConteo = this.sound.add('sonidoTambor', {loop: false}).setVolume(0.5);
         this.preSelectBtn = this.sound.add('sonidoPreselectBtn', {loop: false}).setVolume(0.2);
         this.selectBtn = this.sound.add('sonidoSelectBtn', {loop: false}).setVolume(0.7);
-        this.musicaFondo = this.sound.add('musicaFondo', {loop: true}).setVolume(0.75);
+        this.musicaFondo = this.sound.add('musicaFondo', {loop: true}).setVolume(0.8);
         this.musicaGanar = this.sound.add('musicaGanar', {loop: false}).setVolume(0.4);
     }
 
