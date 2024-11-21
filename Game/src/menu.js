@@ -29,7 +29,7 @@ export class Menu extends Phaser.Scene {
         this.fondoMenu = this.add.image(0, 0, 'fondoMenu').setDisplaySize(widthScr * 1.5, heightScr).setDepth(0).setOrigin(0, 0);
         
         // Se crean los sonidos y se inicia la música
-        this.musicaFondoMenu = this.sound.add('musicaFondoMenu', {loop: true}).setVolume(0.4);
+        this.musicaFondoMenu = this.sound.add('musicaFondoMenu', {loop: true}).setVolume(0.5);
         this.musicaFondoMenu.play();
         this.preSelectBtn = this.sound.add('sonidoPreselectBtn', {loop: false}).setVolume(0.2);
         this.selectBtn = this.sound.add('sonidoSelectBtn', {loop: false}).setVolume(0.7);

@@ -125,6 +125,11 @@ export class Game extends Phaser.Scene {
                     this.resetGame();
                 }                
             }
+
+            if (playerDeath > -1){
+                this.bodyAir(this.player1.lose ? this.player1 : this.player2);  // Pasará por parámetro al jugador que haya perdido
+                this.bodyAir(this.player2.lose ? this.player2 : this.player1);
+            }
             
             this.movementPlayer(this.player1);
             this.movementPlayer(this.player2);
@@ -179,7 +184,6 @@ export class Game extends Phaser.Scene {
 
     soundPlayer(player){
         if (player.body.velocity.x != 0 && player.onGround == true){
-            console.log("Moviendose");
             if (!player.caminarSonido.isPlaying){
                 player.caminarSonido.play();
             }
@@ -191,7 +195,7 @@ export class Game extends Phaser.Scene {
             }
         }
 
-        if (player.tiempoEnAire > 10){
+        if (player.tiempoEnAire > 5){
             if (player.onGround = true){
                 player.sonidoCaida.play();
             }
@@ -233,7 +237,7 @@ export class Game extends Phaser.Scene {
             player.tiempoEnAire++;          
         }
         
-        if (player.arriba.isDown && !player.jumper && player.onGround){      // Para poder saltar el jugador debe Recién Presionar la tecla de salto,
+        if (player.arriba.isDown && !player.jumper && player.onGround){  // Para poder saltar el jugador debe Recién Presionar la tecla de salto,
             player.jumper = true;                                            // tener contacto con un suelo 
             if (player.body.touching.down){                                  // y que el contacto físico sea con los pies del personaje
                 player.setVelocityY(-jump);
@@ -285,20 +289,37 @@ export class Game extends Phaser.Scene {
 
     animPlayerDead(player, name, scale){        // Activa la animación del jugador que pierde
         player.disableBody(true, true);         // Desactiva el cuerpo del personaje
-        this.bodyDead = this.physics.add.image(player.x, (player.y - 30), name).setScale(scale);     
-        this.bodyDead.setSize(1500, 1450);                                                 // Instancia el sprite de derrota y se le asignan
-        this.physics.add.collider(this.bodyDead, this.platforms);                          // propiedades físicas
-        this.physics.add.collider(this.bodyDead, this.player1);
-        this.physics.add.collider(this.bodyDead, this.player2);
-        this.bodyDead.setCollideWorldBounds(true);
-        this.bodyDead.body.setMass(1000);
-        this.bodyDead.setDrag(2000);
-        this.bodyDead.body.gravity.y = 2000;          
+        player.bodyDead = this.physics.add.image(player.x, (player.y - 30), name).setScale(scale);     
+        player.bodyDead.setSize(1500, 1450);                                               // Instancia el sprite de derrota y se le asignan
+        player.bodyDead.sonidoCaida = this.sonidoBodyCaida;
+        this.physics.add.collider(player.bodyDead, this.platforms, this.soundBodyDead, null, this);   // propiedades físicas
+        this.physics.add.collider(player.bodyDead, this.player1);
+        this.physics.add.collider(player.bodyDead, this.player2);
+        player.bodyDead.setCollideWorldBounds(true);
+        player.bodyDead.body.setMass(1000);
+        player.bodyDead.setDrag(2000);
+        player.bodyDead.body.gravity.y = 2000; 
 
         playerDeath++;      // Aumenta el conteo de jugadores muertos iniciando desde el -1
 
         if (playerDeath == 1){      // Si el conteo es 1 significa que los 2 murieron al mismo tiempo y que hay un empate
             empate = true;
+        }       
+    }
+
+    bodyAir(player){
+        if (player.bodyDead.body.touching.down){     // Esta condición detecta cuánto tiempo lleva en el suelo el cuerpo
+            player.bodyDead.timeOnGround = 0;
+        } else {
+            player.bodyDead.timeOnGround++;
+        }
+    }
+
+    soundBodyDead(bodyDead, platforms){
+        if(bodyDead.timeOnGround != 0){
+            bodyDead.sonidoCaida.play();
+            bodyDead.timeOnGround = 0;
+            console.log("AAAA");
         }
     }
 
@@ -531,6 +552,7 @@ export class Game extends Phaser.Scene {
         this.sonidoPasosP2.rate = 2.3;
         this.sonidoCaidaP1 =  this.sound.add('sonidoCaida', {loop: false}).setVolume(0.25);
         this.sonidoCaidaP2 =  this.sound.add('sonidoCaida', {loop: false}).setVolume(0.25);
+        this.sonidoBodyCaida =  this.sound.add('sonidoCaida', {loop: false}).setVolume(0.25);
         this.sonidoAparecer = this.sound.add('sonidoAparecer', {loop: false}).setVolume(2);
         this.sonidoObtener = this.sound.add('sonidoObtener', {loop: false}).setVolume(1);
         this.sonidoIniciar = this.sound.add('sonidoGong', {loop: false}).setVolume(0.5);
@@ -550,7 +572,7 @@ export class Game extends Phaser.Scene {
         this.player1.animMovName = 'movP1';
         this.player1.animNoMovName = 'noMovP1';
         this.player1.caminarSonido = this.sonidoPasosP1;
-        this.player1.sonidoCaida = this.sonidoCaidaP1;
+        this.player1.sonidoCaida = this.sonidoCaidaP1;        
         
         // Crear atributos del player respecto al contador de vida
         this.player1.contador = contadorPlayers;
@@ -573,7 +595,7 @@ export class Game extends Phaser.Scene {
         this.player1.barraMov.cantidad = this.player1.contador * limMax / widthMaxBarra;
         this.player1.barraMov.displayOriginX = 0;
         this.player1.barraMov.displayWidth = this.player1.barraMov.cantidad;
-        this.player1.marco = this.add.image(widthScr * 0.005, heightScr * 0.07, 'marcoBarra').setScale(0.5).setDepth(9);
+        this.player1.marco = this.add.image(widthScr * 0.0025, heightScr * 0.07, 'marcoBarra').setScale(0.5).setDepth(9);
         this.player1.marco.displayOriginX = 0;
         this.player1.marco.setDisplaySize(this.player1.barraMov.displayWidth * 1.28, this.player1.marco.displayHeight);
         this.player1.fondoBarra = this.add.image(widthScr * 0.005, heightScr * 0.07, 'fondoBarra').setScale(0.5).setDepth(7);
