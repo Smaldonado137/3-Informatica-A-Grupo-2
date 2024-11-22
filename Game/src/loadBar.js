@@ -6,7 +6,7 @@ export class LoadBar extends Phaser.Scene {
     
     // Se declaran los pocos assets por usar en la pantalla de carga
     preload(){
-        this.load.image('fondoMenu', 'assets/fondoMenu1.png');
+        this.load.image('fondoMenu', 'assets/fondoMenu.png');
         this.load.image('marcoBarra', 'assets/marcoVida.png');
         this.load.image('fondoBarra', 'assets/barraVidaFondo.png');
     }

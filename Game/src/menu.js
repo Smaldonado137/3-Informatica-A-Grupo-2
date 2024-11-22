@@ -137,13 +137,43 @@ export class Menu extends Phaser.Scene {
         
         // Panel creditos
         panelCredits = {
-            creditosTxt: this.add.text(widthScr * 0.5, heightScr * 0.25, 'Hecho por Santiago Maldonado y Juan Navia',{
+            creditosTxt: this.add.text(widthScr * 0.5, heightScr * 0.22, 'Videojuego desarrollado por los estudiantes:',{
                 fontFamily: 'Japab',
-                fontSize : '40px',
+                fontSize : '41px',
                 fill: '#000000',
             }).setOrigin(0.5).setDepth(8),
 
-            phaserImg: this.add.image(widthScr * 0.5, heightScr * 0.85, 'logoPhaser').setScale(0.08).setDepth(6),
+            nombre1Txt: this.add.text(widthScr * 0.28, heightScr * 0.42, 'Santiago Maldonado',{
+                fontFamily: 'Japab',
+                fontSize : '43px',
+                fill: '#000000',
+            }).setOrigin(0.5).setDepth(8),
+
+            nombre2Txt: this.add.text(widthScr * 0.78, heightScr * 0.42, 'Juan Navia',{
+                fontFamily: 'Japab',
+                fontSize : '43px',
+                fill: '#000000',
+            }).setOrigin(0.5).setDepth(8),
+
+            rol1Txt: this.add.text(widthScr * 0.28, heightScr * 0.53, 'PROGRAMADOR',{
+                fontFamily: 'Japab',
+                fontSize : '30px',
+                fill: '#DD992C',
+            }).setOrigin(0.5).setDepth(8),
+
+            rol2Txt: this.add.text(widthScr * 0.78, heightScr * 0.53, 'DISENADOR',{
+                fontFamily: 'Japab',
+                fontSize : '30px',
+                fill: '#DD992C',
+            }).setOrigin(0.5).setDepth(8),
+
+            esAux: this.add.text(widthScr * 0.78, heightScr * 0.51, '-',{
+                fontFamily: 'Japab',
+                fontSize : '30px',
+                fill: '#DD992C',
+            }).setOrigin(0.5).setDepth(8),
+
+            phaserImg: this.add.image(widthScr * 0.51, heightScr * 0.83, 'logoPhaser').setScale(0.09).setDepth(6),
             
             returnBtn: returnBtn.setVisible(true),
         }
